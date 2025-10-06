@@ -1,0 +1,185 @@
+\documentclass{article}
+
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2024
+
+
+% ready for submission
+%  \usepackage{neurips_2024}
+
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+\usepackage[preprint]{neurips_2024}
+
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+% \usepackage[final]{neurips_2024}
+
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2024}
+
+\usepackage{natbib}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage[pdftex]{graphicx}
+\usepackage{multirow}
+
+
+\title{Multi-Agent Learning Management System Assistant: An MCP-Based Framework for Intelligent Course Management Using AWS Bedrock}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+
+\author{%
+   Pradhyumna Nagaraja Holla \\
+  % examples of more authors
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+ \texttt{pnagaraj@stevens.edu} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+
+\begin{document}
+
+
+\maketitle
+
+\section{Introduction}
+Students managing multiple courses face significant challenges tracking assignments, deadlines, and academic content across Learning Management Systems (LMS) like Canvas. This project develops an intelligent multi-agent system using the Model Context Protocol (MCP) and Large Language Models (LLMs) via AWS Bedrock to automate student interactions with Canvas LMS.
+
+Recent research demonstrates that AI agentic workflows including reflection, planning, tool use, and multi-agent collaboration offer promising solutions for educational innovation \cite{education2025agentic}. Wang et al. \cite{wang2025megaagent} introduced MegaAgent, showing that autonomous multi-agent systems can handle complex tasks without predefined procedures through dynamic task decomposition. The Model Context Protocol, as surveyed by recent work \cite{mcp2025landscape, mcp2025survey}, provides standardized interfaces for agent communication and context management, addressing critical limitations in LLM systems \cite{mcpenhance2025}.
+
+Educational AI applications are emerging as transformative tools. Research on agentic workflows in education \cite{education2025agentic} highlights how specialized agents can personalize learning experiences. Work on integrating generative-conversational AI into LMS platforms \cite{lms2025ai} demonstrates the feasibility of such systems. However, practical implementations remain limited, particularly for student-facing applications that integrate multiple services (Canvas, Google Calendar) through unified agent architectures.
+
+Technical challenges here include:
+
+\begin{enumerate}
+\item Designing effective multi-agent coordination without predefined SOPs \cite{wang2025megaagent}.
+\item Implementing MCP for standardized agent communication \cite{mcp2025landscape, mcpagentic2025}.
+\item Maintaining conversation context while handling real-time Canvas data.
+\item Optimizing prompt engineering for accurate educational content analysis.
+\item Addressing these challenges by building a modular, extensible system that demonstrates practical applications of current multi-agent research \cite{chen2024llmma, llmmas2025software} in real educational contexts.
+\end{enumerate}
+
+
+\section{Problem Formulation}
+This project implements a multi-agent natural language understanding and generation system with external tool integration \cite{chen2024llmma}. The system receives natural language queries from students and produces natural language responses along with structured actions (e.g., calendar event creation, data retrieval, task prioritization).
+
+\textbf{Input:} Student queries in natural language; Canvas LMS data including courses, assignments, submissions, grades, announcements, and files \cite{lms2025ai}; external calendar data from Google Calendar.
+
+\textbf{Output:} Natural language responses addressing student queries; structured actions such as API calls, calendar updates, and generated study plans.
+
+\textbf{Agent Architecture:} Following recent multi-agent system architectures \cite{wang2025megaagent, anthropic2025multiagent}, the system comprises N specialized agents, each with specific capabilities: a router agent for query classification and task delegation, a Canvas data agent for API interactions, a summarizer agent for content condensation, an assignment manager for deadline tracking, a grade tracker for performance analysis, a calendar agent for scheduling integration, and a planner agent for comprehensive study schedule generation.
+
+\textbf{Task Type:} This is a multi-task learning system \cite{llmmas2025software} encompassing information retrieval (fetching Canvas data), text summarization (condensing assignments and announcements), temporal reasoning (deadline analysis and scheduling), question answering (multi-document queries), and action execution (calendar event creation).
+
+\section{Methods}
+\textbf{Canvas API Integration:} A comprehensive Canvas REST API client will be implemented supporting all student-accessible endpoints: courses, assignments, submissions, grades, announcements, discussions, calendar events, and files. Authentication uses OAuth2 bearer tokens with rate limiting handling (3000 requests/hour). A tiered caching system (in-memory dictionaries for session data, local JSON files for persistence) minimizes redundant API calls while maintaining data freshness.
+
+\textbf{Multi-Agent Architecture:} Following MegaAgent's approach \cite{wang2025megaagent} and principles from recent multi-agent LLM research \cite{chen2024llmma, autoscaling2025mas}, specialized agents will be designed with distinct capabilities. The router agent uses intent classification to select appropriate agents. Agents communicate via MCP interfaces \cite{mcp2025landscape, mcpagentic2025} with standardized methods: process\_request(), get\_capabilities(), and validate\_input(). State management uses LangGraph for shared conversation history and intermediate results.
+
+\textbf{LLM Integration:} AWS Bedrock will be used as the LLM backend with a two-phase approach: Meta LLaMA 3.3 / 4 for cost-effective development and testing, then Anthropic Claude 3.5 / 4.5 Sonnet for production quality, following best practices from industry implementations \cite{anthropic2025multiagent}. Each agent will employ carefully crafted system prompts defining role, capabilities, input/output formats, and few-shot examples. Temperature tuning will adjust creativity: lower (0.2-0.3) for factual queries, higher (0.6-0.7) for planning tasks.
+
+\textbf{Memory Management:} Conversation memory uses Python data structures (message history lists, user preference dictionaries, agent-specific state). Local JSON files provide persistence across sessions. Context window management prunes unnecessary data, retaining only relevant course information and recent conversation turns, addressing key challenges in context handling \cite{mcpenhance2025}.
+
+\textbf{External Integrations:} Google Calendar integration via OAuth2 enables automated event creation from Canvas deadlines. Conflict detection algorithms and scheduling optimization use constraint satisfaction combined with LLM reasoning, inspired by educational AI agent research \cite{teachable2025agents, education2025agentic}.
+
+\section{Dataset and Experiments}
+\textbf{Data Sources:} The system operates on real Canvas data from 3-5 enrolled courses, including almost 30 assignments per semester, 40-60 announcements, variable discussion posts, and 100-200 course files, reflecting authentic LMS usage patterns \cite{lms2025ai, genai2024higher}. A test dataset will be curated consisting of up to 100 diverse queries across categories: simple retrieval (20), multi-step reasoning (15), summarization (20), action-oriented (15), and complex multi-agent tasks (30).
+
+\textbf{Experimental Setup:} AWS Bedrock is used for LLM inference so no dedicated GPU or a high-end local machine is required. Key libraries include langchain, langgraph, requests, boto3, and Google Calendar API. Model configuration: LLaMA 3.3 / 4 during development, Claude 3.5 / 4.5 Sonnet for production.
+
+\textbf{Evaluation Metrics:}
+
+\begin{itemize}
+\item Response Accuracy: Human evaluation on test queries measuring factual correctness and completeness on a 3-point scale
+\item System Performance: Response latency (target: <3 seconds), API cache hit rate (target: >70\%), token usage per query
+\item Task Success Rate: Calendar event creation accuracy, grade calculation correctness, assignment prioritization alignment
+\end{itemize}
+\textbf{Experiments:}
+\begin{enumerate}
+\item Agent specialization impact \cite{wang2025megaagent}: compare multi-agent vs.\ single-agent baseline on query accuracy and latency.
+\item Caching effectiveness: measure API call reduction and response time improvement.
+\item LLM comparison: evaluate LLaMA vs.\ Claude on response quality and cost.
+\item User study: gather qualitative feedback from 3--5 graduate students on system usefulness and usability \cite{teachable2025agents, genai2024higher}.
+\end{enumerate}
+
+\textbf{Expected Results:} >85\% accuracy on retrieval queries, >75\% on multi-step reasoning, <3s average response time, >70\% cache hit rate, 90\%+ success on action tasks, aligning with benchmarks from recent multi-agent systems research \cite{resilience2025multiagent, autoscaling2025mas}.
+
+\section{Project Management}
+I am the sole contributor to this project. I will be responsible for full system development, including Canvas API integration, AWS Bedrock setup, multi-agent architecture design, prompt engineering, testing, and documentation.
+
+\textbf{Timeline (8 weeks):}
+
+\begin{itemize}
+
+\item Week 1: Environment setup, Canvas API client, Bedrock configuration
+
+\item Weeks 2-4: MCP infrastructure, core agents (Canvas Data, Assignment Manager, Summarizer, Grade Tracker), multi-agent orchestration
+
+\item Weeks 5-7: Advanced features (Calendar integration, Planner, Announcements Monitor, Discussion Agent), system optimization and testing
+
+\item Week 8: Documentation, academic report, presentation preparation
+\end{itemize}
+
+\textbf{Milestones:} Week 1 - Working Canvas client + Bedrock connection; Week 4 - Multi-agent CLI system; Week 7 - Feature-complete system; Week 8 - Final submission
+
+\textbf{Risk Mitigation:} Canvas API rate limiting → aggressive caching; AWS costs → use LLaMA during development; Calendar OAuth complexity → allocate extra time with fallback option; Agent coordination bugs → modular design with unit testing.
+
+\section{Conclusion}
+This project addresses a critical gap in educational technology \cite{genai2024higher} by developing an intelligent multi-agent system that enhances student interactions with Canvas LMS through modern AI capabilities. By implementing the Model Context Protocol \cite{mcp2025landscape, mcpagentic2025} for standardized agent communication and leveraging AWS Bedrock's scalable LLM infrastructure, we create a practical solution to real challenges students face daily: managing multiple courses, tracking deadlines, synthesizing information, and optimizing study schedules.
+
+The project also makes several technical contributions:
+\begin{enumerate}
+\item Practical application of recent multi-agent LLM research \cite{wang2025megaagent, chen2024llmma} in educational contexts.
+\item Lightweight MCP implementation \cite{mcp2025survey, mcpsecurity2025} suitable for individual student use without complex server infrastructure.
+\item Unified agent architecture integrating multiple external services (Canvas API, Google Calendar).
+\item Cost-effective development methodology using tiered LLM selection (LLaMA for development, Claude for production) following industry best practices \cite{anthropic2025multiagent}.
+\end{enumerate}
+
+Future work includes implementing retrieval-augmented generation (RAG) for deeper course content question-answering, developing instructor-facing features for teaching assistants, creating mobile interfaces for on-the-go access, and conducting longitudinal studies measuring impacts on student productivity and academic performance \cite{teachable2025agents, education2025agentic}. Cloud deployment would enable broader accessibility and collection of real-world usage data to inform future iterations.
+
+This project represents a meaningful step toward AI-assisted personalized education \cite{genai2024higher, lms2025ai}, demonstrating how thoughtful application of cutting-edge multi-agent systems \cite{llmmas2025software} and standardized protocols like MCP \cite{mcp2025landscape} can create tangible value for students navigating increasingly complex educational environments.
+
+\bibliographystyle{plain}
+\bibliography{ref}
+
+\appendix
+
+
+\end{document}

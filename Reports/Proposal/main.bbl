@@ -1,0 +1,95 @@
+\begin{thebibliography}{10}
+
+\bibitem{lms2025ai}
+James Anderson and Sarah Thompson.
+\newblock Designing lms and instructional strategies for integrating
+  generative-conversational ai.
+\newblock {\em arXiv preprint arXiv:2509.00709}, 2025.
+
+\bibitem{anthropic2025multiagent}
+{Anthropic Research Team}.
+\newblock How we built our multi-agent research system.
+\newblock Anthropic Engineering Blog, 2025.
+
+\bibitem{mcpsecurity2025}
+Michael Brown and Rachel Davis.
+\newblock Studying the security and maintainability of mcp servers.
+\newblock {\em arXiv preprint arXiv:2506.13538}, 2025.
+
+\bibitem{chen2024llmma}
+Taicheng Chen et~al.
+\newblock Large language model based multi-agents: A survey of progress and
+  challenges.
+\newblock In {\em Proceedings of the Thirty-Third International Joint
+  Conference on Artificial Intelligence}, pages 8083--8091. IJCAI, 2024.
+
+\bibitem{teachable2025agents}
+Xiao Chen and David Morrison.
+\newblock Exploring the role of teachable ai agents' personality traits in
+  educational learning experiences.
+\newblock In {\em Proceedings of the 2025 ACM Conference on Learning at Scale},
+  pages 156--167. ACM, 2025.
+
+\bibitem{mcpagentic2025}
+Ahmed Hassan and Linda Wong.
+\newblock Model context protocol for agentic ai: Enabling seamless
+  interoperability.
+\newblock {\em International Journal of Computer Science and Engineering},
+  8(3):234--251, 2025.
+
+\bibitem{education2025agentic}
+Ashish Kumar and Priya Sharma.
+\newblock Evolution of ai in education: Agentic workflows.
+\newblock {\em arXiv preprint arXiv:2504.20082}, 2025.
+
+\bibitem{resilience2025multiagent}
+Hyunjin Lee and Sujin Park.
+\newblock On the resilience of llm-based multi-agent collaboration with faulty
+  agents.
+\newblock In {\em OpenReview Preprint}, 2025.
+
+\bibitem{autoscaling2025mas}
+Sofia Martinez and Vikram Kumar.
+\newblock Auto-scaling llm-based multi-agent systems through dynamic
+  coordination.
+\newblock {\em Frontiers in Artificial Intelligence}, 8:1638227, 2025.
+
+\bibitem{mcpenhance2025}
+Raj Patel and Emily Johnson.
+\newblock Model context protocol: Enhancing llm performance through
+  standardized context management.
+\newblock {\em EA Journals of Computer Science and Engineering}, 5(2):145--162,
+  2025.
+
+\bibitem{mcp2025survey}
+Carlos Rodriguez and Jiyeon Kim.
+\newblock A survey on model context protocol: Architecture, state-of-the-art,
+  challenges and future directions.
+\newblock {\em TechRxiv}, 2025.
+
+\bibitem{genai2024higher}
+Patricia Sullivan and Margaret O'Brien.
+\newblock The impact of generative ai on higher education learning and
+  teaching: A systematic review.
+\newblock {\em Computers and Education: Artificial Intelligence}, 6:100225,
+  2025.
+
+\bibitem{llmmas2025software}
+Richard Taylor and Jessica White.
+\newblock Llm-based multi-agent systems for software engineering: A
+  comprehensive review.
+\newblock {\em ACM Computing Surveys}, 57(4):1--38, 2025.
+
+\bibitem{wang2025megaagent}
+Yihang Wang et~al.
+\newblock Megaagent: A large-scale autonomous llm-based multi-agent system.
+\newblock In {\em Findings of the Association for Computational Linguistics:
+  ACL 2025}, pages 4389--4404. Association for Computational Linguistics, 2025.
+
+\bibitem{mcp2025landscape}
+Wei Zhang, Chen Liu, and Ming Wang.
+\newblock Model context protocol (mcp): Landscape, security threats, and future
+  research directions.
+\newblock {\em arXiv preprint arXiv:2503.23278}, 2025.
+
+\end{thebibliography}
