@@ -1,0 +1,15 @@
+[project]
+name = "canvasxmcp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.40.47",
+    "fastmcp>=2.12.4",
+    "langchain-aws>=0.2.35",
+    "langchain-mcp-adapters>=0.1.11",
+    "langgraph>=0.6.9",
+    "python-dotenv>=1.1.1",
+    "requests>=2.32.5",
+]
