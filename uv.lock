@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12"
 
 [[package]]
@@ -84,6 +84,7 @@ dependencies = [
     { name = "langchain-aws" },
     { name = "langchain-mcp-adapters" },
     { name = "langgraph" },
+    { name = "mcp" },
     { name = "python-dotenv" },
     { name = "requests" },
 ]
@@ -95,6 +96,7 @@ requires-dist = [
     { name = "langchain-aws", specifier = ">=0.2.35" },
     { name = "langchain-mcp-adapters", specifier = ">=0.1.11" },
     { name = "langgraph", specifier = ">=0.6.9" },
+    { name = "mcp", specifier = ">=1.16.0" },
     { name = "python-dotenv", specifier = ">=1.1.1" },
     { name = "requests", specifier = ">=2.32.5" },
 ]
@@ -290,7 +292,7 @@ version = "3.24.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
-    { name = "docstring-parser", marker = "python_full_version < '4.0'" },
+    { name = "docstring-parser", marker = "python_full_version < '4'" },
     { name = "rich" },
     { name = "rich-rst" },
 ]

@@ -10,6 +10,7 @@ dependencies = [
     "langchain-aws>=0.2.35",
     "langchain-mcp-adapters>=0.1.11",
     "langgraph>=0.6.9",
+    "mcp>=1.16.0",
     "python-dotenv>=1.1.1",
     "requests>=2.32.5",
 ]
