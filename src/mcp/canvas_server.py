@@ -97,6 +97,52 @@ async def get_announcements(
     """
     return canvas.get_announcements(days)
 
+@mcp.tool()
+async def get_discussions(
+    course_id: str = Field(description="Canvas course ID")
+) -> List[Dict[str, Any]]:
+    """Get discussion topics for a specific course.
+    
+    Returns discussion topics including:
+    - Title and message preview
+    - Author and posted date
+    - Unread count and reply count
+    - Discussion type
+    """
+    return canvas.get_discussions(course_id)
+
+
+@mcp.tool()
+async def get_course_files(
+    course_id: str = Field(description="Canvas course ID")
+) -> List[Dict[str, Any]]:
+    """Get files and documents for a specific course.
+    
+    Returns file information including:
+    - Display name and filename
+    - File size and type
+    - Upload/update dates
+    - Download URL
+    """
+    return canvas.get_course_files(course_id)
+
+
+@mcp.tool()
+async def get_calendar_events(
+    days_ahead: int = Field(
+        default=14,
+        description="Number of days to look ahead (default: 14)"
+    )
+) -> List[Dict[str, Any]]:
+    """Get upcoming calendar events from Canvas.
+    
+    Returns events including:
+    - Event title and description
+    - Start and end times
+    - Location
+    - Associated course
+    """
+    return canvas.get_calendar_events(days_ahead)
 
 def main():
     """Entry point for the Canvas MCP server."""

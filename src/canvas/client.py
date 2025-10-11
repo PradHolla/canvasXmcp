@@ -245,3 +245,110 @@ class CanvasClient:
             }
             for ann in announcements
         ]
+
+    def get_discussions(self, course_id: str) -> List[Dict[str, Any]]:
+        """
+        Get discussion topics for a course
+        
+        Args:
+            course_id: Canvas course ID
+            
+        Returns:
+            List of discussion topics
+        """
+        try:
+            discussions = self._make_request(
+                f"courses/{course_id}/discussion_topics"
+            )
+            
+            if not discussions:
+                return [{"message": "No discussions found for this course"}]
+            
+            return [
+                {
+                    "id": disc["id"],
+                    "title": disc["title"],
+                    "message": disc.get("message", "")[:200],  # Limit message length
+                    "posted_at": disc.get("posted_at"),
+                    "author": disc.get("author", {}).get("display_name", "Unknown"),
+                    "unread_count": disc.get("unread_count", 0),
+                    "reply_count": disc.get("discussion_subentry_count", 0)
+                }
+                for disc in discussions
+            ]
+        except Exception as e:
+            return [{"error": f"Could not fetch discussions: {str(e)}"}]
+
+
+    def get_course_files(self, course_id: str) -> List[Dict[str, Any]]:
+        """
+        Get files for a course
+        
+        Args:
+            course_id: Canvas course ID
+            
+        Returns:
+            List of files
+        """
+        files = self._make_request(
+            f"courses/{course_id}/files"
+        )
+        
+        return [
+            {
+                "id": file["id"],
+                "display_name": file.get("display_name", ""),
+                "filename": file.get("filename", ""),
+                "size": file.get("size", 0),
+                "content_type": file.get("content-type", ""),
+                "url": file.get("url", ""),
+                "created_at": file.get("created_at"),
+                "updated_at": file.get("updated_at"),
+                "folder_id": file.get("folder_id")
+            }
+            for file in files
+        ]
+
+    def get_calendar_events(self, days_ahead: int = 14) -> List[Dict[str, Any]]:
+        """
+        Get upcoming calendar events
+        
+        Args:
+            days_ahead: Number of days to look ahead
+            
+        Returns:
+            List of calendar events
+        """
+        from datetime import timezone
+        
+        start_date = datetime.now(timezone.utc).isoformat()
+        end_date = (datetime.now(timezone.utc) + timedelta(days=days_ahead)).isoformat()
+        
+        # Use different endpoint that doesn't require special permissions
+        try:
+            events = self._make_request(
+                "calendar_events",
+                params={
+                    "start_date": start_date,
+                    "end_date": end_date,
+                    "type": "assignment"  # Just get assignment events
+                }
+            )
+        except Exception as e:
+            # Fallback: get upcoming assignments instead
+            print(f"Calendar API failed, using assignments: {e}")
+            return self.get_upcoming_assignments(days_ahead)
+        
+        return [
+            {
+                "id": event["id"],
+                "title": event["title"],
+                "description": event.get("description", ""),
+                "start_at": event.get("start_at"),
+                "end_at": event.get("end_at"),
+                "location_name": event.get("location_name", ""),
+                "context_name": event.get("context_name", ""),
+                "type": event.get("type", "event")
+            }
+            for event in events
+        ]
