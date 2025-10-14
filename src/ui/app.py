@@ -67,37 +67,46 @@ async def on_chat_start():
             tools,
             prompt="""You are a helpful Canvas LMS assistant for students.
 
-Your job is to help students with:
-- Finding information about their courses
-- Checking assignments and deadlines
-- Viewing grades and submission status
-- Reading recent announcements
-- Managing their academic workload
+            Your job is to help students with:
+            - Finding information about their courses
+            - Checking assignments and deadlines
+            - Viewing grades and submission status
+            - Reading recent announcements
+            - Managing their academic workload
 
-IMPORTANT GUIDELINES:
-1. Use tools to fetch data, but DO NOT show raw JSON output to users
-2. Format information in a clean, readable way
-3. For dates, use format like "October 10, 2025" not ISO timestamps
-4. When finding a course by name/code:
-   - Call get_courses first
-   - CAREFULLY match the course code (e.g., "CS 555" matches "2025F CS 555-A")
-   - Look at BOTH the "name" field (like "2025F CS 555-A") AND "course_code" field (like "Agile Methods...")
-   - Use the EXACT course_id from the matching course
-   - Double-check you're using the right course before calling other tools
-5. Only call each tool ONCE per query - don't retry unless there's an error
-6. When listing items (assignments, files), use bullet points or numbered lists
-7. Summarize information concisely - users don't need to see every field
+            CRITICAL OUTPUT RULES:
+            1. NEVER show raw JSON to users - always format data in natural language
+            2. NEVER show technical fields like IDs, raw timestamps, or URLs unless specifically asked
+            3. Present information in clean bullet points or numbered lists
+            4. Use readable date formats like "October 13, 2025" not "2025-10-13T03:59:59Z"
 
-Example good responses:
-- "You have 3 upcoming assignments: Assignment 1 (due Oct 15), Quiz 2 (due Oct 20)..."
-- "Your NLP course has 10 files including: syllabus.pdf, lecture1.pdf..."
+            COURSE ID RESOLUTION:
+            When a user mentions a course by name/code:
+            - Step 1: Call get_courses first
+            - Step 2: Find matching course and extract numeric "id"
+            - Step 3: Use ONLY that numeric ID in subsequent tool calls
+            - NEVER pass course names where course_id is expected
 
-Example bad responses:
-- Showing raw JSON like [{"id":123,"name":"hw1"...}]
-- Repeating the same tool call multiple times
-- Including technical field names like "course_id", "folder_id"
-"""
+            Example:
+            User: "Show modules for CS 584"
+            You: Call get_courses() → find id:82456 → Call get_modules(course_id="82456")
 
+            ASSIGNMENT LOOKUPS:
+            - First call get_assignments to find the assignment by name
+            - Then use get_assignment_submission with the assignment name
+
+            RESPONSE FORMATTING:
+            Good example:
+            "You have 3 assignments due this week:
+            • Assignment 1 - Due October 15, 2025 (Submitted, Grade: 100/100)
+            • Quiz 2 - Due October 20, 2025 (Not submitted)
+            • Homework 3 - Due October 22, 2025 (Submitted, Pending grade)"
+
+            Bad example:
+            "[{'id':123,'name':'hw1','due_at':'2025-10-15T03:59:59Z','submitted':true}]"
+
+            Remember: Users are students, not developers. Show human-readable information only.
+            """
             )
         
         # Store in user session
@@ -155,6 +164,8 @@ Total cost: ${summary['total_cost_usd']:.4f}
         await stdio_context.__aexit__(None, None, None)
 
 
+# Replace the on_message function in src/ui/app.py
+
 @cl.on_message
 async def on_message(message: cl.Message):
     """Process user messages with token tracking"""
@@ -173,42 +184,43 @@ async def on_message(message: cl.Message):
     # Track start time
     start_time = time.time()
     
-    # Create callback handler for streaming
-    cb = cl.AsyncLangchainCallbackHandler()
-    
     # Create response message
     response_message = cl.Message(content="")
     
     try:
-        # Stream the agent response
-        config = {
-            "callbacks": [cb],
-            "configurable": {"thread_id": cl.context.session.id}
-        }
+        # Get config
+        config = {"configurable": {"thread_id": cl.context.session.id}}
         
-        result = None
+        # Run agent and collect ONLY the final AI response
+        final_ai_message = None
+        
         async for msg, metadata in agent.astream(
             {"messages": [("user", message.content)]},
             stream_mode="messages",
             config=config
         ):
-            # Store the full result for token tracking
-            if metadata:
-                result = metadata
-            
-            # Stream text content
-            if hasattr(msg, "content") and isinstance(msg.content, str):
-                await response_message.stream_token(msg.content)
-            elif hasattr(msg, "content") and isinstance(msg.content, list):
-                for item in msg.content:
-                    if isinstance(item, dict) and item.get("type") == "text":
-                        await response_message.stream_token(item.get("text", ""))
+            # Only stream content from AIMessage, skip ToolMessages
+            if hasattr(msg, '__class__') and msg.__class__.__name__ == 'AIMessage':
+                # Check if it has tool_calls (intermediate step) or just content (final answer)
+                if hasattr(msg, 'tool_calls') and msg.tool_calls:
+                    # This is an intermediate tool-calling message, skip it
+                    continue
+                
+                # This is the final response
+                if hasattr(msg, "content") and isinstance(msg.content, str):
+                    await response_message.stream_token(msg.content)
+                    final_ai_message = msg
+                elif hasattr(msg, "content") and isinstance(msg.content, list):
+                    for item in msg.content:
+                        if isinstance(item, dict) and item.get("type") == "text":
+                            text = item.get("text", "")
+                            await response_message.stream_token(text)
         
         # Calculate response time
         response_time = time.time() - start_time
         
-        # Get the final result by invoking once more (to capture metadata)
-        final_result = await agent.ainvoke(
+        # Get complete result for token tracking
+        complete_result = await agent.ainvoke(
             {"messages": [("user", message.content)]},
             config=config
         )
@@ -216,17 +228,14 @@ async def on_message(message: cl.Message):
         # Extract token usage
         total_input_tokens = 0
         total_output_tokens = 0
+        tools_used = False
         
-        for msg in final_result["messages"]:
+        for msg in complete_result["messages"]:
             if hasattr(msg, 'usage_metadata') and msg.usage_metadata:
                 total_input_tokens += msg.usage_metadata.get("input_tokens", 0)
                 total_output_tokens += msg.usage_metadata.get("output_tokens", 0)
-        
-        # Check if tools were used
-        tools_used = any(
-            hasattr(msg, 'tool_calls') and msg.tool_calls
-            for msg in final_result["messages"]
-        )
+            if hasattr(msg, 'tool_calls') and msg.tool_calls:
+                tools_used = True
         
         # Log token usage
         if tracker and (total_input_tokens > 0 or total_output_tokens > 0):
@@ -249,3 +258,4 @@ async def on_message(message: cl.Message):
     
     except Exception as e:
         await cl.Message(content=f"❌ Error: {str(e)}").send()
+

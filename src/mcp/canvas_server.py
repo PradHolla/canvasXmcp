@@ -144,6 +144,89 @@ async def get_calendar_events(
     """
     return canvas.get_calendar_events(days_ahead)
 
+@mcp.tool()
+async def get_modules(
+    course_id: str = Field(description="Canvas course ID")
+) -> List[Dict[str, Any]]:
+    """Get course modules (units/weeks) and their content structure.
+    
+    Returns modules with clean, essential information only.
+    If the course has no modules, automatically returns course files instead.
+    """
+    modules = canvas.get_modules(course_id)
+    
+    # Clean up the output - remove unnecessary fields
+    cleaned = []
+    for module in modules:
+        cleaned_module = {
+            "name": module.get("name", ""),
+            "items_count": module.get("items_count", 0),
+            "items": []
+        }
+        
+        # Only include item names and types, not IDs
+        for item in module.get("items", [])[:10]:  # Limit to 10 items
+            cleaned_module["items"].append({
+                "title": item.get("title", ""),
+                "type": item.get("type", "")
+            })
+        
+        cleaned.append(cleaned_module)
+    
+    return cleaned
+
+@mcp.tool()
+async def get_quizzes(
+    course_id: str = Field(description="Canvas course ID")
+) -> List[Dict[str, Any]]:
+    """Get all quizzes for a course.
+    
+    Returns quiz information including:
+    - Title and description
+    - Quiz type (practice, graded, survey)
+    - Time limit and question count
+    - Points possible
+    - Due date and lock date
+    - Allowed attempts
+    
+    Useful for checking quiz deadlines and requirements.
+    """
+    return canvas.get_quizzes(course_id)
+
+@mcp.tool()
+async def get_assignment_submission(
+    course_id: str = Field(description="Canvas course ID"),
+    assignment_name: str = Field(description="Assignment name (e.g., 'Assignment 1', 'hw1')")
+) -> Dict[str, Any]:
+    """Get detailed submission information for a specific assignment by name.
+    
+    First finds the assignment by name, then returns submission details including:
+    - Submission timestamp
+    - Score and grade
+    - Attempt number
+    - Late/missing status
+    - Instructor comments
+    
+    Useful for checking feedback and submission status.
+    """
+    # First get all assignments to find the ID
+    assignments = canvas.get_assignments(course_id)
+    
+    # Find matching assignment by name (case-insensitive partial match)
+    matching_assignment = None
+    assignment_name_lower = assignment_name.lower()
+    
+    for assignment in assignments:
+        if assignment_name_lower in assignment["name"].lower():
+            matching_assignment = assignment
+            break
+    
+    if not matching_assignment:
+        return {"error": f"Assignment '{assignment_name}' not found in course"}
+    
+    # Get submission details
+    return canvas.get_assignment_submissions(course_id, str(matching_assignment["id"]))
+
 def main():
     """Entry point for the Canvas MCP server."""
     mcp.run()

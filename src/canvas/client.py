@@ -3,10 +3,30 @@ from typing import List, Dict, Any, Optional
 from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
+from datetime import datetime, timezone
 
 load_dotenv()
 
 
+def format_date(date_str: str) -> str:
+    """
+    Format ISO date string to readable format
+    
+    Args:
+        date_str: ISO format date string
+        
+    Returns:
+        Formatted date like "October 13, 2025 at 3:59 PM"
+    """
+    if not date_str:
+        return "No date"
+    
+    try:
+        dt = datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+        return dt.strftime("%B %d, %Y at %I:%M %p")
+    except:
+        return date_str
+    
 class CanvasClient:
     """Client for interacting with Canvas LMS API"""
     
@@ -105,30 +125,22 @@ class CanvasClient:
         ]
     
     def get_assignments(self, course_id: str) -> List[Dict[str, Any]]:
-        """
-        Get all assignments for a course
-        
-        Args:
-            course_id: Canvas course ID
-            
-        Returns:
-            List of assignment dictionaries
-        """
+        """Get all assignments for a course"""
         assignments = self._make_request(
-            f"courses/{course_id}/assignments",
-            params={"include[]": ["submission"]}
+            f"courses/{course_id}/assignments"
         )
         
         return [
             {
                 "id": assignment["id"],
                 "name": assignment["name"],
-                "due_at": assignment.get("due_at"),
+                "due_at": format_date(assignment.get("due_at")),
+                "due_at_raw": assignment.get("due_at"),  # Keep raw for calculations
                 "points_possible": assignment.get("points_possible"),
                 "submission_types": assignment.get("submission_types", []),
-                "submitted": assignment.get("submission", {}).get("submitted_at") is not None,
-                "grade": assignment.get("submission", {}).get("grade"),
-                "score": assignment.get("submission", {}).get("score")
+                "submitted": assignment.get("has_submitted_submissions", False),
+                "grade": assignment.get("grade"),
+                "score": assignment.get("score")
             }
             for assignment in assignments
         ]
@@ -256,6 +268,19 @@ class CanvasClient:
         Returns:
             List of discussion topics
         """
+        import re
+        
+        def strip_html(text: str) -> str:
+            """Remove HTML tags and clean up text"""
+            if not text:
+                return ""
+            # Remove HTML tags
+            text = re.sub(r'<[^>]+>', '', text)
+            # Remove extra whitespace
+            text = ' '.join(text.split())
+            # Limit length
+            return text[:300] + "..." if len(text) > 300 else text
+        
         try:
             discussions = self._make_request(
                 f"courses/{course_id}/discussion_topics"
@@ -268,7 +293,7 @@ class CanvasClient:
                 {
                     "id": disc["id"],
                     "title": disc["title"],
-                    "message": disc.get("message", "")[:200],  # Limit message length
+                    "message": strip_html(disc.get("message", "")),
                     "posted_at": disc.get("posted_at"),
                     "author": disc.get("author", {}).get("display_name", "Unknown"),
                     "unread_count": disc.get("unread_count", 0),
@@ -278,7 +303,6 @@ class CanvasClient:
             ]
         except Exception as e:
             return [{"error": f"Could not fetch discussions: {str(e)}"}]
-
 
     def get_course_files(self, course_id: str) -> List[Dict[str, Any]]:
         """
@@ -352,3 +376,168 @@ class CanvasClient:
             }
             for event in events
         ]
+
+    def get_modules(self, course_id: str) -> List[Dict[str, Any]]:
+        """
+        Get modules (units/weeks) for a course, or files if no modules exist
+        
+        Args:
+            course_id: Canvas course ID
+            
+        Returns:
+            List of modules with items, or files if no modules
+        """
+        try:
+            modules = self._make_request(
+                f"courses/{course_id}/modules",
+                params={"include[]": ["items"]}
+            )
+            
+            # If no modules found, return files instead
+            if not modules or len(modules) == 0:
+                return self._get_files_as_modules(course_id)
+            
+            return [
+                {
+                    "id": module["id"],
+                    "name": module["name"],
+                    "position": module.get("position", 0),
+                    "unlock_at": module.get("unlock_at"),
+                    "state": module.get("state", ""),
+                    "published": module.get("published", False),
+                    "items_count": module.get("items_count", 0),
+                    "items": [
+                        {
+                            "id": item["id"],
+                            "title": item["title"],
+                            "type": item["type"],
+                            "indent": item.get("indent", 0)
+                        }
+                        for item in module.get("items", [])[:10]  # First 10 items
+                    ]
+                }
+                for module in modules
+            ]
+        except Exception as e:
+            # On error, try returning files as fallback
+            return self._get_files_as_modules(course_id)
+
+
+    def _get_files_as_modules(self, course_id: str) -> List[Dict[str, Any]]:
+        """
+        Helper: Return course files formatted as a module structure
+        
+        Args:
+            course_id: Canvas course ID
+            
+        Returns:
+            Files formatted as a single "Files" module
+        """
+        try:
+            files = self.get_course_files(course_id)
+            
+            if not files:
+                return [{"message": "No modules or files found for this course"}]
+            
+            # Format files as module items
+            file_items = [
+                {
+                    "id": file["id"],
+                    "title": file["display_name"],
+                    "type": "File",
+                    "size": file["size"],
+                    "url": file.get("url", "")
+                }
+                for file in files[:20]  # Limit to first 20 files
+            ]
+            
+            return [
+                {
+                    "id": "files",
+                    "name": "Course Files",
+                    "position": 1,
+                    "state": "active",
+                    "published": True,
+                    "items_count": len(file_items),
+                    "items": file_items,
+                    "is_files_fallback": True
+                }
+            ]
+        except Exception as e:
+            return [{"error": f"Could not fetch modules or files: {str(e)}"}]
+
+
+
+    def get_quizzes(self, course_id: str) -> List[Dict[str, Any]]:
+        """
+        Get quizzes for a course
+        
+        Args:
+            course_id: Canvas course ID
+            
+        Returns:
+            List of quizzes with details
+        """
+        try:
+            quizzes = self._make_request(
+                f"courses/{course_id}/quizzes"
+            )
+            
+            return [
+                {
+                    "id": quiz["id"],
+                    "title": quiz["title"],
+                    "description": quiz.get("description", "")[:200],  # Truncate description
+                    "quiz_type": quiz.get("quiz_type", ""),
+                    "time_limit": quiz.get("time_limit"),
+                    "question_count": quiz.get("question_count", 0),
+                    "points_possible": quiz.get("points_possible"),
+                    "due_at": quiz.get("due_at"),
+                    "lock_at": quiz.get("lock_at"),
+                    "published": quiz.get("published", False),
+                    "allowed_attempts": quiz.get("allowed_attempts", 1)
+                }
+                for quiz in quizzes
+            ]
+        except Exception as e:
+            return [{"error": f"Could not fetch quizzes: {str(e)}"}]
+
+
+    def get_assignment_submissions(self, course_id: str, assignment_id: str) -> Dict[str, Any]:
+        """
+        Get submission details for a specific assignment
+        
+        Args:
+            course_id: Canvas course ID
+            assignment_id: Assignment ID
+            
+        Returns:
+            Submission details
+        """
+        try:
+            submission = self._make_request(
+                f"courses/{course_id}/assignments/{assignment_id}/submissions/self"
+            )
+            
+            return {
+                "id": submission.get("id"),
+                "assignment_id": submission.get("assignment_id"),
+                "submitted_at": submission.get("submitted_at"),
+                "score": submission.get("score"),
+                "grade": submission.get("grade"),
+                "attempt": submission.get("attempt"),
+                "workflow_state": submission.get("workflow_state", ""),
+                "late": submission.get("late", False),
+                "missing": submission.get("missing", False),
+                "excused": submission.get("excused", False),
+                "submission_comments": [
+                    {
+                        "comment": comment.get("comment", ""),
+                        "author": comment.get("author_name", "Unknown"),
+                        "created_at": comment.get("created_at")
+                    }
+                    for comment in submission.get("submission_comments", [])
+                ]
+            }
+        except Exception as e:
+            return {"error": f"Could not fetch submission: {str(e)}"}
