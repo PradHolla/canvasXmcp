@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from langchain_aws import ChatBedrockConverse
 from langchain_mcp_adapters.tools import load_mcp_tools
 from langgraph.prebuilt import create_react_agent
+from langgraph.checkpoint.memory import MemorySaver  # SIMPLER OPTION
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
@@ -52,6 +53,12 @@ async def on_chat_start():
         # Load Canvas tools
         tools = await load_mcp_tools(session)
         
+        # DEBUG: Print loaded tools
+        print(f"\n✅ Loaded {len(tools)} Canvas tools:")
+        for tool in tools:
+            print(f"   - {tool.name}")
+        print()
+        
         # Create Bedrock LLM
         model_id = os.getenv("MODEL_ID", "meta.llama4-maverick-17b-instruct-v1:0")
         llm = ChatBedrockConverse(
@@ -61,59 +68,48 @@ async def on_chat_start():
             max_tokens=4096
         )
         
-        # Create ReAct agent
+        # CREATE IN-MEMORY CHECKPOINTER
+        memory = MemorySaver()
+        
+        # Create ReAct agent WITH MEMORY - simpler prompt
         agent = create_react_agent(
             llm,
             tools,
-            prompt="""You are a helpful Canvas LMS assistant for students.
+            checkpointer=memory,
+            prompt="""You are a Canvas LMS assistant with access to Canvas API tools.
 
-            Your job is to help students with:
-            - Finding information about their courses
-            - Checking assignments and deadlines
-            - Viewing grades and submission status
-            - Reading recent announcements
-            - Managing their academic workload
+CRITICAL: Always use your tools to fetch real data. Never refuse to call tools.
 
-            CRITICAL OUTPUT RULES:
-            1. NEVER show raw JSON to users - always format data in natural language
-            2. NEVER show technical fields like IDs, raw timestamps, or URLs unless specifically asked
-            3. Present information in clean bullet points or numbered lists
-            4. Use readable date formats like "October 13, 2025" not "2025-10-13T03:59:59Z"
+Available actions:
+- get_courses: List all courses
+- get_assignments: Get assignments for a course (includes some quizzes)
+- get_quizzes: Get quiz information for a course
+- get_quiz_submissions: Get quiz grades and scores (USE THIS for quiz performance)
+- get_grades: Get overall grades for a course
+- get_announcements: Get course announcements
+- And more...
 
-            COURSE ID RESOLUTION:
-            When a user mentions a course by name/code:
-            - Step 1: Call get_courses first
-            - Step 2: Find matching course and extract numeric "id"
-            - Step 3: Use ONLY that numeric ID in subsequent tool calls
-            - NEVER pass course names where course_id is expected
+When user asks about quiz grades/performance:
+1. Call get_quiz_submissions with the course_id
+2. Show the scores and grades clearly
 
-            Example:
-            User: "Show modules for CS 584"
-            You: Call get_courses() → find id:82456 → Call get_modules(course_id="82456")
+When user asks about their courses/assignments/grades:
+1. Call get_courses first
+2. Use course IDs from results to call other tools
+3. Present info in clean bullet points
 
-            ASSIGNMENT LOOKUPS:
-            - First call get_assignments to find the assignment by name
-            - Then use get_assignment_submission with the assignment name
+Format dates as "October 18, 2025".
+Remember conversation context.
+Be helpful and proactive.
+"""
 
-            RESPONSE FORMATTING:
-            Good example:
-            "You have 3 assignments due this week:
-            • Assignment 1 - Due October 15, 2025 (Submitted, Grade: 100/100)
-            • Quiz 2 - Due October 20, 2025 (Not submitted)
-            • Homework 3 - Due October 22, 2025 (Submitted, Pending grade)"
-
-            Bad example:
-            "[{'id':123,'name':'hw1','due_at':'2025-10-15T03:59:59Z','submitted':true}]"
-
-            Remember: Users are students, not developers. Show human-readable information only.
-            """
-            )
+        )
         
         # Store in user session
         cl.user_session.set("agent", agent)
+        cl.user_session.set("model_id", model_id)
         cl.user_session.set("mcp_session", session)
         cl.user_session.set("stdio_context", stdio_context)
-        cl.user_session.set("model_id", model_id)
         
         # Update message
         msg.content = """✅ **Canvas Assistant Ready!**
@@ -123,19 +119,105 @@ I can help you with:
 - 📝 Check upcoming assignments
 - 📊 See your grades
 - 📢 Read recent announcements
+- 🧠 **Remember our conversation for context**
 
 **Try asking:**
-- "What courses am I enrolled in?"
-- "What assignments are due this week?"
-- "Show me my grades for CS 559"
+- "What courses am I taking?"
+- "What's due this week?"
+- "How am I doing in CS 559?"
 
 💰 *Token usage is being tracked for cost monitoring*
 """
         await msg.update()
     
     except Exception as e:
+        import traceback
+        error_details = traceback.format_exc()
+        print(f"❌ Error in on_chat_start:\n{error_details}")
         msg.content = f"❌ **Connection Failed**\n\nError: {str(e)}"
         await msg.update()
+
+
+@cl.on_message
+async def on_message(message: cl.Message):
+    """Process user messages with token tracking"""
+    
+    agent = cl.user_session.get("agent")
+    tracker = cl.user_session.get("tracker")
+    model_id = cl.user_session.get("model_id")
+    session_id = cl.user_session.get("session_id")
+    
+    if not agent:
+        await cl.Message(
+            content="⚠️ Canvas connection not ready. Please refresh the page."
+        ).send()
+        return
+    
+    # Track start time
+    start_time = time.time()
+    
+    # Show thinking indicator
+    thinking_msg = cl.Message(content="🤔 Thinking...")
+    await thinking_msg.send()
+    
+    try:
+        # Get config with thread_id for memory
+        config = {"configurable": {"thread_id": cl.context.session.id}}
+        
+        # Run agent completely
+        complete_result = await agent.ainvoke(
+            {"messages": [("user", message.content)]},
+            config=config
+        )
+        
+        # Calculate response time
+        response_time = time.time() - start_time
+        
+        # Get the final AI message
+        final_message = None
+        for msg in reversed(complete_result["messages"]):
+            if hasattr(msg, '__class__') and msg.__class__.__name__ == 'AIMessage':
+                if not (hasattr(msg, 'tool_calls') and msg.tool_calls):
+                    final_message = msg.content
+                    break
+        
+        if not final_message:
+            final_message = "Sorry, I couldn't process that request."
+        
+        # Extract token usage
+        total_input_tokens = 0
+        total_output_tokens = 0
+        tools_used = False
+        
+        for msg in complete_result["messages"]:
+            if hasattr(msg, 'usage_metadata') and msg.usage_metadata:
+                total_input_tokens += msg.usage_metadata.get("input_tokens", 0)
+                total_output_tokens += msg.usage_metadata.get("output_tokens", 0)
+            if hasattr(msg, 'tool_calls') and msg.tool_calls:
+                tools_used = True
+        
+        # Log token usage
+        cost_info = ""
+        if tracker and (total_input_tokens > 0 or total_output_tokens > 0):
+            log_entry = tracker.log_usage(
+                model_id=model_id,
+                input_tokens=total_input_tokens,
+                output_tokens=total_output_tokens,
+                query=message.content,
+                response_time=response_time,
+                tools_used=tools_used,
+                session_id=session_id
+            )
+            
+            cost_info = f"\n\n---\n💰 *Tokens: {log_entry['total_tokens']} | Cost: ${log_entry['estimated_cost_usd']:.6f} | Time: {log_entry['response_time_sec']}s*"
+        
+        # Remove thinking message and show final response
+        await thinking_msg.remove()
+        await cl.Message(content=final_message + cost_info).send()
+    
+    except Exception as e:
+        await thinking_msg.remove()
+        await cl.Message(content=f"❌ Error: {str(e)}").send()
 
 
 @cl.on_chat_end
@@ -162,100 +244,3 @@ Total cost: ${summary['total_cost_usd']:.4f}
         await session.__aexit__(None, None, None)
     if stdio_context:
         await stdio_context.__aexit__(None, None, None)
-
-
-# Replace the on_message function in src/ui/app.py
-
-@cl.on_message
-async def on_message(message: cl.Message):
-    """Process user messages with token tracking"""
-    
-    agent = cl.user_session.get("agent")
-    tracker = cl.user_session.get("tracker")
-    model_id = cl.user_session.get("model_id")
-    session_id = cl.user_session.get("session_id")
-    
-    if not agent:
-        await cl.Message(
-            content="⚠️ Canvas connection not ready. Please refresh the page."
-        ).send()
-        return
-    
-    # Track start time
-    start_time = time.time()
-    
-    # Create response message
-    response_message = cl.Message(content="")
-    
-    try:
-        # Get config
-        config = {"configurable": {"thread_id": cl.context.session.id}}
-        
-        # Run agent and collect ONLY the final AI response
-        final_ai_message = None
-        
-        async for msg, metadata in agent.astream(
-            {"messages": [("user", message.content)]},
-            stream_mode="messages",
-            config=config
-        ):
-            # Only stream content from AIMessage, skip ToolMessages
-            if hasattr(msg, '__class__') and msg.__class__.__name__ == 'AIMessage':
-                # Check if it has tool_calls (intermediate step) or just content (final answer)
-                if hasattr(msg, 'tool_calls') and msg.tool_calls:
-                    # This is an intermediate tool-calling message, skip it
-                    continue
-                
-                # This is the final response
-                if hasattr(msg, "content") and isinstance(msg.content, str):
-                    await response_message.stream_token(msg.content)
-                    final_ai_message = msg
-                elif hasattr(msg, "content") and isinstance(msg.content, list):
-                    for item in msg.content:
-                        if isinstance(item, dict) and item.get("type") == "text":
-                            text = item.get("text", "")
-                            await response_message.stream_token(text)
-        
-        # Calculate response time
-        response_time = time.time() - start_time
-        
-        # Get complete result for token tracking
-        complete_result = await agent.ainvoke(
-            {"messages": [("user", message.content)]},
-            config=config
-        )
-        
-        # Extract token usage
-        total_input_tokens = 0
-        total_output_tokens = 0
-        tools_used = False
-        
-        for msg in complete_result["messages"]:
-            if hasattr(msg, 'usage_metadata') and msg.usage_metadata:
-                total_input_tokens += msg.usage_metadata.get("input_tokens", 0)
-                total_output_tokens += msg.usage_metadata.get("output_tokens", 0)
-            if hasattr(msg, 'tool_calls') and msg.tool_calls:
-                tools_used = True
-        
-        # Log token usage
-        if tracker and (total_input_tokens > 0 or total_output_tokens > 0):
-            log_entry = tracker.log_usage(
-                model_id=model_id,
-                input_tokens=total_input_tokens,
-                output_tokens=total_output_tokens,
-                query=message.content,
-                response_time=response_time,
-                tools_used=tools_used,
-                session_id=session_id
-            )
-            
-            # Add cost info to response
-            cost_info = f"\n\n---\n💰 *Tokens: {log_entry['total_tokens']} | Cost: ${log_entry['estimated_cost_usd']:.6f} | Time: {log_entry['response_time_sec']}s*"
-            response_message.content += cost_info
-        
-        # Send complete message
-        await response_message.update()
-    
-    except Exception as e:
-        await cl.Message(content=f"❌ Error: {str(e)}").send()
-
