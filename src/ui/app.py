@@ -53,12 +53,6 @@ async def on_chat_start():
         # Load Canvas tools
         tools = await load_mcp_tools(session)
         
-        # DEBUG: Print loaded tools
-        print(f"\n✅ Loaded {len(tools)} Canvas tools:")
-        for tool in tools:
-            print(f"   - {tool.name}")
-        print()
-        
         # Create Bedrock LLM
         model_id = os.getenv("MODEL_ID", "meta.llama4-maverick-17b-instruct-v1:0")
         llm = ChatBedrockConverse(
@@ -82,27 +76,26 @@ CRITICAL: Always use your tools to fetch real data. Never refuse to call tools.
 
 Available actions:
 - get_courses: List all courses
-- get_assignments: Get assignments for a course (includes some quizzes)
-- get_quizzes: Get quiz information for a course
-- get_quiz_submissions: Get quiz grades and scores (USE THIS for quiz performance)
-- get_grades: Get overall grades for a course
-- get_announcements: Get course announcements
+- get_assignments: Get assignments for a course
+- get_quizzes: Get basic quiz information (due dates, etc)
+- get_quiz_submissions: Get quiz GRADES and scores, USE THIS for "how did I do" questions
+- get_grades: Get overall course grades
 - And more...
 
-When user asks about quiz grades/performance:
-1. Call get_quiz_submissions with the course_id
-2. Show the scores and grades clearly
+When user asks "How did I do on quizzes?" or "What's my quiz grade?":
+1. Call get_courses to find the course_id
+2. Call get_quiz_submissions(course_id) to get actual scores
+3. Show the score and kept_score fields
 
-When user asks about their courses/assignments/grades:
+When user asks about courses/assignments:
 1. Call get_courses first
 2. Use course IDs from results to call other tools
 3. Present info in clean bullet points
 
-Format dates as "October 18, 2025".
+Format dates as "October 19, 2025".
 Remember conversation context.
 Be helpful and proactive.
 """
-
         )
         
         # Store in user session

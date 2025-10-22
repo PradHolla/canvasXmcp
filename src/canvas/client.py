@@ -111,7 +111,7 @@ class CanvasClient:
                 "include[]": ["term", "total_scores"]
             }
         )
-        
+    
         # Return simplified course info
         return [
             {
@@ -124,27 +124,44 @@ class CanvasClient:
             for course in courses
         ]
     
+    # In src/canvas/client.py, add to get_assignments:
+
     def get_assignments(self, course_id: str) -> List[Dict[str, Any]]:
         """Get all assignments for a course"""
         assignments = self._make_request(
-            f"courses/{course_id}/assignments"
+            f"courses/{course_id}/assignments",
+            params={
+                "include[]": ["submission", "score_statistics"],
+                "per_page": 100
+            }
         )
         
-        return [
-            {
+        result = []
+        for assignment in assignments:
+            # Check if it's a quiz
+            is_quiz = (
+                "online_quiz" in assignment.get("submission_types", []) or
+                assignment.get("is_quiz_lti_assignment", False) or
+                "Quiz" in assignment.get("name", "")
+            )
+            
+            result.append({
                 "id": assignment["id"],
                 "name": assignment["name"],
                 "due_at": format_date(assignment.get("due_at")),
-                "due_at_raw": assignment.get("due_at"),  # Keep raw for calculations
+                "due_at_raw": assignment.get("due_at"),
                 "points_possible": assignment.get("points_possible"),
                 "submission_types": assignment.get("submission_types", []),
                 "submitted": assignment.get("has_submitted_submissions", False),
-                "grade": assignment.get("grade"),
-                "score": assignment.get("score")
-            }
-            for assignment in assignments
-        ]
-    
+                "grade": assignment.get("submission", {}).get("grade"),
+                "score": assignment.get("submission", {}).get("score"),
+                "workflow_state": assignment.get("submission", {}).get("workflow_state"),
+                "is_quiz": is_quiz
+            })
+        
+        return result
+
+
     def get_upcoming_assignments(self, days: int = 7) -> List[Dict[str, Any]]:
         """
         Get assignments due in the next N days across all courses
@@ -468,34 +485,21 @@ class CanvasClient:
 
     def get_quizzes(self, course_id: str) -> List[Dict[str, Any]]:
         """
-        Get quizzes for a course (from assignments endpoint)
+        Get quizzes from assignments (works for both native and LTI quizzes)
         
         Args:
             course_id: Canvas course ID
             
         Returns:
-            List of quizzes with details and grades
+            List of quizzes with grades
         """
         try:
-            # Get all assignments
             assignments = self.get_assignments(course_id)
             
             # Filter for quiz-type assignments
             quizzes = [
-                {
-                    "id": a["id"],
-                    "title": a["name"],
-                    "due_at": a["due_at"],
-                    "points_possible": a["points_possible"],
-                    "submitted": a["submitted"],
-                    "grade": a.get("grade"),
-                    "score": a.get("score"),
-                    "submission_types": a["submission_types"]
-                }
-                for a in assignments
-                if "online_quiz" in a.get("submission_types", []) or 
-                "Quiz" in a.get("name", "") or
-                "quiz" in a.get("name", "").lower()
+                a for a in assignments
+                if a.get("is_quiz", False)
             ]
             
             if not quizzes:
@@ -505,7 +509,6 @@ class CanvasClient:
         
         except Exception as e:
             return [{"error": f"Could not fetch quizzes: {str(e)}"}]
-
 
 
     def get_assignment_submissions(self, course_id: str, assignment_id: str) -> Dict[str, Any]:
@@ -547,58 +550,25 @@ class CanvasClient:
         except Exception as e:
             return {"error": f"Could not fetch submission: {str(e)}"}
         
-    # Add to src/canvas/client.py
-
     def get_quiz_submissions(self, course_id: str) -> List[Dict[str, Any]]:
         """
-        Get quiz submissions with grades for a course
+        Get quiz submissions with grades (works for all quiz types)
         
         Args:
             course_id: Canvas course ID
             
         Returns:
-            List of quiz submissions with grades
+            List of quizzes with grades
         """
         try:
-            # Get all quizzes first
-            quizzes = self._make_request(f"courses/{course_id}/quizzes")
+            # Just call get_quizzes which already has all the grade data!
+            quizzes = self.get_quizzes(course_id)
             
-            quiz_grades = []
-            for quiz in quizzes:
-                quiz_id = quiz["id"]
-                
-                # Get user's submission for this quiz
-                try:
-                    submission = self._make_request(
-                        f"courses/{course_id}/quizzes/{quiz_id}/submissions/self"
-                    )
-                    
-                    quiz_grades.append({
-                        "id": quiz["id"],
-                        "title": quiz["title"],
-                        "quiz_type": quiz.get("quiz_type", ""),
-                        "points_possible": quiz.get("points_possible"),
-                        "due_at": format_date(quiz.get("due_at")),
-                        "score": submission.get("score"),
-                        "kept_score": submission.get("kept_score"),
-                        "attempt": submission.get("attempt"),
-                        "workflow_state": submission.get("workflow_state", ""),
-                        "submitted": submission.get("workflow_state") == "complete"
-                    })
-                except:
-                    # If no submission found, just add the quiz info
-                    quiz_grades.append({
-                        "id": quiz["id"],
-                        "title": quiz["title"],
-                        "quiz_type": quiz.get("quiz_type", ""),
-                        "points_possible": quiz.get("points_possible"),
-                        "due_at": format_date(quiz.get("due_at")),
-                        "score": None,
-                        "submitted": False
-                    })
-            
-            return quiz_grades
+            # Filter out any that don't have grades yet
+            return [
+                q for q in quizzes 
+                if not isinstance(q, dict) or "message" not in q
+            ]
         
         except Exception as e:
             return [{"error": f"Could not fetch quiz submissions: {str(e)}"}]
-

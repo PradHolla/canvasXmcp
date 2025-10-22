@@ -233,42 +233,18 @@ async def get_quiz_submissions(
 ) -> List[Dict[str, Any]]:
     """Get quiz submissions with grades for a course.
     
+    **USE THIS TOOL to check quiz performance and grades.**
+    
     Returns quiz information including:
     - Quiz title and type
     - Points possible
-    - Student's score and grade
-    - Submission status
-    - Attempt number
+    - Student's score (kept_score is the final grade)
+    - Submission status and attempt number
+    - Time spent on quiz
     
-    Use this to check quiz grades and performance.
+    This tool combines quiz metadata with actual submission grades.
     """
     return canvas.get_quiz_submissions(course_id)
-
-# Add to src/mcp/canvas_server.py as a temporary debug tool
-
-@mcp.tool()
-async def debug_quiz_data(
-    course_id: str = Field(description="Canvas course ID")
-) -> Dict[str, Any]:
-    """Debug tool to see raw quiz and submission data"""
-    
-    try:
-        # Get quizzes
-        quizzes = canvas._make_request(f"courses/{course_id}/quizzes")
-        
-        # Get assignments (which includes quiz assignments)
-        assignments = canvas.get_assignments(course_id)
-        quiz_assignments = [a for a in assignments if "Quiz" in a.get("name", "")]
-        
-        return {
-            "quiz_count": len(quizzes),
-            "quiz_assignment_count": len(quiz_assignments),
-            "sample_quiz": quizzes[0] if quizzes else None,
-            "sample_quiz_assignment": quiz_assignments[0] if quiz_assignments else None
-        }
-    except Exception as e:
-        return {"error": str(e)}
-
 
 def main():
     """Entry point for the Canvas MCP server."""
