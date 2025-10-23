@@ -246,6 +246,32 @@ async def get_quiz_submissions(
     """
     return canvas.get_quiz_submissions(course_id)
 
+@mcp.tool()
+async def get_all_grades() -> List[Dict[str, Any]]:
+    """Get grades for ALL enrolled courses at once.
+    
+    More efficient than calling get_grades separately for each course.
+    Use this when user asks "How am I doing overall?" or "Show all my grades".
+    """
+    return canvas.get_all_grades()
+
+
+@mcp.tool()
+async def get_course_summary(
+    course_id: str = Field(description="Canvas course ID")
+) -> Dict[str, Any]:
+    """Get comprehensive course information in one call.
+    
+    Includes:
+    - Current grades
+    - Upcoming assignments (next 7 days)
+    - Recent announcements
+    
+    Use this when user asks "How's [course] going?" or "Tell me about [course]".
+    """
+    return canvas.get_course_summary(course_id)
+
+
 def main():
     """Entry point for the Canvas MCP server."""
     mcp.run()

@@ -72,30 +72,124 @@ async def on_chat_start():
             checkpointer=memory,
             prompt="""You are a Canvas LMS assistant with access to Canvas API tools.
 
-CRITICAL: Always use your tools to fetch real data. Never refuse to call tools.
+CORE MISSION:
+Help students manage their coursework by fetching real-time data from Canvas.
+Be efficient, accurate, and conversational.
 
-Available actions:
-- get_courses: List all courses
-- get_assignments: Get assignments for a course
-- get_quizzes: Get basic quiz information (due dates, etc)
-- get_quiz_submissions: Get quiz GRADES and scores, USE THIS for "how did I do" questions
-- get_grades: Get overall course grades
-- And more...
+═══════════════════════════════════════════════════════════════
 
-When user asks "How did I do on quizzes?" or "What's my quiz grade?":
-1. Call get_courses to find the course_id
-2. Call get_quiz_submissions(course_id) to get actual scores
-3. Show the score and kept_score fields
+AVAILABLE TOOLS:
 
-When user asks about courses/assignments:
-1. Call get_courses first
-2. Use course IDs from results to call other tools
-3. Present info in clean bullet points
+Core Tools:
+• get_courses() - List all enrolled courses
+• get_upcoming_assignments() - Get assignments due soon across ALL courses
 
-Format dates as "October 19, 2025".
-Remember conversation context.
-Be helpful and proactive.
+Course-Specific Tools:
+• get_assignments(course_id) - Get all assignments for a course
+• get_quizzes(course_id) - Get quizzes (includes LTI/external tool quizzes)
+• get_quiz_submissions(course_id) - Get quiz grades and scores
+• get_grades(course_id) - Get overall course grade
+• get_announcements(course_id) - Get recent announcements
+• get_discussions(course_id) - Get discussion topics
+• get_modules(course_id) - Get course modules/structure
+• get_course_files(course_id) - Get course files
+
+Calendar:
+• get_calendar_events() - Get upcoming events
+
+═══════════════════════════════════════════════════════════════
+
+TOOL SELECTION STRATEGY:
+
+1. Use the MOST SPECIFIC tool available:
+   ✓ "What's due this week?" → get_upcoming_assignments() (NOT get_courses + loop)
+   ✓ "Quiz grades?" → get_quiz_submissions(course_id) (NOT get_assignments + filter)
+   ✓ "My courses?" → get_courses() (single call)
+
+2. Leverage conversation memory:
+   - If user mentioned "CS 555" earlier, remember the course_id
+   - Don't re-fetch courses if you just got them
+   - Reference previous answers: "As I mentioned, you have 5 courses..."
+
+3. Multi-step queries are OK when necessary:
+   - "How am I doing overall?" → get_courses, then get_grades for each
+   - Complex questions may need 3-5 tool calls - that's fine
+   - But always choose the most direct path
+
+4. Handle errors gracefully:
+   - If a tool returns an error, acknowledge it and move on
+   - Don't retry the same tool with same parameters
+   - Suggest alternatives: "I can't access quizzes, but I can show assignments"
+
+═══════════════════════════════════════════════════════════════
+
+RESPONSE PATTERNS:
+
+For "What's due this week?":
+→ Call get_upcoming_assignments()
+→ Group by course or date
+→ Highlight urgent items
+
+For "How did I do on [course] quizzes?":
+→ Call get_courses to find course_id (or use memory)
+→ Call get_quiz_submissions(course_id)
+→ Show scores clearly: "Quiz 1: 8.5/10, Quiz 2: 10/10"
+
+For "What courses am I taking?":
+→ Call get_courses()
+→ List with course codes: "CS 555, CS 559, CS 584, FE 520"
+
+For "How am I doing in [course]?":
+→ Call get_grades(course_id)
+→ Show current grade and breakdown if available
+
+═══════════════════════════════════════════════════════════════
+
+OUTPUT FORMATTING:
+
+• Use bullet points for lists
+• Format dates: "October 22, 2025" (not ISO timestamps)
+• Format scores: "8.5/10" or "85%" (not raw decimals)
+• Be conversational but concise
+• Never show raw JSON, course IDs, or technical details
+• Group related items logically
+
+═══════════════════════════════════════════════════════════════
+
+CONVERSATION MEMORY:
+
+You maintain context across the conversation:
+• Remember courses the user asked about
+• Reference previous queries naturally
+• Make connections: "You mentioned Quiz 5 earlier - it's due tomorrow"
+• Be proactive: "You have 3 assignments due this week, including that quiz we discussed"
+
+═══════════════════════════════════════════════════════════════
+
+EXAMPLES:
+
+User: "What courses am I taking?"
+You: "You're enrolled in 4 courses:
+• CS 555 - Agile Methods
+• CS 559 - Machine Learning
+• CS 584 - Natural Language Processing
+• FE 520 - Python for Finance"
+
+User: "What's due in my second course?"
+You: [Remember CS 559 from previous query]
+"For CS 559 (Machine Learning), you have:
+• HW3 - Due October 22, 2025 (not submitted)
+• Quiz 6 - Due October 19, 2025 (submitted)"
+
+User: "How did I do on that quiz?"
+You: [Remember Quiz 6 from previous context]
+"You scored 10/10 on Quiz 6: Kernel Method. Great job!"
+
+═══════════════════════════════════════════════════════════════
+
+Be helpful, efficient, and natural. Students are busy - respect their time.
 """
+
         )
         
         # Store in user session
@@ -130,7 +224,6 @@ I can help you with:
         msg.content = f"❌ **Connection Failed**\n\nError: {str(e)}"
         await msg.update()
 
-
 @cl.on_message
 async def on_message(message: cl.Message):
     """Process user messages with token tracking"""
@@ -154,8 +247,13 @@ async def on_message(message: cl.Message):
     await thinking_msg.send()
     
     try:
-        # Get config with thread_id for memory
-        config = {"configurable": {"thread_id": cl.context.session.id}}
+        # Configure agent with memory and limits
+        config = {
+            "configurable": {
+                "thread_id": cl.context.session.id
+            },
+            "recursion_limit": 50
+        }
         
         # Run agent completely
         complete_result = await agent.ainvoke(
@@ -166,13 +264,34 @@ async def on_message(message: cl.Message):
         # Calculate response time
         response_time = time.time() - start_time
         
-        # Get the final AI message
+        # Get the final AI message - IMPROVED EXTRACTION
         final_message = None
         for msg in reversed(complete_result["messages"]):
             if hasattr(msg, '__class__') and msg.__class__.__name__ == 'AIMessage':
-                if not (hasattr(msg, 'tool_calls') and msg.tool_calls):
-                    final_message = msg.content
-                    break
+                # Skip messages with tool calls (intermediate steps)
+                if hasattr(msg, 'tool_calls') and msg.tool_calls:
+                    continue
+                
+                # Get the content
+                content = msg.content
+                
+                # Filter out JSON tool declarations
+                if isinstance(content, str):
+                    # Remove lines that look like tool calls
+                    lines = content.split('\n')
+                    cleaned_lines = [
+                        line for line in lines 
+                        if not (
+                            line.strip().startswith('{"name":') or
+                            line.strip().startswith('get_') or
+                            'function call' in line.lower() or
+                            'successful' in line.lower() and 'JSON' in line
+                        )
+                    ]
+                    final_message = '\n'.join(cleaned_lines).strip()
+                    
+                    if final_message:
+                        break
         
         if not final_message:
             final_message = "Sorry, I couldn't process that request."
@@ -211,6 +330,7 @@ async def on_message(message: cl.Message):
     except Exception as e:
         await thinking_msg.remove()
         await cl.Message(content=f"❌ Error: {str(e)}").send()
+
 
 
 @cl.on_chat_end

@@ -237,6 +237,96 @@ class CanvasClient:
             "unposted_current_grade": grades.get("unposted_current_grade")
         }
     
+    def get_all_grades(self) -> List[Dict[str, Any]]:
+        """
+        Get grades for ALL enrolled courses in one call
+        
+        Returns:
+            List of course grades
+        """
+        try:
+            courses = self.get_courses()
+            
+            all_grades = []
+            for course in courses:
+                course_id = str(course["id"])
+                
+                try:
+                    grades = self.get_grades(course_id)
+                    all_grades.append({
+                        "course_id": course_id,
+                        "course_name": course["name"],
+                        "course_code": course.get("course_code", ""),
+                        "grades": grades
+                    })
+                except:
+                    # Skip courses that error
+                    continue
+            
+            return all_grades
+        
+        except Exception as e:
+            return [{"error": f"Could not fetch grades: {str(e)}"}]
+        
+    def get_course_summary(self, course_id: str) -> Dict[str, Any]:
+        """
+        Get comprehensive course info in one call
+        
+        Args:
+            course_id: Canvas course ID
+            
+        Returns:
+            Course summary with grades, upcoming assignments, recent announcements
+        """
+        try:
+            # Get course info
+            courses = self.get_courses()
+            course = next((c for c in courses if str(c["id"]) == str(course_id)), None)
+            
+            if not course:
+                return {"error": "Course not found"}
+            
+            # Gather data
+            summary = {
+                "course_name": course["name"],
+                "course_code": course.get("course_code", ""),
+                "grades": self.get_grades(course_id),
+                "upcoming_assignments": [],
+                "recent_announcements": []
+            }
+            
+            # Get upcoming assignments (due in next 7 days)
+            try:
+                from datetime import datetime, timedelta
+                assignments = self.get_assignments(course_id)
+                now = datetime.now()
+                week_from_now = now + timedelta(days=7)
+                
+                for assignment in assignments:
+                    due_at_raw = assignment.get("due_at_raw")
+                    if due_at_raw:
+                        try:
+                            due_date = datetime.fromisoformat(due_at_raw.replace('Z', '+00:00'))
+                            if now <= due_date <= week_from_now:
+                                summary["upcoming_assignments"].append(assignment)
+                        except:
+                            continue
+            except:
+                pass
+            
+            # Get recent announcements
+            try:
+                announcements = self.get_announcements(course_id)
+                summary["recent_announcements"] = announcements[:3]  # Latest 3
+            except:
+                pass
+            
+            return summary
+        
+        except Exception as e:
+            return {"error": f"Could not fetch course summary: {str(e)}"}
+
+    
     def get_announcements(self, days: int = 7) -> List[Dict[str, Any]]:
         """
         Get recent announcements from all courses
