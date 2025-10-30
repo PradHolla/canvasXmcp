@@ -10,7 +10,7 @@ class TokenTracker:
     
     # Pricing per 1K tokens (update these for your actual model)
     PRICING = {
-        "meta.llama4-maverick-17b-instruct-v1:0": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
             "input": 0.00024,   # $0.00024 per 1K input tokens
             "output": 0.00097   # $0.00097 per 1K output tokens
         },
@@ -18,10 +18,14 @@ class TokenTracker:
             "input": 0.003,
             "output": 0.015
         },
-        "meta.llama4-scout-17b-instruct-v1:0": {
+        "us.meta.llama4-scout-17b-instruct-v1:0": {
             "input": 0.00017,
             "output": 0.00066
         },
+        "openai.gpt-oss-120b-1:0": {
+            "input": 0.00015,
+            "output": 0.0006
+        }
     }
     
     def __init__(self, log_file: str = "token_usage.jsonl"):

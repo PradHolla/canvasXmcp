@@ -1,34 +1,29 @@
-# debug_specific_quiz.py
-from src.canvas.client import CanvasClient
-import json
+# test_gpt_oss_langchain.py
+import os
+from langchain_aws import ChatBedrockConverse
+from dotenv import load_dotenv
 
-client = CanvasClient()
-course_id = "80546"  # CS 555
-assignment_id = "615240"  # Quiz 02
+load_dotenv()
 
-print("=== DIRECT ASSIGNMENT FETCH ===")
-try:
-    assignment = client._make_request(f"courses/{course_id}/assignments/{assignment_id}")
-    print(json.dumps(assignment, indent=2))
-except Exception as e:
-    print(f"Error: {e}")
+print("Testing GPT-OSS with LangChain ChatBedrockConverse...\n")
 
-print("\n=== ASSIGNMENT WITH INCLUDE PARAMS ===")
-try:
-    assignments = client._make_request(
-        f"courses/{course_id}/assignments",
-        params={
-            "include[]": ["submission", "score_statistics"],
-            "per_page": 100
-        }
-    )
-    print(f"Total assignments returned: {len(assignments)}")
-    quiz_assignments = [a for a in assignments if "615240" in str(a.get("id"))]
-    if quiz_assignments:
-        print("Found Quiz 02!")
-        print(json.dumps(quiz_assignments[0], indent=2))
-    else:
-        print("Quiz 02 not in the list")
-        print("Assignment IDs returned:", [a["id"] for a in assignments[:15]])
-except Exception as e:
-    print(f"Error: {e}")
+# Try with GPT-OSS
+llm = ChatBedrockConverse(
+    model="global.anthropic.claude-haiku-4-5-20251001-v1:0",
+    temperature=0.3,
+    max_tokens=500
+)
+
+# Test query
+response = llm.invoke("What's 17 * 13?")
+
+print("Response:")
+print(response.content)
+print("\n" + "="*50 + "\n")
+print(response)
+# Check response structure
+print("Response type:", type(response))
+print("Has usage_metadata:", hasattr(response, 'usage_metadata'))
+
+if hasattr(response, 'usage_metadata') and response.usage_metadata:
+    print("Token usage:", response.usage_metadata)

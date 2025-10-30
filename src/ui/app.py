@@ -2,13 +2,14 @@ import chainlit as cl
 import os
 import sys
 import time
+import logging
 from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
 from langchain_aws import ChatBedrockConverse
 from langchain_mcp_adapters.tools import load_mcp_tools
 from langgraph.prebuilt import create_react_agent
-from langgraph.checkpoint.memory import MemorySaver  # SIMPLER OPTION
+from langgraph.checkpoint.memory import MemorySaver
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
@@ -19,6 +20,10 @@ sys.path.insert(0, str(root_dir))
 from src.utils.token_tracker import TokenTracker
 
 load_dotenv()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 @cl.on_chat_start
@@ -52,144 +57,52 @@ async def on_chat_start():
         
         # Load Canvas tools
         tools = await load_mcp_tools(session)
+        logger.info(f"Loaded {len(tools)} Canvas tools")
         
         # Create Bedrock LLM
-        model_id = os.getenv("MODEL_ID", "meta.llama4-maverick-17b-instruct-v1:0")
+        model_id = os.getenv("GPT_OS", "us.meta.llama4-maverick-17b-instruct-v1:0")
         llm = ChatBedrockConverse(
-            model=f"us.{model_id}",
+            model=f"{model_id}",
             region_name=os.getenv("AWS_REGION", "us-east-1"),
             temperature=0.3,
             max_tokens=4096
         )
         
-        # CREATE IN-MEMORY CHECKPOINTER
+        # Create memory
         memory = MemorySaver()
         
-        # Create ReAct agent WITH MEMORY - simpler prompt
+        # Create ReAct agent with memory
         agent = create_react_agent(
             llm,
             tools,
             checkpointer=memory,
-            prompt="""You are a Canvas LMS assistant with access to Canvas API tools.
+            prompt="""You are a Canvas LMS assistant that helps students with their coursework.
 
-CORE MISSION:
-Help students manage their coursework by fetching real-time data from Canvas.
-Be efficient, accurate, and conversational.
+TOOLS:
+- get_courses() - enrolled courses
+- get_upcoming_assignments(days=7) - assignments due soon
+- get_assignments(course_id) - all course assignments
+- get_quizzes(course_id) - course quizzes with grades
+- get_grades(course_id) - course grade
+- get_all_grades() - all course grades at once
+- get_course_summary(course_id) - complete course overview
+- get_announcements(days=7) - recent announcements
+- get_course_id_by_name(name) - find course ID by name
 
-═══════════════════════════════════════════════════════════════
+RULES:
+1. Use tools to get real data
+2. Choose the most specific tool
+3. Remember context from conversation
+4. Format dates as "October 23, 2025"
+5. Format scores as "8.5/10"
+6. Never show course IDs or technical details
+7. Be concise and helpful
 
-AVAILABLE TOOLS:
+IMPORTANT: Canvas APIs need numeric course IDs (like "80546"), not names.
+If user mentions a course by name, call get_course_id_by_name() first.
 
-Core Tools:
-• get_courses() - List all enrolled courses
-• get_upcoming_assignments() - Get assignments due soon across ALL courses
-
-Course-Specific Tools:
-• get_assignments(course_id) - Get all assignments for a course
-• get_quizzes(course_id) - Get quizzes (includes LTI/external tool quizzes)
-• get_quiz_submissions(course_id) - Get quiz grades and scores
-• get_grades(course_id) - Get overall course grade
-• get_announcements(course_id) - Get recent announcements
-• get_discussions(course_id) - Get discussion topics
-• get_modules(course_id) - Get course modules/structure
-• get_course_files(course_id) - Get course files
-
-Calendar:
-• get_calendar_events() - Get upcoming events
-
-═══════════════════════════════════════════════════════════════
-
-TOOL SELECTION STRATEGY:
-
-1. Use the MOST SPECIFIC tool available:
-   ✓ "What's due this week?" → get_upcoming_assignments() (NOT get_courses + loop)
-   ✓ "Quiz grades?" → get_quiz_submissions(course_id) (NOT get_assignments + filter)
-   ✓ "My courses?" → get_courses() (single call)
-
-2. Leverage conversation memory:
-   - If user mentioned "CS 555" earlier, remember the course_id
-   - Don't re-fetch courses if you just got them
-   - Reference previous answers: "As I mentioned, you have 5 courses..."
-
-3. Multi-step queries are OK when necessary:
-   - "How am I doing overall?" → get_courses, then get_grades for each
-   - Complex questions may need 3-5 tool calls - that's fine
-   - But always choose the most direct path
-
-4. Handle errors gracefully:
-   - If a tool returns an error, acknowledge it and move on
-   - Don't retry the same tool with same parameters
-   - Suggest alternatives: "I can't access quizzes, but I can show assignments"
-
-═══════════════════════════════════════════════════════════════
-
-RESPONSE PATTERNS:
-
-For "What's due this week?":
-→ Call get_upcoming_assignments()
-→ Group by course or date
-→ Highlight urgent items
-
-For "How did I do on [course] quizzes?":
-→ Call get_courses to find course_id (or use memory)
-→ Call get_quiz_submissions(course_id)
-→ Show scores clearly: "Quiz 1: 8.5/10, Quiz 2: 10/10"
-
-For "What courses am I taking?":
-→ Call get_courses()
-→ List with course codes: "CS 555, CS 559, CS 584, FE 520"
-
-For "How am I doing in [course]?":
-→ Call get_grades(course_id)
-→ Show current grade and breakdown if available
-
-═══════════════════════════════════════════════════════════════
-
-OUTPUT FORMATTING:
-
-• Use bullet points for lists
-• Format dates: "October 22, 2025" (not ISO timestamps)
-• Format scores: "8.5/10" or "85%" (not raw decimals)
-• Be conversational but concise
-• Never show raw JSON, course IDs, or technical details
-• Group related items logically
-
-═══════════════════════════════════════════════════════════════
-
-CONVERSATION MEMORY:
-
-You maintain context across the conversation:
-• Remember courses the user asked about
-• Reference previous queries naturally
-• Make connections: "You mentioned Quiz 5 earlier - it's due tomorrow"
-• Be proactive: "You have 3 assignments due this week, including that quiz we discussed"
-
-═══════════════════════════════════════════════════════════════
-
-EXAMPLES:
-
-User: "What courses am I taking?"
-You: "You're enrolled in 4 courses:
-• CS 555 - Agile Methods
-• CS 559 - Machine Learning
-• CS 584 - Natural Language Processing
-• FE 520 - Python for Finance"
-
-User: "What's due in my second course?"
-You: [Remember CS 559 from previous query]
-"For CS 559 (Machine Learning), you have:
-• HW3 - Due October 22, 2025 (not submitted)
-• Quiz 6 - Due October 19, 2025 (submitted)"
-
-User: "How did I do on that quiz?"
-You: [Remember Quiz 6 from previous context]
-"You scored 10/10 on Quiz 6: Kernel Method. Great job!"
-
-═══════════════════════════════════════════════════════════════
-
-Be helpful, efficient, and natural. Students are busy - respect their time.
+Present information cleanly with bullet points. No raw JSON.
 """
-
         )
         
         # Store in user session
@@ -206,23 +119,22 @@ I can help you with:
 - 📝 Check upcoming assignments
 - 📊 See your grades
 - 📢 Read recent announcements
-- 🧠 **Remember our conversation for context**
+- 🧠 Remember our conversation
 
 **Try asking:**
 - "What courses am I taking?"
 - "What's due this week?"
 - "How am I doing in CS 559?"
 
-💰 *Token usage is being tracked for cost monitoring*
+💰 *Token usage is being tracked*
 """
         await msg.update()
     
     except Exception as e:
-        import traceback
-        error_details = traceback.format_exc()
-        print(f"❌ Error in on_chat_start:\n{error_details}")
+        logger.error(f"Error in on_chat_start: {e}", exc_info=True)
         msg.content = f"❌ **Connection Failed**\n\nError: {str(e)}"
         await msg.update()
+
 
 @cl.on_message
 async def on_message(message: cl.Message):
@@ -249,13 +161,11 @@ async def on_message(message: cl.Message):
     try:
         # Configure agent with memory and limits
         config = {
-            "configurable": {
-                "thread_id": cl.context.session.id
-            },
+            "configurable": {"thread_id": cl.context.session.id},
             "recursion_limit": 50
         }
         
-        # Run agent completely
+        # Run agent
         complete_result = await agent.ainvoke(
             {"messages": [("user", message.content)]},
             config=config
@@ -264,39 +174,67 @@ async def on_message(message: cl.Message):
         # Calculate response time
         response_time = time.time() - start_time
         
-        # Get the final AI message - IMPROVED EXTRACTION
+        # Detect if using GPT-OSS model
+        is_gpt_oss = "openai.gpt-oss" in model_id
+        
+        # Extract final AI message with model-specific handling
         final_message = None
+        reasoning_text = None
+        elements = []
+        
         for msg in reversed(complete_result["messages"]):
             if hasattr(msg, '__class__') and msg.__class__.__name__ == 'AIMessage':
-                # Skip messages with tool calls (intermediate steps)
+                # Skip tool-calling messages
                 if hasattr(msg, 'tool_calls') and msg.tool_calls:
                     continue
                 
-                # Get the content
                 content = msg.content
                 
-                # Filter out JSON tool declarations
-                if isinstance(content, str):
-                    # Remove lines that look like tool calls
+                # Handle GPT-OSS list-based content
+                if isinstance(content, list) and is_gpt_oss:
+                    text_parts = []
+                    
+                    for block in content:
+                        if isinstance(block, dict):
+                            # Extract reasoning
+                            if block.get('type') == 'reasoning_content':
+                                reasoning_text = block.get('reasoning_content', {}).get('text', '')
+                            
+                            # Extract answer text
+                            elif block.get('type') == 'text':
+                                text_parts.append(block.get('text', ''))
+                    
+                    final_message = '\n\n'.join(text_parts).strip()
+                    
+                    # Create reasoning accordion if reasoning exists
+                    if reasoning_text:
+                        reasoning_element = cl.CustomElement(
+                            name="ReasoningAccordion",
+                            props={"reasoning": reasoning_text},
+                            display="inline"
+                        )
+                        elements.append(reasoning_element)
+                
+                # Handle Llama Maverick string content
+                elif isinstance(content, str):
                     lines = content.split('\n')
                     cleaned_lines = [
                         line for line in lines 
                         if not (
                             line.strip().startswith('{"name":') or
                             line.strip().startswith('get_') or
-                            'function call' in line.lower() or
-                            'successful' in line.lower() and 'JSON' in line
+                            'function call' in line.lower()
                         )
                     ]
                     final_message = '\n'.join(cleaned_lines).strip()
-                    
-                    if final_message:
-                        break
+                
+                if final_message:
+                    break
         
         if not final_message:
             final_message = "Sorry, I couldn't process that request."
         
-        # Extract token usage
+        # Extract token usage (same as before)
         total_input_tokens = 0
         total_output_tokens = 0
         tools_used = False
@@ -323,11 +261,15 @@ async def on_message(message: cl.Message):
             
             cost_info = f"\n\n---\n💰 *Tokens: {log_entry['total_tokens']} | Cost: ${log_entry['estimated_cost_usd']:.6f} | Time: {log_entry['response_time_sec']}s*"
         
-        # Remove thinking message and show final response
+        # Send final response with reasoning accordion (if exists)
         await thinking_msg.remove()
-        await cl.Message(content=final_message + cost_info).send()
+        await cl.Message(
+            content=final_message + cost_info,
+            elements=elements  # Attach reasoning accordion
+        ).send()
     
     except Exception as e:
+        logger.error(f"Error in on_message: {e}", exc_info=True)
         await thinking_msg.remove()
         await cl.Message(content=f"❌ Error: {str(e)}").send()
 
@@ -353,7 +295,10 @@ Total cost: ${summary['total_cost_usd']:.4f}
         ).send()
     
     # Clean up connections
-    if session:
-        await session.__aexit__(None, None, None)
-    if stdio_context:
-        await stdio_context.__aexit__(None, None, None)
+    try:
+        if session:
+            await session.__aexit__(None, None, None)
+        if stdio_context:
+            await stdio_context.__aexit__(None, None, None)
+    except Exception as e:
+        logger.error(f"Error cleaning up connections: {e}")
