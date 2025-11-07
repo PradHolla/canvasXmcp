@@ -1,0 +1,410 @@
+{
+  "test_metadata": {
+    "test_run_id": "20251101_014704",
+    "timestamp": "2025-11-01T01:47:04.939891",
+    "query_file": "basic_queries.json",
+    "models_tested": [
+      "us.meta.llama4-maverick-17b-instruct-v1:0",
+      "openai.gpt-oss-120b-1:0"
+    ],
+    "prompt_used": "You are a Canvas LMS assistant that helps students with their coursework.\n\nTOOLS:\n- get_courses() - enrolled courses\n- get_upcoming_assignments(days=7) - assignments due soon\n- get_assignments(course_id) - all course assignments\n- get_quizzes(course_id) - course quizzes with grades\n- get_grades(course_id) - course grade\n- get_all_grades() - all course grades at once\n- get_course_summary(course_id) - complete course overview\n- get_announcements(days=7) - recent announcements\n- get_course_id_by_name(name) - find course ID by name\n\nRULES:\n1. Use tools to get real data\n2. Choose the most specific tool\n3. Remember context from conversation\n4. Format dates as \"October 23, 2025\"\n5. Format scores as \"8.5/10\"\n6. Never show course IDs or technical details\n7. Be concise and helpful\n\nIMPORTANT: Canvas APIs need numeric course IDs (like \"80546\"), not names.\nIf user mentions a course by name, call get_course_id_by_name() first.\n\nPresent information cleanly with bullet points. No raw JSON.\n"
+  },
+  "model_results": {
+    "us.meta.llama4-maverick-17b-instruct-v1:0": {
+      "queries": [
+        {
+          "success": true,
+          "query": "What courses am I taking?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "You are currently enrolled in the following courses:\n* 2025F CS 555-A - Agile Methods for Software Development\n* 2025F CS 559-WS - Machine Learning: Fundamentals and Applications (Grade: A)\n* 2025F CS 584-A - Natural Language Processing\n* 2025F FE 520-A - Introduction to Python for Financial Applications\n* Fall 2024 Graduate Student Code of Academic Integrity",
+            "reasoning": null,
+            "final_answer": "You are currently enrolled in the following courses:\n* 2025F CS 555-A - Agile Methods for Software Development\n* 2025F CS 559-WS - Machine Learning: Fundamentals and Applications (Grade: A)\n* 2025F CS 584-A - Natural Language Processing\n* 2025F FE 520-A - Introduction to Python for Financial Applications\n* Fall 2024 Graduate Student Code of Academic Integrity",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 1744.81,
+            "tokens_input": 3058,
+            "tokens_output": 127,
+            "tokens_total": 3185,
+            "cost_usd": 0.000857
+          },
+          "tools_used": [
+            {
+              "tool": "get_courses",
+              "args": {}
+            },
+            {
+              "tool": "get_courses",
+              "args": {}
+            }
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T01:47:05.788028",
+          "timestamp_end": "2025-11-01T01:47:07.533188"
+        },
+        {
+          "success": true,
+          "query": "What's due this week?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "You have no assignments due this week.",
+            "reasoning": null,
+            "final_answer": "You have no assignments due this week.",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 4578.29,
+            "tokens_input": 2694,
+            "tokens_output": 55,
+            "tokens_total": 2749,
+            "cost_usd": 0.0007
+          },
+          "tools_used": [
+            {
+              "tool": "get_upcoming_assignments",
+              "args": {
+                "days": 7
+              }
+            },
+            {
+              "tool": "get_upcoming_assignments",
+              "args": {
+                "days": 7
+              }
+            }
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T01:47:08.534739",
+          "timestamp_end": "2025-11-01T01:47:13.113339"
+        },
+        {
+          "success": true,
+          "query": "Show me my grades",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "import json\n\n# Assuming the output is a JSON string\noutput_json = '[{\"course_id\":\"80546\",\"course_name\":\"2025F CS 555-A\",\"course_code\":\"Agile Methods for Software Development\",\"grades\":{\"current_score\":99.71,\"current_grade\":null,\"final_score\":57.15,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"82091\",\"course_name\":\"2025F CS 559-WS\",\"course_code\":\"Machine Learning: Fundamentals and Applications\",\"grades\":{\"current_score\":98.29,\"current_grade\":\"A\",\"final_score\":68.89,\"final_grade\":\"F\",\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"82456\",\"course_name\":\"2025F CS 584-A\",\"course_code\":\"Natural Language Processing\",\"grades\":{\"current_score\":100.0,\"current_grade\":null,\"final_score\":45.14,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"80509\",\"course_name\":\"2025F FE 520-A\",\"course_code\":\"Introduction to Python for Financial Applications\",\"grades\":{\"current_score\":87.27,\"current_grade\":null,\"final_score\":45.71,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"76218\",\"course_name\":\"Fall 2024 Graduate Student Code of Academic Integrity\",\"course_code\":\"Fall 2024 Graduate Student Code of Academic Integrity\",\"grades\":{\"current_score\":100.0,\"current_grade\":null,\"final_score\":100.0,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}}]'\n\n# Parse the JSON string into a Python list of dictionaries\noutput_data = json.loads(output_json)\n\n# Format the output\nfor course in output_data:\n    course_name = course['course_name']\n    current_score = course['grades']['current_score']\n    final_score = course['grades']['final_score']\n    print(f\"{course_name}: Current Score = {current_score}, Final Score = {final_score}\")",
+            "reasoning": null,
+            "final_answer": "import json\n\n# Assuming the output is a JSON string\noutput_json = '[{\"course_id\":\"80546\",\"course_name\":\"2025F CS 555-A\",\"course_code\":\"Agile Methods for Software Development\",\"grades\":{\"current_score\":99.71,\"current_grade\":null,\"final_score\":57.15,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"82091\",\"course_name\":\"2025F CS 559-WS\",\"course_code\":\"Machine Learning: Fundamentals and Applications\",\"grades\":{\"current_score\":98.29,\"current_grade\":\"A\",\"final_score\":68.89,\"final_grade\":\"F\",\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"82456\",\"course_name\":\"2025F CS 584-A\",\"course_code\":\"Natural Language Processing\",\"grades\":{\"current_score\":100.0,\"current_grade\":null,\"final_score\":45.14,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"80509\",\"course_name\":\"2025F FE 520-A\",\"course_code\":\"Introduction to Python for Financial Applications\",\"grades\":{\"current_score\":87.27,\"current_grade\":null,\"final_score\":45.71,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"76218\",\"course_name\":\"Fall 2024 Graduate Student Code of Academic Integrity\",\"course_code\":\"Fall 2024 Graduate Student Code of Academic Integrity\",\"grades\":{\"current_score\":100.0,\"current_grade\":null,\"final_score\":100.0,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}}]'\n\n# Parse the JSON string into a Python list of dictionaries\noutput_data = json.loads(output_json)\n\n# Format the output\nfor course in output_data:\n    course_name = course['course_name']\n    current_score = course['grades']['current_score']\n    final_score = course['grades']['final_score']\n    print(f\"{course_name}: Current Score = {current_score}, Final Score = {final_score}\")",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 3754.02,
+            "tokens_input": 2976,
+            "tokens_output": 464,
+            "tokens_total": 3440,
+            "cost_usd": 0.001164
+          },
+          "tools_used": [
+            {
+              "tool": "get_all_grades",
+              "args": {}
+            }
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T01:47:14.114845",
+          "timestamp_end": "2025-11-01T01:47:17.869111"
+        },
+        {
+          "success": true,
+          "query": "What quizzes are in CS 559?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "Here are the quizzes in CS 559:\n* Quiz 1 - Linear Regression (Due: September 6, 2025) - Score: 8.5/10\n* Quiz 2 Linear Classification 1  (Due: September 13, 2025) - Score: 10/10\n* Quiz 3 linear classification 2  (Due: September 20, 2025) - Score: 10/10\n* Quiz 4 Model Selection (Due: September 27, 2025) - Score: 9/10\n* Quiz 5 Neural Network  (Due: October 4, 2025) - Score: 9/10\n* Quiz 6 Kernel Method (Due: October 18, 2025) - Score: 10/10\n* Quiz 7 SVM (Due: October 25, 2025) - Score: 9/10\n* Quiz 8 Unsupervised Learning (Due: November 1, 2025) - Not submitted\n* Midterm (Due: October 14, 2025) - Score: 98/100",
+            "reasoning": null,
+            "final_answer": "Here are the quizzes in CS 559:\n* Quiz 1 - Linear Regression (Due: September 6, 2025) - Score: 8.5/10\n* Quiz 2 Linear Classification 1  (Due: September 13, 2025) - Score: 10/10\n* Quiz 3 linear classification 2  (Due: September 20, 2025) - Score: 10/10\n* Quiz 4 Model Selection (Due: September 27, 2025) - Score: 9/10\n* Quiz 5 Neural Network  (Due: October 4, 2025) - Score: 9/10\n* Quiz 6 Kernel Method (Due: October 18, 2025) - Score: 10/10\n* Quiz 7 SVM (Due: October 25, 2025) - Score: 9/10\n* Quiz 8 Unsupervised Learning (Due: November 1, 2025) - Not submitted\n* Midterm (Due: October 14, 2025) - Score: 98/100",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 2709.96,
+            "tokens_input": 5015,
+            "tokens_output": 332,
+            "tokens_total": 5347,
+            "cost_usd": 0.001526
+          },
+          "tools_used": [
+            {
+              "tool": "get_quizzes",
+              "args": {
+                "course_id": {
+                  "type": "string",
+                  "value": {
+                    "function_name": "get_course_id_by_name",
+                    "args": [
+                      "CS 559"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "tool": "get_course_id_by_name",
+              "args": {
+                "course_name": "CS 559"
+              }
+            },
+            {
+              "tool": "get_quizzes",
+              "args": {
+                "course_id": "82091"
+              }
+            }
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T01:47:18.870352",
+          "timestamp_end": "2025-11-01T01:47:21.580547"
+        },
+        {
+          "success": true,
+          "query": "What announcements are there?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "Here are the recent announcements:\n* Hybrid today due to the weather - October 30, 2025\n* Week 9 Agenda Update: Guest Lecture Postponed to Thu, 11/13 + This Week\u2019s Topic - October 28, 2025\n* Week 9 Agenda: Guest Lecture and In-class Meeting - October 27, 2025\n* Sprint 1 to Spring 2 Transition and Story Carry-Over Policy - October 27, 2025\n* CS584: HW3 released - October 25, 2025",
+            "reasoning": null,
+            "final_answer": "Here are the recent announcements:\n* Hybrid today due to the weather - October 30, 2025\n* Week 9 Agenda Update: Guest Lecture Postponed to Thu, 11/13 + This Week\u2019s Topic - October 28, 2025\n* Week 9 Agenda: Guest Lecture and In-class Meeting - October 27, 2025\n* Sprint 1 to Spring 2 Transition and Story Carry-Over Policy - October 27, 2025\n* CS584: HW3 released - October 25, 2025",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 2261.82,
+            "tokens_input": 4456,
+            "tokens_output": 158,
+            "tokens_total": 4614,
+            "cost_usd": 0.001223
+          },
+          "tools_used": [
+            {
+              "tool": "get_announcements",
+              "args": {
+                "days": 7
+              }
+            },
+            {
+              "tool": "get_announcements",
+              "args": {
+                "days": 7
+              }
+            }
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T01:47:22.582039",
+          "timestamp_end": "2025-11-01T01:47:24.844092"
+        }
+      ]
+    },
+    "openai.gpt-oss-120b-1:0": {
+      "queries": [
+        {
+          "success": true,
+          "query": "What courses am I taking?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "Here are the courses you\u2019re currently enrolled in for the **2025 Fall Semester**:\n\n- **Agile Methods for Software Development** (CS\u202f555\u2011A) \u2013 grade not posted yet  \n- **Machine Learning: Fundamentals and Applications** (CS\u202f559\u2011WS) \u2013 **A**  \n- **Natural Language Processing** (CS\u202f584\u2011A) \u2013 grade not posted yet  \n- **Introduction to Python for Financial Applications** (FE\u202f520\u2011A) \u2013 grade not posted yet  \n\nYou also have a development\u2011course enrollment:\n\n- **Fall 2024 Graduate Student Code of Academic Integrity** \u2013 grade not applicable  \n\nLet me know if you\u2019d like details on assignments, upcoming deadlines, or grades for any specific course!",
+            "reasoning": null,
+            "final_answer": "Here are the courses you\u2019re currently enrolled in for the **2025 Fall Semester**:\n\n- **Agile Methods for Software Development** (CS\u202f555\u2011A) \u2013 grade not posted yet  \n- **Machine Learning: Fundamentals and Applications** (CS\u202f559\u2011WS) \u2013 **A**  \n- **Natural Language Processing** (CS\u202f584\u2011A) \u2013 grade not posted yet  \n- **Introduction to Python for Financial Applications** (FE\u202f520\u2011A) \u2013 grade not posted yet  \n\nYou also have a development\u2011course enrollment:\n\n- **Fall 2024 Graduate Student Code of Academic Integrity** \u2013 grade not applicable  \n\nLet me know if you\u2019d like details on assignments, upcoming deadlines, or grades for any specific course!",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 1537.49,
+            "tokens_input": 1754,
+            "tokens_output": 256,
+            "tokens_total": 2010,
+            "cost_usd": 0.000417
+          },
+          "tools_used": [
+            {
+              "tool": "get_courses",
+              "args": {}
+            }
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T01:47:29.676070",
+          "timestamp_end": "2025-11-01T01:47:31.213801"
+        },
+        {
+          "success": true,
+          "query": "What's due this week?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": [
+              {
+                "type": "reasoning_content",
+                "reasoning_content": {
+                  "text": "User asks \"What's due this week?\" We have no upcoming assignments. Should respond accordingly, maybe ask if they want other info.",
+                  "signature": ""
+                }
+              },
+              {
+                "type": "text",
+                "text": "There are no assignments due in the next\u202f7\u202fdays. Let me know if you\u2019d like to see upcoming work beyond this week, check your grades, or anything else!"
+              }
+            ],
+            "reasoning": "User asks \"What's due this week?\" We have no upcoming assignments. Should respond accordingly, maybe ask if they want other info.",
+            "final_answer": "There are no assignments due in the next\u202f7\u202fdays. Let me know if you\u2019d like to see upcoming work beyond this week, check your grades, or anything else!",
+            "has_reasoning": true,
+            "reasoning_length": 129
+          },
+          "performance": {
+            "latency_ms": 4687.82,
+            "tokens_input": 1574,
+            "tokens_output": 279,
+            "tokens_total": 1853,
+            "cost_usd": 0.000403
+          },
+          "tools_used": [
+            {
+              "tool": "get_upcoming_assignments",
+              "args": {
+                "days": 7
+              }
+            }
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T01:47:32.214999",
+          "timestamp_end": "2025-11-01T01:47:36.903044"
+        },
+        {
+          "success": false,
+          "query": "Show me my grades",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false
+          },
+          "performance": {
+            "latency_ms": 1216.9,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "errors": [
+            "An error occurred (ValidationException) when calling the Converse operation: The format of the value at messages.1.content.1.toolUse.input is invalid. Provide a json object for the field and try again."
+          ],
+          "timestamp_start": "2025-11-01T01:47:37.904304",
+          "timestamp_end": "2025-11-01T01:47:39.121265"
+        },
+        {
+          "success": true,
+          "query": "What quizzes are in CS 559?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": [
+              {
+                "type": "reasoning_content",
+                "reasoning_content": {
+                  "text": "We need to present quizzes list, with name, due date, score/points. Exclude IDs. Show status maybe. Provide concise bullet list. Use formatted dates. Scores as \"50/50\". For pending_review, maybe show not graded yet. Provide note about Quiz 06 missing maybe not listed. Provide overall.",
+                  "signature": ""
+                }
+              },
+              {
+                "type": "text",
+                "text": "**CS\u202f559 \u2013 Quizzes**\n\n- **Quiz\u202f01: User Stories** \u2013 due\u202fSeptember\u202f19,\u202f2025 \u2013 **48\u202f/\u202f50**\n- **Quiz\u202f02\u202fXP** \u2013 due\u202fSeptember\u202f26,\u202f2025 \u2013 **50\u202f/\u202f50**\n- **Quiz\u202f03: Scrum** \u2013 due\u202fOctober\u202f3,\u202f2025 \u2013 **50\u202f/\u202f50**\n- **Quiz\u202f04: Testing** \u2013 due\u202fOctober\u202f10,\u202f2025 \u2013 **50\u202f/\u202f50**\n- **Quiz\u202f05: Continuous Integration and Pair Programming** \u2013 due\u202fOctober\u202f17,\u202f2025 \u2013 **5\u202f/\u202f50** *(pending review)*\n- **Quiz\u202f07: Lean** \u2013 due\u202fOctober\u202f31,\u202f2025 \u2013 **0\u202f/\u202f50** *(pending review)*\n\n*All quizzes are graded out of 50 points. \u201cPending review\u201d means the instructor has not yet finalized the grade.*"
+              }
+            ],
+            "reasoning": "We need to present quizzes list, with name, due date, score/points. Exclude IDs. Show status maybe. Provide concise bullet list. Use formatted dates. Scores as \"50/50\". For pending_review, maybe show not graded yet. Provide note about Quiz 06 missing maybe not listed. Provide overall.",
+            "final_answer": "**CS\u202f559 \u2013 Quizzes**\n\n- **Quiz\u202f01: User Stories** \u2013 due\u202fSeptember\u202f19,\u202f2025 \u2013 **48\u202f/\u202f50**\n- **Quiz\u202f02\u202fXP** \u2013 due\u202fSeptember\u202f26,\u202f2025 \u2013 **50\u202f/\u202f50**\n- **Quiz\u202f03: Scrum** \u2013 due\u202fOctober\u202f3,\u202f2025 \u2013 **50\u202f/\u202f50**\n- **Quiz\u202f04: Testing** \u2013 due\u202fOctober\u202f10,\u202f2025 \u2013 **50\u202f/\u202f50**\n- **Quiz\u202f05: Continuous Integration and Pair Programming** \u2013 due\u202fOctober\u202f17,\u202f2025 \u2013 **5\u202f/\u202f50** *(pending review)*\n- **Quiz\u202f07: Lean** \u2013 due\u202fOctober\u202f31,\u202f2025 \u2013 **0\u202f/\u202f50** *(pending review)*\n\n*All quizzes are graded out of 50 points. \u201cPending review\u201d means the instructor has not yet finalized the grade.*",
+            "has_reasoning": true,
+            "reasoning_length": 285
+          },
+          "performance": {
+            "latency_ms": 2054.05,
+            "tokens_input": 2129,
+            "tokens_output": 530,
+            "tokens_total": 2659,
+            "cost_usd": 0.000637
+          },
+          "tools_used": [
+            {
+              "tool": "get_course_id_by_name",
+              "args": {
+                "course_name": "CS 559"
+              }
+            },
+            {
+              "tool": "get_quizzes",
+              "args": {
+                "course_id": "80546"
+              }
+            }
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T01:47:40.122462",
+          "timestamp_end": "2025-11-01T01:47:42.176748"
+        },
+        {
+          "success": false,
+          "query": "What announcements are there?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false
+          },
+          "performance": {
+            "latency_ms": 381.16,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "errors": [
+            "An error occurred (ValidationException) when calling the Converse operation: The model returned the following errors: {\"error\":{\"message\":\"ErrorEvent { error: APIError { type: \\\"BadRequestError\\\", code: Some(400), message: \\\"Unexpected token 200012 while expecting start token 200006\\\", param: None } }\",\"type\":\"invalid_request_error\"}}"
+          ],
+          "timestamp_start": "2025-11-01T01:47:43.177934",
+          "timestamp_end": "2025-11-01T01:47:43.559165"
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "models": {
+      "us.meta.llama4-maverick-17b-instruct-v1:0": {
+        "success_rate": 1.0,
+        "total_queries": 5,
+        "successful_queries": 5,
+        "avg_latency_ms": 3009.78,
+        "avg_tokens_total": 3867,
+        "avg_tokens_input": 3640,
+        "avg_tokens_output": 227,
+        "total_cost_usd": 0.00547,
+        "avg_cost_per_query": 0.001094,
+        "total_tools_called": 10,
+        "avg_tools_per_query": 2.0,
+        "reasoning_stats": {
+          "queries_with_reasoning": 0,
+          "reasoning_percentage": 0.0,
+          "avg_reasoning_length": 0
+        }
+      },
+      "openai.gpt-oss-120b-1:0": {
+        "success_rate": 0.6,
+        "total_queries": 5,
+        "successful_queries": 3,
+        "avg_latency_ms": 2759.79,
+        "avg_tokens_total": 2174,
+        "avg_tokens_input": 1819,
+        "avg_tokens_output": 355,
+        "total_cost_usd": 0.001457,
+        "avg_cost_per_query": 0.000291,
+        "total_tools_called": 4,
+        "avg_tools_per_query": 1.33,
+        "reasoning_stats": {
+          "queries_with_reasoning": 2,
+          "reasoning_percentage": 66.7,
+          "avg_reasoning_length": 138
+        }
+      }
+    }
+  }
+}

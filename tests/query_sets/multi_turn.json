@@ -1,0 +1,37 @@
+{
+  "context_retention": [
+    "What courses am I taking?",
+    "What's due in my second course?",
+    "How did I do on the quizzes in that course?",
+    "When is the next quiz?",
+    "What's my current grade?"
+  ],
+  "assignment_tracking": [
+    "Show me CS 555 assignments",
+    "What's my grade on the third one?",
+    "Is it submitted?",
+    "When is it due?",
+    "Show me the next assignment"
+  ],
+  "multi_tracking": [
+    "What's due this week?",
+    "How many points is the first one worth?",
+    "Have I submitted it?",
+    "What about the second one?",
+    "Show all unsubmitted assignments"
+  ],
+  "pronoun_resolution": [
+    "What quizzes are in CS 559?",
+    "How did I do on them?",
+    "Which one did I score lowest on?",
+    "When was it due?",
+    "What topics did it cover?"
+  ],
+  "topic_switching": [
+    "Show me CS 555 assignments",
+    "What about CS 559?",
+    "Now show me 584's assignments",
+    "Go back to 555",
+    "What's the first assignment in that course?"
+  ]
+}

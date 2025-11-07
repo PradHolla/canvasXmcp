@@ -1,0 +1,62 @@
+{
+  "simple_retrieval": [
+    "What courses am I taking?",
+    "What's due this week?",
+    "Show me my grades",
+    "What quizzes are in CS 559?",
+    "What's due tomorrow?",
+    "List all my courses",
+    "What announcements are there?",
+    "What's the structure of CS 555?",
+    "Show files in CS 584",
+    "What events are upcoming?"
+  ],
+  "course_specific": [
+    "What's due in CS 555?",
+    "How am I doing in Machine Learning?",
+    "What's my grade in CS 559?",
+    "What quizzes are in Agile Methods?",
+    "Show CS 584 assignments",
+    "What's due in my NLP course?",
+    "What files are in FE 520?",
+    "Show modules for CS 559",
+    "What discussions are in CS 555?",
+    "Recent announcements in CS 584"
+  ],
+  "temporal_queries": [
+    "What's due in the next 3 days?",
+    "Show assignments due by Friday",
+    "What's due this month?",
+    "Upcoming deadlines",
+    "What's overdue?",
+    "Show me next week's assignments",
+    "What quizzes are coming up?",
+    "Deadlines for November",
+    "What's urgent?",
+    "Show late assignments"
+  ],
+  "aggregation": [
+    "Show all my grades",
+    "List all quizzes across courses",
+    "All upcoming assignments",
+    "Compare my performance across courses",
+    "Total assignments this week",
+    "All announcements from this week",
+    "Show all my quiz scores",
+    "What courses have assignments due?",
+    "Which course has the most assignments?",
+    "Overall performance summary"
+  ],
+  "complex_queries": [
+    "Which course needs the most attention?",
+    "Am I improving in Machine Learning?",
+    "What should I focus on this week?",
+    "Compare my quiz performance across courses",
+    "Show me the hardest assignments",
+    "What's my weakest subject?",
+    "Prioritize my assignments by urgency",
+    "Suggest a study schedule",
+    "Which assignments are worth the most points?",
+    "Analysis of my academic performance"
+  ]
+}

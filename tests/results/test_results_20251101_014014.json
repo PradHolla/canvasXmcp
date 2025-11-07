@@ -1,0 +1,122 @@
+{
+  "test_metadata": {
+    "test_run_id": "20251101_014014",
+    "timestamp": "2025-11-01T01:40:14.749958",
+    "query_file": "basic_queries.json",
+    "models_tested": [
+      "us.meta.llama4-maverick-17b-instruct-v1:0",
+      "openai.gpt-oss-120b-1:0"
+    ],
+    "prompt_used": "You are a Canvas LMS assistant that helps students with their coursework.\n\nTOOLS:\n- get_courses() - enrolled courses\n- get_upcoming_assignments(days=7) - assignments due soon\n- get_assignments(course_id) - all course assignments\n- get_quizzes(course_id) - course quizzes with grades\n- get_grades(course_id) - course grade\n- get_all_grades() - all course grades at once\n- get_course_summary(course_id) - complete course overview\n- get_announcements(days=7) - recent announcements\n- get_course_id_by_name(name) - find course ID by name\n\nRULES:\n1. Use tools to get real data\n2. Choose the most specific tool\n3. Remember context from conversation\n4. Format dates as \"October 23, 2025\"\n5. Format scores as \"8.5/10\"\n6. Never show course IDs or technical details\n7. Be concise and helpful\n\nIMPORTANT: Canvas APIs need numeric course IDs (like \"80546\"), not names.\nIf user mentions a course by name, call get_course_id_by_name() first.\n\nPresent information cleanly with bullet points. No raw JSON.\n"
+  },
+  "model_results": {
+    "us.meta.llama4-maverick-17b-instruct-v1:0": {
+      "queries": [
+        {
+          "success": true,
+          "query": "What courses am I taking?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "You are currently enrolled in the following courses:\n* 2025F CS 555-A - Agile Methods for Software Development\n* 2025F CS 559-WS - Machine Learning: Fundamentals and Applications (Grade: A)\n* 2025F CS 584-A - Natural Language Processing\n* 2025F FE 520-A - Introduction to Python for Financial Applications\n* Fall 2024 Graduate Student Code of Academic Integrity",
+            "reasoning": null,
+            "final_answer": "You are currently enrolled in the following courses:\n* 2025F CS 555-A - Agile Methods for Software Development\n* 2025F CS 559-WS - Machine Learning: Fundamentals and Applications (Grade: A)\n* 2025F CS 584-A - Natural Language Processing\n* 2025F FE 520-A - Introduction to Python for Financial Applications\n* Fall 2024 Graduate Student Code of Academic Integrity",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 1688.72,
+            "tokens_input": 3058,
+            "tokens_output": 124,
+            "tokens_total": 3182,
+            "cost_usd": 0.000854
+          },
+          "tools_used": [
+            {
+              "tool": "get_courses",
+              "args": {}
+            },
+            {
+              "tool": "get_courses",
+              "args": {}
+            }
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T01:40:17.667631",
+          "timestamp_end": "2025-11-01T01:40:19.414215"
+        }
+      ]
+    },
+    "openai.gpt-oss-120b-1:0": {
+      "queries": [
+        {
+          "success": true,
+          "query": "What courses am I taking?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "Here are the courses you\u2019re currently enrolled in for the Fall\u202f2025 term:\n\n- **Agile Methods for Software Development** (CS\u202f555\u2011A) \u2013 grade not yet posted  \n- **Machine Learning: Fundamentals and Applications** (CS\u202f559\u2011WS) \u2013 **A**  \n- **Natural Language Processing** (CS\u202f584\u2011A) \u2013 grade not yet posted  \n- **Introduction to Python for Financial Applications** (FE\u202f520\u2011A) \u2013 grade not yet posted  \n\nYou\u2019re also enrolled in a development\u2011course compliance module:\n\n- **Fall\u202f2024 Graduate Student Code of Academic Integrity** \u2013 grade not applicable  \n\nLet me know if you\u2019d like details on assignments, grades, or upcoming deadlines for any of these courses!",
+            "reasoning": null,
+            "final_answer": "Here are the courses you\u2019re currently enrolled in for the Fall\u202f2025 term:\n\n- **Agile Methods for Software Development** (CS\u202f555\u2011A) \u2013 grade not yet posted  \n- **Machine Learning: Fundamentals and Applications** (CS\u202f559\u2011WS) \u2013 **A**  \n- **Natural Language Processing** (CS\u202f584\u2011A) \u2013 grade not yet posted  \n- **Introduction to Python for Financial Applications** (FE\u202f520\u2011A) \u2013 grade not yet posted  \n\nYou\u2019re also enrolled in a development\u2011course compliance module:\n\n- **Fall\u202f2024 Graduate Student Code of Academic Integrity** \u2013 grade not applicable  \n\nLet me know if you\u2019d like details on assignments, grades, or upcoming deadlines for any of these courses!",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 1632.84,
+            "tokens_input": 1754,
+            "tokens_output": 253,
+            "tokens_total": 2007,
+            "cost_usd": 0.000415
+          },
+          "tools_used": [
+            {
+              "tool": "get_courses",
+              "args": {}
+            }
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T01:40:24.388776",
+          "timestamp_end": "2025-11-01T01:40:26.021898"
+        }
+      ]
+    }
+  },
+  "comparison": {
+    "models": {
+      "us.meta.llama4-maverick-17b-instruct-v1:0": {
+        "success_rate": 1.0,
+        "total_queries": 1,
+        "successful_queries": 1,
+        "avg_latency_ms": 1688.72,
+        "avg_tokens_total": 3182,
+        "avg_tokens_input": 3058,
+        "avg_tokens_output": 124,
+        "total_cost_usd": 0.000854,
+        "avg_cost_per_query": 0.000854,
+        "total_tools_called": 2,
+        "avg_tools_per_query": 2.0,
+        "reasoning_stats": {
+          "queries_with_reasoning": 0,
+          "reasoning_percentage": 0.0,
+          "avg_reasoning_length": 0
+        }
+      },
+      "openai.gpt-oss-120b-1:0": {
+        "success_rate": 1.0,
+        "total_queries": 1,
+        "successful_queries": 1,
+        "avg_latency_ms": 1632.84,
+        "avg_tokens_total": 2007,
+        "avg_tokens_input": 1754,
+        "avg_tokens_output": 253,
+        "total_cost_usd": 0.000415,
+        "avg_cost_per_query": 0.000415,
+        "total_tools_called": 1,
+        "avg_tools_per_query": 1.0,
+        "reasoning_stats": {
+          "queries_with_reasoning": 0,
+          "reasoning_percentage": 0.0,
+          "avg_reasoning_length": 0
+        }
+      }
+    }
+  }
+}

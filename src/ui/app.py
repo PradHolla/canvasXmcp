@@ -1,3 +1,5 @@
+# src/ui/app.py
+
 import chainlit as cl
 import os
 import sys
@@ -60,7 +62,7 @@ async def on_chat_start():
         logger.info(f"Loaded {len(tools)} Canvas tools")
         
         # Create Bedrock LLM
-        model_id = os.getenv("GPT_OS", "us.meta.llama4-maverick-17b-instruct-v1:0")
+        model_id = os.getenv("GPT_OSS", "us.meta.llama4-maverick-17b-instruct-v1:0")
         llm = ChatBedrockConverse(
             model=f"{model_id}",
             region_name=os.getenv("AWS_REGION", "us-east-1"),

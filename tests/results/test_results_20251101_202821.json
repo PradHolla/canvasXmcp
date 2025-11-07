@@ -1,0 +1,349 @@
+{
+  "test_metadata": {
+    "test_run_id": "20251101_202821",
+    "timestamp": "2025-11-01T20:28:21.460975",
+    "query_file": "basic_queries.json",
+    "models_tested": [
+      "us.meta.llama4-maverick-17b-instruct-v1:0",
+      "openai.gpt-oss-120b-1:0"
+    ],
+    "prompt_used": "You are a Canvas LMS assistant that helps students with their coursework.\n\nTOOLS:\n- get_courses() - enrolled courses\n- get_upcoming_assignments(days=7) - assignments due soon\n- get_assignments(course_id) - all course assignments\n- get_quizzes(course_id) - course quizzes with grades\n- get_grades(course_id) - course grade\n- get_all_grades() - all course grades at once\n- get_course_summary(course_id) - complete course overview\n- get_announcements(days=7) - recent announcements\n- get_course_id_by_name(name) - find course ID by name\n\nRULES:\n1. Use tools to get real data\n2. Choose the most specific tool\n3. Remember context from conversation\n4. Format dates as \"October 23, 2025\"\n5. Format scores as \"8.5/10\"\n6. Never show course IDs or technical details\n7. Be concise and helpful\n\nIMPORTANT: Canvas APIs need numeric course IDs (like \"80546\"), not names.\nIf user mentions a course by name, call get_course_id_by_name() first.\n\nPresent information cleanly with bullet points. No raw JSON.\n"
+  },
+  "queries": [
+    {
+      "query_id": 1,
+      "query_text": "What courses am I taking?",
+      "category": "simple_retrieval",
+      "model_results": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "success": false,
+          "query": "What courses am I taking?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 2045.04,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "cannot import name 'sanitize_string' from 'src.utils.text_sanitizer' (/home/pnh/Projects/canvasXmcp/src/utils/text_sanitizer.py)"
+          ],
+          "timestamp_start": "2025-11-01T20:28:23.180030",
+          "timestamp_end": "2025-11-01T20:28:25.225134"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "success": false,
+          "query": "What courses am I taking?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 1622.24,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "cannot import name 'sanitize_string' from 'src.utils.text_sanitizer' (/home/pnh/Projects/canvasXmcp/src/utils/text_sanitizer.py)"
+          ],
+          "timestamp_start": "2025-11-01T20:28:26.226482",
+          "timestamp_end": "2025-11-01T20:28:27.848824"
+        }
+      },
+      "comparison": {
+        "both_successful": false,
+        "latency_delta_ms": -422.8,
+        "cost_delta_usd": 0,
+        "tokens_delta": 0,
+        "tools_delta": 0,
+        "winner": "both_failed"
+      }
+    },
+    {
+      "query_id": 2,
+      "query_text": "What's due this week?",
+      "category": "simple_retrieval",
+      "model_results": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "success": false,
+          "query": "What's due this week?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 5113.23,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "cannot import name 'sanitize_string' from 'src.utils.text_sanitizer' (/home/pnh/Projects/canvasXmcp/src/utils/text_sanitizer.py)"
+          ],
+          "timestamp_start": "2025-11-01T20:28:27.849344",
+          "timestamp_end": "2025-11-01T20:28:32.962665"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "success": false,
+          "query": "What's due this week?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 4902.83,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "cannot import name 'sanitize_string' from 'src.utils.text_sanitizer' (/home/pnh/Projects/canvasXmcp/src/utils/text_sanitizer.py)"
+          ],
+          "timestamp_start": "2025-11-01T20:28:33.963910",
+          "timestamp_end": "2025-11-01T20:28:38.866815"
+        }
+      },
+      "comparison": {
+        "both_successful": false,
+        "latency_delta_ms": -210.4,
+        "cost_delta_usd": 0,
+        "tokens_delta": 0,
+        "tools_delta": 0,
+        "winner": "both_failed"
+      }
+    },
+    {
+      "query_id": 3,
+      "query_text": "Show me my grades",
+      "category": "simple_retrieval",
+      "model_results": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "success": false,
+          "query": "Show me my grades",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 3470.31,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "cannot import name 'sanitize_string' from 'src.utils.text_sanitizer' (/home/pnh/Projects/canvasXmcp/src/utils/text_sanitizer.py)"
+          ],
+          "timestamp_start": "2025-11-01T20:28:38.867449",
+          "timestamp_end": "2025-11-01T20:28:42.337819"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "success": false,
+          "query": "Show me my grades",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 4464.71,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "An error occurred (ValidationException) when calling the Converse operation: The format of the value at messages.1.content.1.toolUse.input is invalid. Provide a json object for the field and try again."
+          ],
+          "timestamp_start": "2025-11-01T20:28:43.339125",
+          "timestamp_end": "2025-11-01T20:28:47.803917"
+        }
+      },
+      "comparison": {
+        "both_successful": false,
+        "latency_delta_ms": 994.4,
+        "cost_delta_usd": 0,
+        "tokens_delta": 0,
+        "tools_delta": 0,
+        "winner": "both_failed"
+      }
+    },
+    {
+      "query_id": 4,
+      "query_text": "What quizzes are in CS 559?",
+      "category": "simple_retrieval",
+      "model_results": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "success": false,
+          "query": "What quizzes are in CS 559?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 3164.61,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "cannot import name 'sanitize_string' from 'src.utils.text_sanitizer' (/home/pnh/Projects/canvasXmcp/src/utils/text_sanitizer.py)"
+          ],
+          "timestamp_start": "2025-11-01T20:28:47.804743",
+          "timestamp_end": "2025-11-01T20:28:50.969407"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "success": false,
+          "query": "What quizzes are in CS 559?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 4400.76,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "cannot import name 'sanitize_string' from 'src.utils.text_sanitizer' (/home/pnh/Projects/canvasXmcp/src/utils/text_sanitizer.py)"
+          ],
+          "timestamp_start": "2025-11-01T20:28:51.970732",
+          "timestamp_end": "2025-11-01T20:28:56.371562"
+        }
+      },
+      "comparison": {
+        "both_successful": false,
+        "latency_delta_ms": 1236.15,
+        "cost_delta_usd": 0,
+        "tokens_delta": 0,
+        "tools_delta": 0,
+        "winner": "both_failed"
+      }
+    },
+    {
+      "query_id": 5,
+      "query_text": "What announcements are there?",
+      "category": "simple_retrieval",
+      "model_results": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "success": false,
+          "query": "What announcements are there?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 1633.24,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "cannot import name 'sanitize_string' from 'src.utils.text_sanitizer' (/home/pnh/Projects/canvasXmcp/src/utils/text_sanitizer.py)"
+          ],
+          "timestamp_start": "2025-11-01T20:28:56.372569",
+          "timestamp_end": "2025-11-01T20:28:58.005864"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "success": false,
+          "query": "What announcements are there?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 2757.97,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "cannot import name 'sanitize_string' from 'src.utils.text_sanitizer' (/home/pnh/Projects/canvasXmcp/src/utils/text_sanitizer.py)"
+          ],
+          "timestamp_start": "2025-11-01T20:28:59.007096",
+          "timestamp_end": "2025-11-01T20:29:01.765139"
+        }
+      },
+      "comparison": {
+        "both_successful": false,
+        "latency_delta_ms": 1124.73,
+        "cost_delta_usd": 0,
+        "tokens_delta": 0,
+        "tools_delta": 0,
+        "winner": "both_failed"
+      }
+    }
+  ]
+}

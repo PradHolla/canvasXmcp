@@ -1,9 +1,11 @@
+# src/mcp/canvas_server.py
+
 from fastmcp import FastMCP
 from pydantic import Field
 from typing import List, Dict, Any
 import os
 from dotenv import load_dotenv
-
+from src.utils.text_sanitizer import sanitize_data
 from src.canvas.client import CanvasClient
 
 load_dotenv()
@@ -20,90 +22,89 @@ mcp = FastMCP(
     instructions="""Canvas LMS assistant that helps students with courses, assignments, grades, and announcements."""
 )
 
-
 @mcp.tool()
 async def get_courses() -> List[Dict[str, Any]]:
     """Get all enrolled courses with id, name, course_code, and current grade."""
-    return canvas.get_courses()
-
+    result = canvas.get_courses()
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_assignments(
     course_id: str = Field(description="Canvas course ID")
 ) -> List[Dict[str, Any]]:
     """Get all assignments for a course including due dates, grades, and submission status."""
-    return canvas.get_assignments(course_id)
-
+    result = canvas.get_assignments(course_id)
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_upcoming_assignments(
     days: int = Field(default=7, description="Number of days to look ahead")
 ) -> List[Dict[str, Any]]:
     """Get all upcoming assignments across all courses, sorted by due date."""
-    return canvas.get_upcoming_assignments(days)
-
+    result = canvas.get_upcoming_assignments(days)
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_grades(
     course_id: str = Field(description="Canvas course ID")
 ) -> Dict[str, Any]:
     """Get grade information for a specific course."""
-    return canvas.get_grades(course_id)
-
+    result = canvas.get_grades(course_id)
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_all_grades() -> List[Dict[str, Any]]:
     """Get grades for ALL enrolled courses at once. Use this for 'How am I doing overall?' queries."""
-    return canvas.get_all_grades()
-
+    result = canvas.get_all_grades()
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_quizzes(
     course_id: str = Field(description="Canvas course ID")
 ) -> List[Dict[str, Any]]:
     """Get all quizzes for a course with grades and submission status."""
-    return canvas.get_quizzes(course_id)
-
+    result = canvas.get_quizzes(course_id)
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_announcements(
     days: int = Field(default=7, description="Number of days to look back")
 ) -> List[Dict[str, Any]]:
     """Get recent announcements from all enrolled courses."""
-    return canvas.get_announcements(days)
-
+    result = canvas.get_announcements(days)
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_discussions(
     course_id: str = Field(description="Canvas course ID")
 ) -> List[Dict[str, Any]]:
     """Get discussion topics for a course."""
-    return canvas.get_discussions(course_id)
-
+    result = canvas.get_discussions(course_id)
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_course_files(
     course_id: str = Field(description="Canvas course ID")
 ) -> List[Dict[str, Any]]:
     """Get files and documents for a course."""
-    return canvas.get_course_files(course_id)
-
+    result = canvas.get_course_files(course_id)
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_modules(
     course_id: str = Field(description="Canvas course ID")
 ) -> List[Dict[str, Any]]:
     """Get course modules/structure. Returns files if no modules exist."""
-    return canvas.get_modules(course_id)
-
+    result = canvas.get_modules(course_id)
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_course_summary(
     course_id: str = Field(description="Canvas course ID")
 ) -> Dict[str, Any]:
     """Get complete course overview: grades, upcoming assignments, recent announcements."""
-    return canvas.get_course_summary(course_id)
-
+    result = canvas.get_course_summary(course_id)
+    return sanitize_data(result)
 
 @mcp.tool()
 async def get_course_id_by_name(
@@ -112,7 +113,6 @@ async def get_course_id_by_name(
     """Find course ID by name (e.g., 'CS 555', 'Machine Learning'). Returns numeric ID or error."""
     course_id = canvas.get_course_id_by_name(course_name)
     return course_id if course_id else f"Course '{course_name}' not found"
-
 
 def main():
     """Entry point for the Canvas MCP server."""

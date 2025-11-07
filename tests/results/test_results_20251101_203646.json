@@ -1,0 +1,472 @@
+{
+  "test_metadata": {
+    "test_run_id": "20251101_203646",
+    "timestamp": "2025-11-01T20:36:46.556354",
+    "query_file": "basic_queries.json",
+    "models_tested": [
+      "us.meta.llama4-maverick-17b-instruct-v1:0",
+      "openai.gpt-oss-120b-1:0"
+    ],
+    "prompt_used": "You are a Canvas LMS assistant that helps students with their coursework.\n\nTOOLS:\n- get_courses() - enrolled courses\n- get_upcoming_assignments(days=7) - assignments due soon\n- get_assignments(course_id) - all course assignments\n- get_quizzes(course_id) - course quizzes with grades\n- get_grades(course_id) - course grade\n- get_all_grades() - all course grades at once\n- get_course_summary(course_id) - complete course overview\n- get_announcements(days=7) - recent announcements\n- get_course_id_by_name(name) - find course ID by name\n\nRULES:\n1. Use tools to get real data\n2. Choose the most specific tool\n3. Remember context from conversation\n4. Format dates as \"October 23, 2025\"\n5. Format scores as \"8.5/10\"\n6. Never show course IDs or technical details\n7. Be concise and helpful\n\nIMPORTANT: Canvas APIs need numeric course IDs (like \"80546\"), not names.\nIf user mentions a course by name, call get_course_id_by_name() first.\n\nPresent information cleanly with bullet points. No raw JSON.\n"
+  },
+  "queries": [
+    {
+      "query_id": 1,
+      "query_text": "What courses am I taking?",
+      "category": "simple_retrieval",
+      "model_results": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "success": true,
+          "query": "What courses am I taking?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "You are currently enrolled in the following courses:\n* 2025F CS 555-A - Agile Methods for Software Development\n* 2025F CS 559-WS - Machine Learning: Fundamentals and Applications (Grade: A)\n* 2025F CS 584-A - Natural Language Processing\n* 2025F FE 520-A - Introduction to Python for Financial Applications\n* Fall 2024 Graduate Student Code of Academic Integrity",
+            "reasoning": null,
+            "final_answer": "You are currently enrolled in the following courses:\n* 2025F CS 555-A - Agile Methods for Software Development\n* 2025F CS 559-WS - Machine Learning: Fundamentals and Applications (Grade: A)\n* 2025F CS 584-A - Natural Language Processing\n* 2025F FE 520-A - Introduction to Python for Financial Applications\n* Fall 2024 Graduate Student Code of Academic Integrity",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 1715.37,
+            "tokens_input": 3058,
+            "tokens_output": 124,
+            "tokens_total": 3182,
+            "cost_usd": 0.000854
+          },
+          "tools_used": [
+            {
+              "tool": "get_courses",
+              "args": {}
+            },
+            {
+              "tool": "get_courses",
+              "args": {}
+            }
+          ],
+          "quality_issues": [],
+          "errors": [],
+          "timestamp_start": "2025-11-01T20:36:50.085197",
+          "timestamp_end": "2025-11-01T20:36:51.817054"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "success": true,
+          "query": "What courses am I taking?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "Here are the courses you\u2019re currently enrolled in for the Fall\u202f2025 term:\n\n- **Agile Methods for Software Development** (CS\u202f555\u2011A) \u2013 grade not yet posted  \n- **Machine Learning: Fundamentals and Applications** (CS\u202f559\u2011WS) \u2013 **A**  \n- **Natural Language Processing** (CS\u202f584\u2011A) \u2013 grade not yet posted  \n- **Introduction to Python for Financial Applications** (FE\u202f520\u2011A) \u2013 grade not yet posted  \n\nYou\u2019re also enrolled in a development\u2011course compliance class:\n\n- **Fall\u202f2024 Graduate Student Code of Academic Integrity** \u2013 grade not applicable  \n\nLet me know if you\u2019d like details on assignments, upcoming deadlines, or grades for any specific course!",
+            "reasoning": null,
+            "final_answer": "Here are the courses you're currently enrolled in for the Fall 2025 term:\n\n- **Agile Methods for Software Development** (CS 555\u2011A) - grade not yet posted  \n- **Machine Learning: Fundamentals and Applications** (CS 559\u2011WS) - **A**  \n- **Natural Language Processing** (CS 584\u2011A) - grade not yet posted  \n- **Introduction to Python for Financial Applications** (FE 520\u2011A) - grade not yet posted  \n\nYou're also enrolled in a development\u2011course compliance class:\n\n- **Fall 2024 Graduate Student Code of Academic Integrity** - grade not applicable  \n\nLet me know if you'd like details on assignments, upcoming deadlines, or grades for any specific course!",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 1871.67,
+            "tokens_input": 1754,
+            "tokens_output": 257,
+            "tokens_total": 2011,
+            "cost_usd": 0.000417
+          },
+          "tools_used": [
+            {
+              "tool": "get_courses",
+              "args": {}
+            }
+          ],
+          "quality_issues": [],
+          "errors": [],
+          "timestamp_start": "2025-11-01T20:36:52.818490",
+          "timestamp_end": "2025-11-01T20:36:54.690593"
+        }
+      },
+      "comparison": {
+        "both_successful": true,
+        "latency_delta_ms": 156.3,
+        "cost_delta_usd": -0.000437,
+        "tokens_delta": -1171,
+        "tools_delta": -1,
+        "winner": "model_1"
+      }
+    },
+    {
+      "query_id": 2,
+      "query_text": "What's due this week?",
+      "category": "simple_retrieval",
+      "model_results": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "success": true,
+          "query": "What's due this week?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "You have no assignments due this week.",
+            "reasoning": null,
+            "final_answer": "You have no assignments due this week.",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 4467.81,
+            "tokens_input": 2694,
+            "tokens_output": 55,
+            "tokens_total": 2749,
+            "cost_usd": 0.0007
+          },
+          "tools_used": [
+            {
+              "tool": "get_upcoming_assignments",
+              "args": {
+                "days": 7
+              }
+            },
+            {
+              "tool": "get_upcoming_assignments",
+              "args": {
+                "days": 7
+              }
+            }
+          ],
+          "quality_issues": [],
+          "errors": [],
+          "timestamp_start": "2025-11-01T20:36:54.759454",
+          "timestamp_end": "2025-11-01T20:36:59.227539"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "success": true,
+          "query": "What's due this week?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": [
+              {
+                "type": "reasoning_content",
+                "reasoning_content": {
+                  "text": "User asks \"What's due this week?\" We have no assignments due. Should respond accordingly.",
+                  "signature": ""
+                }
+              },
+              {
+                "type": "text",
+                "text": "There are no assignments or quizzes due in the next\u202f7\u202fdays. Let me know if you\u2019d like to see upcoming deadlines beyond this week or need help with anything else!"
+              }
+            ],
+            "reasoning": "User asks \"What's due this week?\" We have no assignments due. Should respond accordingly.",
+            "final_answer": "There are no assignments or quizzes due in the next 7 days. Let me know if you'd like to see upcoming deadlines beyond this week or need help with anything else!",
+            "has_reasoning": true,
+            "reasoning_length": 89
+          },
+          "performance": {
+            "latency_ms": 6127.49,
+            "tokens_input": 1574,
+            "tokens_output": 631,
+            "tokens_total": 2205,
+            "cost_usd": 0.000615
+          },
+          "tools_used": [
+            {
+              "tool": "get_upcoming_assignments",
+              "args": {
+                "days": 7
+              }
+            }
+          ],
+          "quality_issues": [],
+          "errors": [],
+          "timestamp_start": "2025-11-01T20:37:00.228820",
+          "timestamp_end": "2025-11-01T20:37:06.356553"
+        }
+      },
+      "comparison": {
+        "both_successful": true,
+        "latency_delta_ms": 1659.68,
+        "cost_delta_usd": -8.5e-05,
+        "tokens_delta": -544,
+        "tools_delta": -1,
+        "winner": "model_1"
+      }
+    },
+    {
+      "query_id": 3,
+      "query_text": "Show me my grades",
+      "category": "simple_retrieval",
+      "model_results": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "success": true,
+          "query": "Show me my grades",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "import json\n\n# Assuming the output is a JSON string\noutput = '[{\"course_id\":\"80546\",\"course_name\":\"2025F CS 555-A\",\"course_code\":\"Agile Methods for Software Development\",\"grades\":{\"current_score\":99.71,\"current_grade\":null,\"final_score\":57.15,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"82091\",\"course_name\":\"2025F CS 559-WS\",\"course_code\":\"Machine Learning: Fundamentals and Applications\",\"grades\":{\"current_score\":97.98,\"current_grade\":\"A\",\"final_score\":70.7,\"final_grade\":\"C\",\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"82456\",\"course_name\":\"2025F CS 584-A\",\"course_code\":\"Natural Language Processing\",\"grades\":{\"current_score\":100.0,\"current_grade\":null,\"final_score\":45.14,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"80509\",\"course_name\":\"2025F FE 520-A\",\"course_code\":\"Introduction to Python for Financial Applications\",\"grades\":{\"current_score\":87.27,\"current_grade\":null,\"final_score\":45.71,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"76218\",\"course_name\":\"Fall 2024 Graduate Student Code of Academic Integrity\",\"course_code\":\"Fall 2024 Graduate Student Code of Academic Integrity\",\"grades\":{\"current_score\":100.0,\"current_grade\":null,\"final_score\":100.0,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}}]'\n\n# Parse the JSON string into a Python list of dictionaries\ndata = json.loads(output)\n\n# Format the grades information\nformatted_output = []\nfor course in data:\n    course_name = course['course_name']\n    current_score = course['grades']['current_score']\n    final_score = course['grades']['final_score']\n    formatted_output.append(f\"{course_name}: Current Score = {current_score}, Final Score = {final_score}\")\n\n# Print the formatted output\nfor line in formatted_output:\n    print(line)",
+            "reasoning": null,
+            "final_answer": "import json\n\n# Assuming the output is a JSON string\noutput = '[{\"course_id\":\"80546\",\"course_name\":\"2025F CS 555-A\",\"course_code\":\"Agile Methods for Software Development\",\"grades\":{\"current_score\":99.71,\"current_grade\":null,\"final_score\":57.15,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"82091\",\"course_name\":\"2025F CS 559-WS\",\"course_code\":\"Machine Learning: Fundamentals and Applications\",\"grades\":{\"current_score\":97.98,\"current_grade\":\"A\",\"final_score\":70.7,\"final_grade\":\"C\",\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"82456\",\"course_name\":\"2025F CS 584-A\",\"course_code\":\"Natural Language Processing\",\"grades\":{\"current_score\":100.0,\"current_grade\":null,\"final_score\":45.14,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"80509\",\"course_name\":\"2025F FE 520-A\",\"course_code\":\"Introduction to Python for Financial Applications\",\"grades\":{\"current_score\":87.27,\"current_grade\":null,\"final_score\":45.71,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}},{\"course_id\":\"76218\",\"course_name\":\"Fall 2024 Graduate Student Code of Academic Integrity\",\"course_code\":\"Fall 2024 Graduate Student Code of Academic Integrity\",\"grades\":{\"current_score\":100.0,\"current_grade\":null,\"final_score\":100.0,\"final_grade\":null,\"unposted_current_score\":null,\"unposted_current_grade\":null}}]'\n\n# Parse the JSON string into a Python list of dictionaries\ndata = json.loads(output)\n\n# Format the grades information\nformatted_output = []\nfor course in data:\n    course_name = course['course_name']\n    current_score = course['grades']['current_score']\n    final_score = course['grades']['final_score']\n    formatted_output.append(f\"{course_name}: Current Score = {current_score}, Final Score = {final_score}\")\n\n# Print the formatted output\nfor line in formatted_output:\n    print(line)",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 4015.1,
+            "tokens_input": 2976,
+            "tokens_output": 483,
+            "tokens_total": 3459,
+            "cost_usd": 0.001183
+          },
+          "tools_used": [
+            {
+              "tool": "get_all_grades",
+              "args": {}
+            }
+          ],
+          "quality_issues": [
+            "contains_code"
+          ],
+          "errors": [],
+          "timestamp_start": "2025-11-01T20:37:06.357265",
+          "timestamp_end": "2025-11-01T20:37:10.372613"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "success": true,
+          "query": "Show me my grades",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": [
+              {
+                "type": "reasoning_content",
+                "reasoning_content": {
+                  "text": "We need to present grades. Format: bullet points with course name, code, current score (as percent?) and final score. Use format \"99.71%\"? The rule: format scores as \"8.5/10\". But here scores are percentages. Maybe present as \"99.71%\" or \"99.71/100\". The rule says format scores as \"8.5/10\". So we could present as \"99.71/100\". Also include grade if available. Provide concise.",
+                  "signature": ""
+                }
+              },
+              {
+                "type": "text",
+                "text": "**Your current grades**\n\n- **Agile Methods for Software Development (CS\u202f555\u2011A)** \u2013 Current: **99.71/100** \u2013 Final (unposted): **57.15/100**  \n- **Machine Learning: Fundamentals and Applications (CS\u202f559\u2011WS)** \u2013 Current: **97.98/100** (**A**) \u2013 Final (unposted): **70.70/100** (**C**)  \n- **Natural Language Processing (CS\u202f584\u2011A)** \u2013 Current: **100/100** \u2013 Final (unposted): **45.14/100**  \n- **Introduction to Python for Financial Applications (FE\u202f520\u2011A)** \u2013 Current: **87.27/100** \u2013 Final (unposted): **45.71/100**  \n- **Fall\u202f2024 Graduate Student Code of Academic Integrity** \u2013 Current: **100/100** \u2013 Final: **100/100**  \n\n*Current scores reflect the grades posted so far; final scores are the unposted totals that will be released at the end of the term.*"
+              }
+            ],
+            "reasoning": "We need to present grades. Format: bullet points with course name, code, current score (as percent?) and final score. Use format \"99.71%\"? The rule: format scores as \"8.5/10\". But here scores are percentages. Maybe present as \"99.71%\" or \"99.71/100\". The rule says format scores as \"8.5/10\". So we could present as \"99.71/100\". Also include grade if available. Provide concise.",
+            "final_answer": "**Your current grades**\n\n- **Agile Methods for Software Development (CS 555\u2011A)** - Current: **99.71/100** - Final (unposted): **57.15/100**  \n- **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)** - Current: **97.98/100** (**A**) - Final (unposted): **70.70/100** (**C**)  \n- **Natural Language Processing (CS 584\u2011A)** - Current: **100/100** - Final (unposted): **45.14/100**  \n- **Introduction to Python for Financial Applications (FE 520\u2011A)** - Current: **87.27/100** - Final (unposted): **45.71/100**  \n- **Fall 2024 Graduate Student Code of Academic Integrity** - Current: **100/100** - Final: **100/100**  \n\n*Current scores reflect the grades posted so far; final scores are the unposted totals that will be released at the end of the term.*",
+            "has_reasoning": true,
+            "reasoning_length": 377
+          },
+          "performance": {
+            "latency_ms": 7528.62,
+            "tokens_input": 2871,
+            "tokens_output": 649,
+            "tokens_total": 3520,
+            "cost_usd": 0.00082
+          },
+          "tools_used": [
+            {
+              "tool": "get_all_grades",
+              "args": {
+                "course_id": ""
+              }
+            },
+            {
+              "tool": "get_all_grades",
+              "args": {}
+            }
+          ],
+          "quality_issues": [],
+          "errors": [],
+          "timestamp_start": "2025-11-01T20:37:11.374086",
+          "timestamp_end": "2025-11-01T20:37:18.902966"
+        }
+      },
+      "comparison": {
+        "both_successful": true,
+        "latency_delta_ms": 3513.52,
+        "cost_delta_usd": -0.000363,
+        "tokens_delta": 61,
+        "tools_delta": 1,
+        "winner": "model_2"
+      }
+    },
+    {
+      "query_id": 4,
+      "query_text": "What quizzes are in CS 559?",
+      "category": "simple_retrieval",
+      "model_results": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "success": true,
+          "query": "What quizzes are in CS 559?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "Here are the quizzes in CS 559:\n* Quiz 1 - Linear Regression (due September 6, 2025): 8.5/10\n* Quiz 2 Linear Classification 1  (due September 13, 2025): 10/10\n* Quiz 3 linear classification 2  (due September 20, 2025): 10/10\n* Quiz 4 Model Selection (due September 27, 2025): 9/10\n* Quiz 5 Neural Network  (due October 4, 2025): 9/10\n* Quiz 6 Kernel Method (due October 18, 2025): 10/10\n* Quiz 7 SVM (due October 25, 2025): 9/10\n* Quiz 8 Unsupervised Learning (due November 1, 2025): 8/10\n* Midterm (due October 14, 2025): 98/100",
+            "reasoning": null,
+            "final_answer": "Here are the quizzes in CS 559:\n* Quiz 1 - Linear Regression (due September 6, 2025): 8.5/10\n* Quiz 2 Linear Classification 1  (due September 13, 2025): 10/10\n* Quiz 3 linear classification 2  (due September 20, 2025): 10/10\n* Quiz 4 Model Selection (due September 27, 2025): 9/10\n* Quiz 5 Neural Network  (due October 4, 2025): 9/10\n* Quiz 6 Kernel Method (due October 18, 2025): 10/10\n* Quiz 7 SVM (due October 25, 2025): 9/10\n* Quiz 8 Unsupervised Learning (due November 1, 2025): 8/10\n* Midterm (due October 14, 2025): 98/100",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 1658.15,
+            "tokens_input": 5016,
+            "tokens_output": 300,
+            "tokens_total": 5316,
+            "cost_usd": 0.001495
+          },
+          "tools_used": [
+            {
+              "tool": "get_quizzes",
+              "args": {
+                "course_id": {
+                  "type": "string",
+                  "value": {
+                    "function_name": "get_course_id_by_name",
+                    "args": [
+                      "CS 559"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "tool": "get_course_id_by_name",
+              "args": {
+                "course_name": "CS 559"
+              }
+            },
+            {
+              "tool": "get_quizzes",
+              "args": {
+                "course_id": "82091"
+              }
+            }
+          ],
+          "quality_issues": [],
+          "errors": [],
+          "timestamp_start": "2025-11-01T20:37:18.903860",
+          "timestamp_end": "2025-11-01T20:37:20.562237"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "success": true,
+          "query": "What quizzes are in CS 559?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": [
+              {
+                "type": "reasoning_content",
+                "reasoning_content": {
+                  "text": "The user asked: \"What quizzes are in CS 559?\" We attempted to get course ID, got 82091 (maybe). Then get_quizzes returned error insufficient permissions. Perhaps need to use a different tool? Maybe we need to get assignments? But they asked quizzes. If permission error, we can inform user we cannot retrieve due to permissions. Could try get_course_summary? Might include quizzes? Probably not. Could try get_course_overview? Not available. Could ask user to check with instructor? But we should be transparent.\n\nWe can still provide what we know: maybe no quizzes? But we got error, not empty. So we should say we couldn't retrieve quizzes due to permission restrictions. Offer to try other info like assignments or announcements.\n\nLet's respond accordingly.",
+                  "signature": ""
+                }
+              },
+              {
+                "type": "text",
+                "text": "I\u2019m sorry\u2014I wasn\u2019t able to pull the quiz list for **CS\u202f559** because my access to that data is restricted.  \n\nIf you\u2019d like, I can check other information for the course (e.g., upcoming assignments, recent announcements, or your overall grade). Just let me know what would be most helpful!"
+              }
+            ],
+            "reasoning": "The user asked: \"What quizzes are in CS 559?\" We attempted to get course ID, got 82091 (maybe). Then get_quizzes returned error insufficient permissions. Perhaps need to use a different tool? Maybe we need to get assignments? But they asked quizzes. If permission error, we can inform user we cannot retrieve due to permissions. Could try get_course_summary? Might include quizzes? Probably not. Could try get_course_overview? Not available. Could ask user to check with instructor? But we should be transparent.\n\nWe can still provide what we know: maybe no quizzes? But we got error, not empty. So we should say we couldn't retrieve quizzes due to permission restrictions. Offer to try other info like assignments or announcements.\n\nLet's respond accordingly.",
+            "final_answer": "I'm sorry--I wasn't able to pull the quiz list for **CS 559** because my access to that data is restricted.  \n\nIf you'd like, I can check other information for the course (e.g., upcoming assignments, recent announcements, or your overall grade). Just let me know what would be most helpful!",
+            "has_reasoning": true,
+            "reasoning_length": 760
+          },
+          "performance": {
+            "latency_ms": 2761.39,
+            "tokens_input": 1615,
+            "tokens_output": 464,
+            "tokens_total": 2079,
+            "cost_usd": 0.000521
+          },
+          "tools_used": [
+            {
+              "tool": "get_course_id_by_name",
+              "args": {
+                "course_name": "CS 559"
+              }
+            },
+            {
+              "tool": "get_quizzes",
+              "args": {
+                "course_id": "12345"
+              }
+            }
+          ],
+          "quality_issues": [],
+          "errors": [],
+          "timestamp_start": "2025-11-01T20:37:21.563455",
+          "timestamp_end": "2025-11-01T20:37:24.325119"
+        }
+      },
+      "comparison": {
+        "both_successful": true,
+        "latency_delta_ms": 1103.24,
+        "cost_delta_usd": -0.000974,
+        "tokens_delta": -3237,
+        "tools_delta": -1,
+        "winner": "model_1"
+      }
+    },
+    {
+      "query_id": 5,
+      "query_text": "What announcements are there?",
+      "category": "simple_retrieval",
+      "model_results": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "success": true,
+          "query": "What announcements are there?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": "Here are the recent announcements:\n* Hybrid today due to the weather - October 30, 2025\n* Week 9 Agenda Update: Guest Lecture Postponed to Thu, 11/13 + This Week's Topic - October 28, 2025\n* Week 9 Agenda: Guest Lecture and In-class Meeting - October 27, 2025\n* Sprint 1 to Spring 2 Transition and Story Carry-Over Policy - October 27, 2025",
+            "reasoning": null,
+            "final_answer": "Here are the recent announcements:\n* Hybrid today due to the weather - October 30, 2025\n* Week 9 Agenda Update: Guest Lecture Postponed to Thu, 11/13 + This Week's Topic - October 28, 2025\n* Week 9 Agenda: Guest Lecture and In-class Meeting - October 27, 2025\n* Sprint 1 to Spring 2 Transition and Story Carry-Over Policy - October 27, 2025",
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 1673.57,
+            "tokens_input": 4098,
+            "tokens_output": 142,
+            "tokens_total": 4240,
+            "cost_usd": 0.001121
+          },
+          "tools_used": [
+            {
+              "tool": "get_announcements",
+              "args": {
+                "days": 7
+              }
+            },
+            {
+              "tool": "get_announcements",
+              "args": {
+                "days": 7
+              }
+            }
+          ],
+          "quality_issues": [],
+          "errors": [],
+          "timestamp_start": "2025-11-01T20:37:24.326116",
+          "timestamp_end": "2025-11-01T20:37:26.000063"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "success": false,
+          "query": "What announcements are there?",
+          "category": "simple_retrieval",
+          "response": {
+            "raw_content": null,
+            "reasoning": null,
+            "final_answer": null,
+            "has_reasoning": false,
+            "reasoning_length": 0
+          },
+          "performance": {
+            "latency_ms": 2902.86,
+            "tokens_input": 0,
+            "tokens_output": 0,
+            "tokens_total": 0,
+            "cost_usd": 0
+          },
+          "tools_used": [],
+          "quality_issues": [],
+          "errors": [
+            "An error occurred (ValidationException) when calling the Converse operation: The model returned the following errors: {\"error\":{\"message\":\"ErrorEvent { error: APIError { type: \\\"BadRequestError\\\", code: Some(400), message: \\\"Unexpected token 200012 while expecting start token 200006\\\", param: None } }\",\"type\":\"invalid_request_error\"}}"
+          ],
+          "timestamp_start": "2025-11-01T20:37:27.001378",
+          "timestamp_end": "2025-11-01T20:37:29.904307"
+        }
+      },
+      "comparison": {
+        "both_successful": false,
+        "latency_delta_ms": 1229.29,
+        "cost_delta_usd": -0.001121,
+        "tokens_delta": -4240,
+        "tools_delta": -2,
+        "winner": "model_1"
+      }
+    }
+  ]
+}

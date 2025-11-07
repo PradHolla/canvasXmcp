@@ -17,7 +17,7 @@ class CanvasAgent:
     """Agent that uses Canvas MCP tools with Bedrock LLM"""
 
     def __init__(self):
-        self.model_id = os.getenv("SCOUT", "meta.llama4-maverick-17b-instruct-v1:0")
+        self.model_id = os.getenv("MAVERICK", "meta.llama4-maverick-17b-instruct-v1:0")
         self.region = os.getenv("AWS_REGION", "us-east-1")
         self.agent = None
         self.session = None

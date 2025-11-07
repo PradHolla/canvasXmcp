@@ -1,0 +1,34 @@
+{
+  "ambiguous_queries": [
+    "What's due?",
+    "Show me stuff",
+    "Grades",
+    "Assignments",
+    "Next week"
+  ],
+  "invalid_references": [
+    "What's due in CS 999?",
+    "Show me quiz scores for Underwater Basket Weaving",
+    "My grade in that course I dropped",
+    "Assignments in NonExistent Course"
+  ],
+  "malformed_queries": [
+    "cs555whatsduetoday",
+    "SHOW ME ALL THE THINGS NOW!!!",
+    "what's... like... you know... due?",
+    "هل لدي واجبات؟",
+    "我有什么作业？"
+  ],
+  "empty_results": [
+    "What's due in 2026?",
+    "Show me assignments I already submitted",
+    "Quizzes in courses with no quizzes",
+    "Announcements from last year"
+  ],
+  "boundary_conditions": [
+    "What's due in the next 0 days?",
+    "Show assignments due 1000 days from now",
+    "Get courses with ID 0",
+    "Quiz scores for assignment -1"
+  ]
+}
