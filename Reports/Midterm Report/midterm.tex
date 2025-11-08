@@ -36,6 +36,7 @@
 \usepackage{xcolor}         % colors
 \usepackage[pdftex]{graphicx}
 \usepackage{multirow}
+\usepackage{float}          % for [H] float placement
 
 
 \title{Multi-Agent Learning Management System Assistant: An MCP-Based Framework for Intelligent Course Management Using AWS Bedrock}
@@ -58,6 +59,7 @@
   % Affiliation \\
   % Address \\
  \texttt{pnagaraj@stevens.edu} \\
+ \texttt{\url{https://github.com/PradHolla/canvasXmcp}}
   % \AND
   % Coauthor \\
   % Affiliation \\
@@ -123,7 +125,8 @@ Through extensive testing and evaluation, several critical insights emerged:
 
 \textbf{Architecture Simplification:} The initial multi-agent architecture was refined to a single ReAct agent with tool access, proving more effective for this domain. The unified agent architecture eliminates inter-agent coordination overhead while maintaining modularity through MCP-based tools. This aligns with recent findings that carefully designed single-agent systems can match multi-agent performance on structured tasks \cite{chen2024llmma}.
 
-\textbf{Model Performance Disparities:} Comparative evaluation revealed distinct performance profiles: GPT-OSS 120B achieved 87.9\% pass rate (8.22/10 average score) versus LLaMA 4 Maverick's 76.5\% pass rate (6.84/10 average). However, LLaMA demonstrated superior cost-efficiency (39\% better quality-per-dollar ratio), suggesting deployment strategy should balance quality requirements against budget constraints.
+\textbf{Model Performance Disparities:} Comparative evaluation revealed distinct performance profiles: GPT-OSS 120B achieved 87.9\% pass rate (8.22/10 average score) versus LLaMA 4 Maverick's 76.5\% pass rate (6.84/10 average). Surprisingly, GPT-OSS proved both higher quality AND 19\% cheaper per query, 
+eliminating the typical cost-quality tradeoff and making deployment decisions straightforward.
 
 \textbf{Memory Management Trade-offs:} Testing revealed counterintuitive memory effects: GPT-OSS improved dramatically with conversation memory (+2.46 points, 98\% pass rate), while LLaMA performance degraded slightly (-0.31 points). This suggests fundamental differences in how models leverage conversational context, with implications for production deployment strategies.
 
@@ -244,11 +247,11 @@ This section describes the implemented system architecture, technical decisions,
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{canvasXmcp.jpg}
-\caption{System Architecture: ReAct Agent with MCP-Based Tool Integration}
+\caption{System Architecture}
 \label{fig:architecture}
 \end{figure}
 
-Figure~\ref{fig:architecture} illustrates the complete system architecture, showing the interaction flow between the user interface (Chainlit), the ReAct agent (LangGraph), the MCP server, and the Canvas LMS API.
+Figure~\ref{fig:architecture} illustrates the complete system architecture, showing the interaction flow between the user interface (Chainlit), the ReAct agent (LangGraph), the MCP server, and the Canvas LMS API with AWS Bedrock.
 
 \subsection{Canvas API Integration}
 
@@ -574,6 +577,56 @@ These design decisions prioritized simplicity, maintainability, and future exten
 
 5-minute TTL chosen empirically: assignments rarely change within conversation session, but long enough TTL risks stale data (e.g., missed deadline updates). 83\% hit rate validates this design choice.
 
+\subsection{User Interface}
+
+The Chainlit-based web interface provides an intuitive conversational experience for students interacting with Canvas data. This subsection presents representative screenshots demonstrating key application features and interaction patterns.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{homepage.png}
+\caption{Application homepage with welcome message}
+\label{fig:homepage}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{courses.png}
+\caption{System response to ``What courses am I taking?''}
+\label{fig:courses}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{due.png}
+\caption{Response to upcoming assignment query with deadline information}
+\label{fig:due}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{due_reasoning.png}
+\caption{GPT-OSS model's internal reasoning process for assignment deadline query (collapsed by default)}
+\label{fig:due_reasoning}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{course_overview.png}
+\caption{Comprehensive course overview response combining multiple data sources}
+\label{fig:course_overview}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{course_overview_reasoning.png}
+\caption{Internal reasoning showing multi-tool orchestration for course overview}
+\label{fig:course_overview_reasoning}
+\end{figure}
+
+
+These screenshots demonstrate the system's ability to handle diverse query types while maintaining a clean, conversational user experience. The separation of internal reasoning from user-facing responses ensures clarity while preserving observability for debugging and evaluation purposes.
+
+
 \section{Dataset and Experiments}
 
 \subsection{Data Sources}
@@ -814,6 +867,21 @@ All test results, evaluation data, and analysis scripts available in project rep
 
 This transparency enables reproducibility and supports future work extending the evaluation framework \cite{genai2024higher}.
 
+\textbf{Code Repository:} Complete source code, test suites, and evaluation data publicly available at:
+
+\url{https://github.com/PradHolla/canvasXmcp}
+
+Repository includes:
+\begin{itemize}
+    \item Canvas API client and MCP server implementation
+    \item LangGraph ReAct agent with memory management
+    \item Automated testing framework with 149 query suites
+    \item Streamlit evaluation application
+    \item Complete test results and human evaluation data
+    \item Documentation and setup instructions
+\end{itemize}
+
+
 \subsection{Experimental Results and Analysis}
 
 This subsection presents detailed results from the four experimental evaluations, combining automated metrics with human quality assessments.
@@ -1022,7 +1090,7 @@ GPT-OSS demonstrated superior pronoun resolution (9.40) and topic switching (9.3
 
 \subsubsection{Cost-Quality Tradeoff Analysis}
 
-Table~\ref{tab:cost_quality} quantifies the cost-efficiency tradeoff.
+Table~\ref{tab:costquality} quantifies the cost-efficiency tradeoff.
 
 \begin{table}[h]
 \centering
@@ -1039,7 +1107,6 @@ GPT-OSS 120B & 8.22 & \$0.00207 & \textbf{Quality \& Cost} \\
 \bottomrule
 \end{tabular}
 \end{table}
-
 
 \textbf{Deployment Decision:}
 

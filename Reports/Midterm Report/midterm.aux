@@ -24,8 +24,8 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Memory-Augmented Setting}{4}{subsection.2.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3}Methods}{4}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Architecture Overview}{4}{subsection.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces System Architecture: ReAct Agent with MCP-Based Tool Integration}}{5}{figure.1}\protected@file@percent }
-\newlabel{fig:architecture}{{1}{5}{System Architecture: ReAct Agent with MCP-Based Tool Integration}{figure.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces System Architecture}}{5}{figure.1}\protected@file@percent }
+\newlabel{fig:architecture}{{1}{5}{System Architecture}{figure.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Canvas API Integration}{5}{subsection.3.2}\protected@file@percent }
 \citation{mcp2025landscape}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Model Context Protocol (MCP) Implementation}{6}{subsection.3.3}\protected@file@percent }
@@ -35,67 +35,82 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.7}Deployment and User Interface}{10}{subsection.3.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.8}Rationale for Technical Decisions}{10}{subsection.3.8}\protected@file@percent }
 \citation{chen2024llmma}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Dataset and Experiments}{11}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Data Sources}{11}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.9}User Interface}{11}{subsection.3.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Application homepage with welcome message}}{12}{figure.2}\protected@file@percent }
+\newlabel{fig:homepage}{{2}{12}{Application homepage with welcome message}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces System response to ``What courses am I taking?''}}{12}{figure.3}\protected@file@percent }
+\newlabel{fig:courses}{{3}{12}{System response to ``What courses am I taking?''}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Response to upcoming assignment query with deadline information}}{13}{figure.4}\protected@file@percent }
+\newlabel{fig:due}{{4}{13}{Response to upcoming assignment query with deadline information}{figure.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces GPT-OSS model's internal reasoning process for assignment deadline query (collapsed by default)}}{13}{figure.5}\protected@file@percent }
+\newlabel{fig:due_reasoning}{{5}{13}{GPT-OSS model's internal reasoning process for assignment deadline query (collapsed by default)}{figure.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Comprehensive course overview response combining multiple data sources}}{14}{figure.6}\protected@file@percent }
+\newlabel{fig:course_overview}{{6}{14}{Comprehensive course overview response combining multiple data sources}{figure.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Internal reasoning showing multi-tool orchestration for course overview}}{14}{figure.7}\protected@file@percent }
+\newlabel{fig:course_overview_reasoning}{{7}{14}{Internal reasoning showing multi-tool orchestration for course overview}{figure.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Dataset and Experiments}{14}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Data Sources}{14}{subsection.4.1}\protected@file@percent }
 \citation{lms2025ai}
 \citation{wang2025megaagent}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Test Query Design}{12}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Experimental Setup}{12}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Evaluation Metrics}{13}{subsection.4.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Experiments Conducted}{13}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Test Query Design}{15}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Experimental Setup}{16}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Evaluation Metrics}{16}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Experiments Conducted}{17}{subsection.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Results Summary}{17}{subsection.4.6}\protected@file@percent }
 \citation{anthropic2025multiagent,llmmas2025software}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Results Summary}{14}{subsection.4.6}\protected@file@percent }
 \citation{teachable2025agents}
 \citation{genai2024higher}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Evaluation Workflow}{15}{subsection.4.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Data Availability}{15}{subsection.4.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Experimental Results and Analysis}{15}{subsection.4.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.1}Experiment 1: Independent Query Performance}{15}{subsubsection.4.9.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Overall Model Performance on Independent Queries}}{16}{table.1}\protected@file@percent }
-\newlabel{tab:overall_performance}{{1}{16}{Overall Model Performance on Independent Queries}{table.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Performance by Query Category (No Memory)}}{16}{table.2}\protected@file@percent }
-\newlabel{tab:category_performance}{{2}{16}{Performance by Query Category (No Memory)}{table.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.2}Counterintuitive Memory Effect: A Novel Finding}{17}{subsubsection.4.9.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Memory Impact on Model Performance}}{17}{table.3}\protected@file@percent }
-\newlabel{tab:memory_impact}{{3}{17}{Memory Impact on Model Performance}{table.3}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Memory Impact by Category (Delta from No-Memory Baseline)}}{17}{table.4}\protected@file@percent }
-\newlabel{tab:memory_category}{{4}{17}{Memory Impact by Category (Delta from No-Memory Baseline)}{table.4}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.3}Experiment 3: Multi-Turn Dialogue}{17}{subsubsection.4.9.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Multi-Turn Conversational Performance}}{18}{table.5}\protected@file@percent }
-\newlabel{tab:multiturn}{{5}{18}{Multi-Turn Conversational Performance}{table.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.4}Illustrative Examples}{18}{subsubsection.4.9.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.5}Cost-Quality Tradeoff Analysis}{18}{subsubsection.4.9.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Cost-Quality Analysis: GPT-OSS Dominates Both Dimensions}}{18}{table.6}\protected@file@percent }
-\newlabel{tab:costquality}{{6}{18}{Cost-Quality Analysis: GPT-OSS Dominates Both Dimensions}{table.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Evaluation Workflow}{18}{subsection.4.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Data Availability}{18}{subsection.4.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Experimental Results and Analysis}{19}{subsection.4.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.1}Experiment 1: Independent Query Performance}{19}{subsubsection.4.9.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Overall Model Performance on Independent Queries}}{19}{table.1}\protected@file@percent }
+\newlabel{tab:overall_performance}{{1}{19}{Overall Model Performance on Independent Queries}{table.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Performance by Query Category (No Memory)}}{20}{table.2}\protected@file@percent }
+\newlabel{tab:category_performance}{{2}{20}{Performance by Query Category (No Memory)}{table.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.2}Counterintuitive Memory Effect: A Novel Finding}{20}{subsubsection.4.9.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Memory Impact on Model Performance}}{20}{table.3}\protected@file@percent }
+\newlabel{tab:memory_impact}{{3}{20}{Memory Impact on Model Performance}{table.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Memory Impact by Category (Delta from No-Memory Baseline)}}{21}{table.4}\protected@file@percent }
+\newlabel{tab:memory_category}{{4}{21}{Memory Impact by Category (Delta from No-Memory Baseline)}{table.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.3}Experiment 3: Multi-Turn Dialogue}{21}{subsubsection.4.9.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Multi-Turn Conversational Performance}}{21}{table.5}\protected@file@percent }
+\newlabel{tab:multiturn}{{5}{21}{Multi-Turn Conversational Performance}{table.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.4}Illustrative Examples}{21}{subsubsection.4.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.5}Cost-Quality Tradeoff Analysis}{22}{subsubsection.4.9.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Cost-Quality Analysis: GPT-OSS Dominates Both Dimensions}}{22}{table.6}\protected@file@percent }
+\newlabel{tab:costquality}{{6}{22}{Cost-Quality Analysis: GPT-OSS Dominates Both Dimensions}{table.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.10}Future Experimental Plans}{22}{subsection.4.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.1}Short-term Improvements (Weeks 8-9)}{22}{subsubsection.4.10.1}\protected@file@percent }
 \citation{langchain2024langsmith}
 \citation{prompt2024engineering}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.10}Future Experimental Plans}{19}{subsection.4.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.1}Short-term Improvements (Weeks 8-9)}{19}{subsubsection.4.10.1}\protected@file@percent }
 \citation{mcpsecurity2025}
 \citation{prompt2024engineering,chain2023thought}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.2}Medium-term Enhancements (Weeks 10-12)}{23}{subsubsection.4.10.2}\protected@file@percent }
 \citation{prompt2024engineering}
 \citation{teachable2025agents}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.2}Medium-term Enhancements (Weeks 10-12)}{20}{subsubsection.4.10.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.3}Long-term Vision (Post-Course)}{20}{subsubsection.4.10.3}\protected@file@percent }
 \citation{teachable2025agents,education2025agentic}
 \citation{anthropic2025multiagent}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.3}Long-term Vision (Post-Course)}{24}{subsubsection.4.10.3}\protected@file@percent }
 \citation{genai2024higher,lms2025ai}
 \citation{genai2024higher}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Project Management}{22}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Team Composition and Contributions}{22}{subsection.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Progress Against Timeline}{22}{subsection.5.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Project Timeline: Planned vs. Actual Progress}}{22}{table.7}\protected@file@percent }
-\newlabel{tab:timeline}{{7}{22}{Project Timeline: Planned vs. Actual Progress}{table.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Key Accomplishments to Date}{23}{subsection.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Deviations from Original Plan}{23}{subsection.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Remaining Work (Weeks 8-9)}{23}{subsection.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Risk Assessment and Mitigation}{23}{subsection.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Project Management}{25}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Team Composition and Contributions}{25}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Progress Against Timeline}{26}{subsection.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Project Timeline: Planned vs. Actual Progress}}{26}{table.7}\protected@file@percent }
+\newlabel{tab:timeline}{{7}{26}{Project Timeline: Planned vs. Actual Progress}{table.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Key Accomplishments to Date}{26}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Deviations from Original Plan}{26}{subsection.5.4}\protected@file@percent }
 \citation{wang2025megaagent,chen2024llmma}
 \citation{mcp2025landscape}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Remaining Work (Weeks 8-9)}{27}{subsection.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Risk Assessment and Mitigation}{27}{subsection.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{27}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Key Contributions}{27}{subsection.6.1}\protected@file@percent }
 \citation{genai2024higher,lms2025ai}
 \citation{teachable2025agents}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{24}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Key Contributions}{24}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Impact on Educational AI}{28}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Limitations and Future Work}{28}{subsection.6.3}\protected@file@percent }
 \citation{anthropic2025multiagent,llmmas2025software}
 \citation{mcp2025landscape}
 \citation{education2025agentic}
@@ -109,9 +124,6 @@
 \bibcite{llmmas2025software}{{6}{}{{}}{{}}}
 \bibcite{teachable2025agents}{{7}{}{{}}{{}}}
 \bibcite{mcpsecurity2025}{{8}{}{{}}{{}}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Impact on Educational AI}{25}{subsection.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Limitations and Future Work}{25}{subsection.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Conclusion}{25}{subsection.6.4}\protected@file@percent }
 \bibcite{education2025agentic}{{9}{}{{}}{{}}}
 \bibcite{anthropic2025multiagent}{{10}{}{{}}{{}}}
 \bibcite{langchain2024langsmith}{{11}{}{{}}{{}}}
@@ -121,4 +133,5 @@
 \bibcite{yao2023react}{{15}{}{{}}{{}}}
 \bibcite{prompt2024engineering}{{16}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\gdef \@abspage@last{26}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Conclusion}{29}{subsection.6.4}\protected@file@percent }
+\gdef \@abspage@last{29}
