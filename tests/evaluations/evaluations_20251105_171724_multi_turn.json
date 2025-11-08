@@ -1,0 +1,1074 @@
+{
+  "evaluation_metadata": {
+    "evaluation_run_id": "20251105_171724",
+    "timestamp": "2025-11-05T17:17:24.089158",
+    "evaluator": "your_name",
+    "total_queries_evaluated": 27,
+    "evaluation_timestamp": "2025-11-05T17:17:24.089164"
+  },
+  "evaluations": [
+    {
+      "query_id": 1,
+      "query_text": "What courses am I taking?",
+      "category": "context_retention",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You are currently enrolled in the following courses:\n* Agile Methods for Software Development\n* Machine Learning: Fundamentals and Applications\n* Natural Language Processing\n* Introduction to Python for Financial Applications\n* Graduate Student Code of Academic Integrity",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Here are the courses you're currently enrolled in for the Fall 2025 term:\n\n- **Agile Methods for Software Development** (2025F CS 555\u2011A) - grade not posted yet  \n- **Machine Learning: Fundamentals and Applications** (2025F CS 559\u2011WS) - **A**  \n- **Natural Language Processing** (2025F CS 584\u2011A) - grade not posted yet  \n- **Introduction to Python for Financial Applications** (2025F FE 520\u2011A) - grade not posted yet  \n\nYou're also enrolled in a development\u2011course compliance class:\n\n- **Fall 2024 Graduate Student Code of Academic Integrity** - grade not posted yet",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 2,
+      "query_text": "What's due in my second course?",
+      "category": "context_retention",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the upcoming assignments for your \"Machine Learning: Fundamentals and Applications\" course:\n* hw3 - due October 21, 2025 at 11:59 PM (submitted)\n* hw4 - due November 4, 2025 at 11:59 PM (unsubmitted)\n* hw5 - due November 18, 2025 at 11:59 PM (unsubmitted)\n* Quiz 9 Combining Models - due November 8, 2025 at 11:59 PM (unsubmitted)\n* Quiz 7 SVM - due October 25, 2025 at 11:59 PM (graded: 9/10)",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 6.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Here's what's still pending in **Machine Learning: Fundamentals and Applications** (your second course):\n\n- **Homework 4** - due **November 4, 2025** at 11:59 PM  \n- **Quiz 9 - \"Combining Models\"** - due **November 8, 2025** at 11:59 PM  \n- **Homework 5** - due **November 18, 2025** at 11:59 PM  \n\nMake sure to submit each item before the deadline to avoid a late penalty. Good luck!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 3,
+      "query_text": "How did I do on the quizzes in that course?",
+      "category": "context_retention",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are your quiz grades for \"Machine Learning: Fundamentals and Applications\":\n* Quiz 1 - Linear Regression: 8.5/10\n* Quiz 2 Linear Classification 1: 10/10\n* Quiz 3 linear classification 2: 10/10\n* Quiz 4 Model Selection: 9/10\n* Quiz 5 Neural Network: 9/10\n* Quiz 6 Kernel Method: 10/10\n* Quiz 7 SVM: 9/10\n* Quiz 8 Unsupervised Learning: 8/10\n* Quiz 9 Combining Models: unsubmitted\n* Midterm: 98/100",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Here's a quick rundown of your quiz results in **Machine Learning: Fundamentals and Applications**:\n\n| Quiz | Score | Possible |\n|------|-------|----------|\n| Quiz 1 - Linear Regression | **8.5/10** | 10 |\n| Quiz 2 - Linear Classification 1 | **10/10** | 10 |\n| Quiz 3 - Linear Classification 2 | **10/10** | 10 |\n| Quiz 4 - Model Selection | **9/10** | 10 |\n| Quiz 5 - Neural Network | **9/10** | 10 |\n| Quiz 6 - Kernel Method | **10/10** | 10 |\n| Quiz 7 - SVM | **9/10** | 10 |\n| Quiz 8 - Unsupervised Learning | **8/10** | 10 |\n| **Quiz 9 - \"Combining Models\"** | *not submitted yet* | 10 |\n\n**Overall performance:**  \n- Average on the graded quizzes: **\u2248 9.2/10**  \n- You've consistently scored in the high\u201190 % range, with only a couple of 8\u2011point quizzes.  \n\nKeep an eye on Quiz 9 (due November 8, 2025) to maintain this strong record!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 4,
+      "query_text": "When is the next quiz?",
+      "category": "context_retention",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The next quiz for \"Machine Learning: Fundamentals and Applications\" is Quiz 9 Combining Models, due on November 8, 2025. It is currently unsubmitted.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "The next quiz in **Machine Learning: Fundamentals and Applications** is:\n\n- **Quiz 9 - \"Combining Models\"** - due **November 8, 2025** at 11:59 PM (still unsubmitted)",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 5,
+      "query_text": "What's my current grade?",
+      "category": "context_retention",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are your current grades for all your courses:\n* Agile Methods for Software Development: 100.35%\n* Machine Learning: Fundamentals and Applications: A (97.98%)\n* Natural Language Processing: 100%\n* Introduction to Python for Financial Applications: 87.27%\n* Graduate Student Code of Academic Integrity: 100%",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 5,
+            "clarity": 5
+          },
+          "overall_score": 5.33,
+          "pass": false,
+          "failure_type": "extra_noise",
+          "notes": "Assumed that it was for all the courses, did not maintain proper context"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Your **current grade** in **Machine Learning: Fundamentals and Applications** is:\n\n- **Score:** 97.98 %  \n- **Letter grade:** **A**\n\n(The system also shows a provisional \"final\" score of 63.39 % (F), which reflects the portion of the course that will be weighted later (e.g., the final exam). Until that component is completed, your official standing remains the current **A**.)",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 6,
+      "query_text": "Show me CS 555 assignments",
+      "category": "assignment_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the assignments for CS 555:\n* Project 0-Project Prep: 55/50 (graded)\n* Project 1-User Stories: 100/100 (graded)\n* Project 2-Prototype and Expo: 100/100 (graded)\n* Project 3-Team Formation and Story Board Creation: 100/100 (graded)\n* 1st Sprint: 100/100 (graded)\n* 2nd Sprint: unsubmitted (due October 24, 2025)\n* 3rd Sprint: unsubmitted (due November 5, 2025)\n* 4th Sprint: unsubmitted (due November 19, 2025)\n* Final Demonstration: unsubmitted (due December 3, 2025)\n* Quiz 02 XP: 50/50 (graded)\n* Quiz 01: User Stories: 48/50 (graded)\n* Quiz 03: Scrum: 50/50 (graded)\n* Quiz 04: Testing: 50/50 (graded)\n* Quiz 05: Continuous Integration and Pair Programming: 5/50 (pending review)\n* Quiz 07: Lean: 0/50 (pending review)\n* Activity5: Sprint 1 Review and Spring 2 Planning: 50/50 (graded)\n* Activity1: 10/10 (graded)\n* Activity2-Figma: 10/10 (graded)\n* Activity3-Prototype-Expo: 50/50 (graded)\n* Activity 4: Project Kickoff (if have not) and Sprint 1 Planning: 50/50 (graded)",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 10,
+            "clarity": 9
+          },
+          "overall_score": 9.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Agile Methods for Software Development (CS 555)** - Assignments & quizzes  \n\n**Completed (graded)**  \n- **Project 0 - Project Prep** - due September 10, 2025 - **55/50** (extra credit)  \n- **Project 1 - User Stories** - due September 24, 2025 - **100/100**  \n- **Project 2 - Prototype & Expo** - due October 1, 2025 - **100/100**  \n- **Project 3 - Team Formation & Story\u2011Board** - due October 12, 2025 - **100/100**  \n- **1st Sprint** - due October 24, 2025 - **100/100**  \n- **Quiz 01: User Stories** - due September 19, 2025 - **48/50**  \n- **Quiz 02: XP** - due September 26, 2025 - **50/50**  \n- **Quiz 03: Scrum** - due October 3, 2025 - **50/50**  \n- **Quiz 04: Testing** - due October 10, 2025 - **50/50**  \n- **Quiz 05: Continuous Integration & Pair Programming** - due October 17, 2025 - **5/50** *(pending review)*  \n- **Quiz 07: Lean** - due October 31, 2025 - **0/50** *(pending review)*  \n- **Activity 5 - Sprint 1 Review & Sprint 2 Planning** - due October 23, 2025 - **50/50**  \n- **Activity 1** - due September 11, 2025 - **10/10** (graded automatically)  \n- **Activity 2 - Figma** - due September 26, 2025 - **10/10**  \n- **Activity 3 - Prototype\u2011Expo** - due October 2, 2025 - **50/50**  \n- **Activity 4 - Project Kickoff & Sprint 1 Planning** - due October 12, 2025 - **50/50**  \n\n**Pending (not yet submitted)**  \n- **2nd Sprint** - due November 5, 2025 - *unsubmitted*  \n- **3rd Sprint** - due November 19, 2025 - *unsubmitted*  \n- **4th Sprint** - due December 3, 2025 - *unsubmitted*  \n- **Final Demonstration** - due December 4, 2025 - *unsubmitted*  \n\n**Notes**  \n- Quizzes 5 and 7 are still under review, so their scores may change.  \n- The \"Project Selection Intention Discussion Board\" has no due date and is marked as a discussion activity.  \n\nLet me know if you'd like details on any specific item or help planning your upcoming sprints!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 9
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 7,
+      "query_text": "What's my grade on the third one?",
+      "category": "assignment_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The third assignment is \"Project 2-Prototype and Expo\" and your grade is 100/100.",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "In **Agile Methods for Software Development (CS 555)**, your **third listed assignment** - **Project 2 - Prototype and Expo** - has been graded **100 / 100**.",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 8,
+      "query_text": "Is it submitted?",
+      "category": "assignment_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Yes, \"Project 2-Prototype and Expo\" is submitted.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Yes-- **Project 2 - Prototype and Expo** has been **submitted** (and you earned a perfect 100 / 100).",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 9,
+      "query_text": "When is it due?",
+      "category": "assignment_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "\"Project 2-Prototype and Expo\" is due on October 1, 2025.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "The **Project 2 - Prototype and Expo** assignment was due on **October 1, 2025** at 11:59 PM.",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 10,
+      "query_text": "Show me the next assignment",
+      "category": "assignment_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The next assignment is \"1st Sprint\", due on October 24, 2025. It is currently submitted and graded 100/100.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Next upcoming assignment**\n\n- **Course:** Machine Learning: Fundamentals and Applications (CS 559\u2011WS)  \n- **Assignment:** **Homework 4**  \n- **Due:** **November 4, 2025** at 11:59 PM  \n- **Status:** *submitted* (you've already turned it in, but the grade is still pending)  \n\nThe following items are coming up shortly after that:\n\n- **Quiz 9 - \"Combining Models\"** - due **November 8, 2025** (not submitted yet)  \n- **Homework 5** - due **November 18, 2025** (not submitted)  \n\nLet me know if you'd like details on any of these or help planning your work!",
+          "ratings": {
+            "correctness": 5,
+            "completeness": 5,
+            "clarity": 5
+          },
+          "overall_score": 5.0,
+          "pass": false,
+          "failure_type": "wrong_data_returned",
+          "notes": "Went back to CS 559"
+        }
+      }
+    },
+    {
+      "query_id": 10,
+      "query_text": "Show me the next assignment",
+      "category": "assignment_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The next assignment is \"1st Sprint\", due on October 24, 2025. It is currently submitted and graded 100/100.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Next upcoming assignment**\n\n- **Course:** Machine Learning: Fundamentals and Applications (CS 559\u2011WS)  \n- **Assignment:** **Homework 4**  \n- **Due:** **November 4, 2025** at 11:59 PM  \n- **Status:** *submitted* (you've already turned it in, but the grade is still pending)  \n\nThe following items are coming up shortly after that:\n\n- **Quiz 9 - \"Combining Models\"** - due **November 8, 2025** (not submitted yet)  \n- **Homework 5** - due **November 18, 2025** (not submitted)  \n\nLet me know if you'd like details on any of these or help planning your work!",
+          "ratings": {
+            "correctness": 5,
+            "completeness": 5,
+            "clarity": 5
+          },
+          "overall_score": 5.0,
+          "pass": false,
+          "failure_type": "wrong_data_returned",
+          "notes": "Went back to CS 559"
+        }
+      }
+    },
+    {
+      "query_id": 11,
+      "query_text": "What's due this week?",
+      "category": "multi_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "There are no assignments due this week.",
+          "ratings": {
+            "correctness": 3,
+            "completeness": 3,
+            "clarity": 3
+          },
+          "overall_score": 3.0,
+          "pass": false,
+          "failure_type": "incomplete_answer",
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Assignments due this week (Nov 4 - Nov 10, 2025)**  \n\n- **Machine Learning: Fundamentals and Applications**  \n  - *Homework 4* - due **Nov 4** (already submitted; grade still pending)  \n  - *Quiz 9 - \"Combining Models\"* - due **Nov 8** (not submitted yet)  \n\n- **Agile Methods for Software Development (CS 555)**  \n  - *2nd Sprint* - due **Nov 5** (not submitted)  \n\nNo other courses have items due within the next seven days. Let me know if you'd like details on any of these or help planning your submissions!",
+          "ratings": {
+            "correctness": 5,
+            "completeness": 5,
+            "clarity": 5
+          },
+          "overall_score": 5.0,
+          "pass": false,
+          "failure_type": "incomplete_answer",
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 12,
+      "query_text": "How many points is the first one worth?",
+      "category": "multi_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The first assignment, \"Project 0-Project Prep\", is worth 50 points.",
+          "ratings": {
+            "correctness": 3,
+            "completeness": 3,
+            "clarity": 3
+          },
+          "overall_score": 3.0,
+          "pass": false,
+          "failure_type": "incomplete_answer",
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "The first item--**Homework 4** for *Machine Learning: Fundamentals and Applications*--is worth **100 points**.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 13,
+      "query_text": "Have I submitted it?",
+      "category": "multi_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Yes, you have submitted \"Project 0-Project Prep\".",
+          "ratings": {
+            "correctness": 3,
+            "completeness": 3,
+            "clarity": 3
+          },
+          "overall_score": 3.0,
+          "pass": false,
+          "failure_type": "wrong_data_returned",
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Yes--you've already submitted **Homework 4** for *Machine Learning: Fundamentals and Applications*. The grade is still pending.",
+          "ratings": {
+            "correctness": 3,
+            "completeness": 3,
+            "clarity": 3
+          },
+          "overall_score": 3.0,
+          "pass": false,
+          "failure_type": "hallucination",
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 14,
+      "query_text": "What about the second one?",
+      "category": "multi_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Yes, you have also submitted \"Project 1-User Stories\".",
+          "ratings": {
+            "correctness": 3,
+            "completeness": 3,
+            "clarity": 3
+          },
+          "overall_score": 3.0,
+          "pass": false,
+          "failure_type": "wrong_data_returned",
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Quiz 9 - \"Combining Models\"** (the second item due this week)  \n\n- **Points possible:** 10 points  \n- **Submission status:** not submitted yet (you still need to take the quiz before the deadline on November 8, 2025).  \n\nLet me know if you'd like a quick link to the quiz or any tips for preparing!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": "hallucination",
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 15,
+      "query_text": "Show all unsubmitted assignments",
+      "category": "multi_tracking",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The unsubmitted assignments for CS 555 are:\n* 2nd Sprint - due November 5, 2025\n* 3rd Sprint - due November 19, 2025\n* 4th Sprint - due December 3, 2025\n* Final Demonstration - due December 4, 2025",
+          "ratings": {
+            "correctness": 5,
+            "completeness": 6,
+            "clarity": 6
+          },
+          "overall_score": 5.67,
+          "pass": false,
+          "failure_type": "incomplete_answer",
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Unsubmitted assignments (across all your courses)**  \n\n**Machine Learning: Fundamentals and Applications**  \n- **Homework 5** - due **November 18, 2025** at 11:59 PM  \n- **Quiz 9 - \"Combining Models\"** - due **November 8, 2025** at 11:59 PM  \n\n**Agile Methods for Software Development**  \n- **2nd Sprint** - due **November 5, 2025** at 11:59 PM  \n- **3rd Sprint** - due **November 19, 2025** at 11:59 PM  \n- **4th Sprint** - due **December 3, 2025** at 11:59 PM  \n- **Final Demonstration** - due **December 4, 2025** at 11:59 PM  \n- **Project Selection Intention Discussion Board** - *no set due date*  \n\n**Natural Language Processing**  \n- **HW 3** - due **November 20, 2025** at 11:59 PM  \n- **Project midterm report** - due **November 7, 2025** at 11:59 PM  \n\n**Introduction to Python for Financial Applications**  \n- **Assignment 3** - due **November 16, 2025** at 11:59 PM  \n- **Mid\u2011term Exam Fall 2025** - due **December 7, 2025** at 11:59 PM  \n- **Final Project** - due **December 12, 2025** at 11:59 PM  \n\nLet me know if you'd like links to any of these items or help planning your work!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 16,
+      "query_text": "What quizzes are in CS 559?",
+      "category": "pronoun_resolution",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The quizzes in CS 559 are:\n* Quiz 1 - Linear Regression\n* Quiz 2 Linear Classification 1\n* Quiz 3 linear classification 2\n* Quiz 4 Model Selection\n* Quiz 5 Neural Network\n* Quiz 6 Kernel Method\n* Quiz 7 SVM\n* Quiz 8 Unsupervised Learning\n* Quiz 9 Combining Models\n* Midterm",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Quizzes in Machine Learning (Fundamentals & Applications - CS 559\u2011WS)**  \n\n| Quiz | Due date | Points possible | Status |\n|------|----------|----------------|--------|\n| Quiz 1 - Linear Regression | September 6, 2025 | 10 pts | Graded - **8.5/10** |\n| Quiz 2 - Linear Classification 1 | September 13, 2025 | 10 pts | Graded - **10/10** |\n| Quiz 3 - Linear Classification 2 | September 20, 2025 | 10 pts | Graded - **10/10** |\n| Quiz 4 - Model Selection | September 27, 2025 | 10 pts | Graded - **9/10** |\n| Quiz 5 - Neural Network | October 4, 2025 | 10 pts | Graded - **9/10** |\n| Quiz 6 - Kernel Method | October 18, 2025 | 10 pts | Graded - **10/10** |\n| Quiz 7 - SVM | October 25, 2025 | 10 pts | Graded - **9/10** |\n| Quiz 8 - Unsupervised Learning | November 1, 2025 | 10 pts | Graded - **8/10** |\n| Quiz 9 - \"Combining Models\" | November 8, 2025 | 10 pts | **Not submitted** (grade pending) |\n| Midterm Exam | October 14, 2025 | 100 pts | Graded - **98/100** |\n\nAll other quizzes have been submitted and graded except Quiz 9, which is still awaiting your submission. Let me know if you'd like a direct link to the quiz or any study tips!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 9,
+            "clarity": 10
+          },
+          "overall_score": 9.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 17,
+      "query_text": "How did I do on them?",
+      "category": "pronoun_resolution",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are your grades for the quizzes in CS 559:\n* Quiz 1 - Linear Regression: 8.5/10\n* Quiz 2 Linear Classification 1: 10/10\n* Quiz 3 linear classification 2: 10/10\n* Quiz 4 Model Selection: 9/10\n* Quiz 5 Neural Network: 9/10\n* Quiz 6 Kernel Method: 10/10\n* Quiz 7 SVM: 9/10\n* Quiz 8 Unsupervised Learning: 8/10\n* Quiz 9 Combining Models: unsubmitted\n* Midterm: 98/100",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Here's a quick rundown of your performance on the quizzes for **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)**:\n\n- **Quiz 1 - Linear Regression** - **8.5/10**  \n- **Quiz 2 - Linear Classification 1** - **10/10**  \n- **Quiz 3 - Linear Classification 2** - **10/10**  \n- **Quiz 4 - Model Selection** - **9/10**  \n- **Quiz 5 - Neural Network** - **9/10**  \n- **Quiz 6 - Kernel Method** - **10/10**  \n- **Quiz 7 - SVM** - **9/10**  \n- **Quiz 8 - Unsupervised Learning** - **8/10**  \n- **Quiz 9 - \"Combining Models\"** - *not submitted yet* (0/10 so far)  \n- **Midterm Exam** - **98/100**\n\n**Overall average on graded quizzes:** \u2248 9.2 / 10 (\u2248 92 %).  \n\nYou're doing very well--just need to complete Quiz 9 before the November 8 deadline to keep the strong average. Let me know if you'd like a direct link to the quiz or any study tips!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 18,
+      "query_text": "Which one did I score lowest on?",
+      "category": "pronoun_resolution",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You scored lowest on Quiz 1 - Linear Regression with a score of 8.5/10.",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 6,
+            "clarity": 6
+          },
+          "overall_score": 6.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Your lowest quiz score so far is **Quiz 8 - \"Unsupervised Learning,\"** where you earned **8 / 10**.",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 19,
+      "query_text": "When was it due?",
+      "category": "pronoun_resolution",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Quiz 1 - Linear Regression was due on September 6, 2025.",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 6,
+            "clarity": 6
+          },
+          "overall_score": 6.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Quiz 8 - \"Unsupervised Learning\"** was due **November 1, 2025** at 11:59 PM.",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 20,
+      "query_text": "What topics did it cover?",
+      "category": "pronoun_resolution",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Quiz 1 - Linear Regression covered the topic of Linear Regression.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Quiz 8 - \"Unsupervised Learning\"** focused on the core concepts and techniques you've covered in the unsupervised\u2011learning portion of the course. The main topics included:\n\n- **Clustering fundamentals** - differences between hard and soft clustering, evaluation of cluster quality.  \n- **k\u2011means clustering** - algorithm steps, choosing k, centroid updates, and common pitfalls (e.g., local minima).  \n- **Hierarchical clustering** - agglomerative vs. divisive approaches, linkage criteria (single, complete, average), and dendrogram interpretation.  \n- **Density\u2011based clustering** - basics of DBSCAN (\u03b5\u2011neighborhood, minPts) and how it handles noise and arbitrarily shaped clusters.  \n- **Dimensionality\u2011reduction techniques** - principal component analysis (PCA) concepts, eigen\u2011vectors/eigen\u2011values, variance explained, and reconstruction error.  \n- **Evaluation metrics** - silhouette score, within\u2011cluster sum of squares, and visual inspection of cluster plots.  \n\nThese were the concepts you were asked to apply in the quiz questions (e.g., interpreting cluster assignments, calculating a silhouette score, and selecting the appropriate method for a given dataset).",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 9,
+            "clarity": 7
+          },
+          "overall_score": 7.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 21,
+      "query_text": "Show me CS 555 assignments",
+      "category": "topic_switching",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The assignments for CS 555 are:\n* Project 0-Project Prep: 55/50 (graded)\n* Project 1-User Stories: 100/100 (graded)\n* Project 2-Prototype and Expo: 100/100 (graded)\n* Project 3-Team Formation and Story Board Creation: 100/100 (graded)\n* 1st Sprint: 100/100 (graded)\n* 2nd Sprint: unsubmitted (due November 5, 2025)\n* 3rd Sprint: unsubmitted (due November 19, 2025)\n* 4th Sprint: unsubmitted (due December 3, 2025)\n* Final Demonstration: unsubmitted (due December 4, 2025)\n* Quiz 02 XP: 50/50 (graded)\n* Quiz 01: User Stories: 48/50 (graded)\n* Quiz 03: Scrum: 50/50 (graded)\n* Quiz 04: Testing: 50/50 (graded)\n* Quiz 05: Continuous Integration and Pair Programming: 5/50 (pending review)\n* Quiz 07: Lean: 0/50 (pending review)\n* Activity5: Sprint 1 Review and Spring 2 Planning: 50/50 (graded)\n* Activity1: 10/10 (graded)\n* Activity2-Figma: 10/10 (graded)\n* Activity3-Prototype-Expo: 50/50 (graded)\n* Activity 4: Project Kickoff (if have not) and Sprint 1 Planning: 50/50 (graded)",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Agile Methods for Software Development (CS 555) - Upcoming and past assignments**\n\n**Projects**\n- **Project 0 - Project Prep** - due **September 10, 2025** - 50 pts - *submitted* (grade 55)  \n- **Project 1 - User Stories** - due **September 24, 2025** - 100 pts - *submitted* (grade 100)  \n- **Project 2 - Prototype & Expo** - due **October 1, 2025** - 100 pts - *submitted* (grade 100)  \n- **Project 3 - Team Formation & Story\u2011Board** - due **October 12, 2025** - 100 pts - *submitted* (grade 100)  \n\n**Sprints**\n- **1st Sprint** - due **October 24, 2025** - 100 pts - *submitted* (grade 100)  \n- **2nd Sprint** - due **November 5, 2025** - 100 pts - *not submitted*  \n- **3rd Sprint** - due **November 19, 2025** - 100 pts - *not submitted*  \n- **4th Sprint** - due **December 3, 2025** - 100 pts - *not submitted*  \n- **Final Demonstration** - due **December 4, 2025** - 100 pts - *not submitted*  \n\n**Quizzes**\n- **Quiz 01 - User Stories** - due **September 19, 2025** - 50 pts - *submitted* (grade 48)  \n- **Quiz 02 - XP** - due **September 26, 2025** - 50 pts - *submitted* (grade 50)  \n- **Quiz 03 - Scrum** - due **October 3, 2025** - 50 pts - *submitted* (grade 50)  \n- **Quiz 04 - Testing** - due **October 10, 2025** - 50 pts - *submitted* (grade 50)  \n- **Quiz 05 - Continuous Integration & Pair Programming** - due **October 17, 2025** - 50 pts - *submitted* (grade 5, pending review)  \n- **Quiz 07 - Lean** - due **October 31, 2025** - 50 pts - *submitted* (grade 0, pending review)  \n\n**Activities & Discussion**\n- **Activity 1** - due **September 11, 2025** - 10 pts - *graded* (grade 10)  \n- **Activity 2 - Figma** - due **September 26, 2025** - 10 pts - *submitted* (grade 10)  \n- **Activity 3 - Prototype\u2011Expo** - due **October 2, 2025** - 50 pts - *submitted* (grade 50)  \n- **Activity 4 - Project Kickoff & Sprint 1 Planning** - due **October 12, 2025** - 50 pts - *submitted* (grade 50)  \n- **Activity 5 - Sprint 1 Review & Sprint 2 Planning** - due **October 23, 2025** - 50 pts - *submitted* (grade 50)  \n- **Project Selection Intention Discussion Board** - no set due date - 0 pts - *submitted*  \n\nFeel free to ask for links to any of these items or help planning the upcoming sprints!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 10
+          },
+          "overall_score": 9.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 22,
+      "query_text": "What about CS 559?",
+      "category": "topic_switching",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The assignments for CS 559 are:\n* hw1: 100/100 (graded)\n* hw2: 100/100 (graded)\n* hw3: submitted (due October 21, 2025)\n* hw4: unsubmitted (due November 4, 2025)\n* hw5: unsubmitted (due November 18, 2025)\n* Quiz 1 - Linear Regression: 8.5/10 (graded)\n* Quiz 2 Linear Classification 1: 10/10 (graded)\n* Quiz 3 linear classification 2: 10/10 (graded)\n* Quiz 4 Model Selection: 9/10 (graded)\n* Quiz 5 Neural Network: 9/10 (graded)\n* Quiz 6 Kernel Method: 10/10 (graded)\n* Quiz 7 SVM: 9/10 (graded)\n* Quiz 8 Unsupervised Learning: 8/10 (graded)\n* Quiz 9 Combining Models: unsubmitted (due November 8, 2025)\n* Midterm: 98/100 (graded)",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Machine Learning: Fundamentals and Applications (CS 559\u2011WS)**  \n\n**Homework assignments**\n\n- **Homework 1** - due **September 16, 2025** - 100 pts - *submitted* (grade 100)  \n- **Homework 2** - due **September 30, 2025** - 100 pts - *submitted* (grade 100)  \n- **Homework 3** - due **October 21, 2025** - 100 pts - *submitted* (grade pending)  \n- **Homework 4** - due **November 4, 2025** - 100 pts - *submitted* (grade pending)  \n- **Homework 5** - due **November 18, 2025** - 100 pts - *not submitted*  \n\n**Quizzes**\n\n- **Quiz 1 - Linear Regression** - due **September 6, 2025** - 10 pts - graded 8.5/10  \n- **Quiz 2 - Linear Classification 1** - due **September 13, 2025** - 10 pts - graded 10/10  \n- **Quiz 3 - Linear Classification 2** - due **September 20, 2025** - 10 pts - graded 10/10  \n- **Quiz 4 - Model Selection** - due **September 27, 2025** - 10 pts - graded 9/10  \n- **Quiz 5 - Neural Network** - due **October 4, 2025** - 10 pts - graded 9/10  \n- **Quiz 6 - Kernel Method** - due **October 18, 2025** - 10 pts - graded 10/10  \n- **Quiz 7 - SVM** - due **October 25, 2025** - 10 pts - graded 9/10  \n- **Quiz 8 - Unsupervised Learning** - due **November 1, 2025** - 10 pts - graded 8/10  \n- **Quiz 9 - \"Combining Models\"** - due **November 8, 2025** - 10 pts - *not submitted*  \n\n**Midterm Exam**\n\n- **Midterm** - due **October 14, 2025** - 100 pts - graded 98/100  \n\nLet me know if you'd like direct links to any of these items or help planning the upcoming work!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 10
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 23,
+      "query_text": "Now show me 584's assignments",
+      "category": "topic_switching",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "",
+          "ratings": {
+            "correctness": 1,
+            "completeness": 1,
+            "clarity": 1
+          },
+          "overall_score": 1.0,
+          "pass": false,
+          "failure_type": "error_not_handled",
+          "notes": "No answer at all"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Natural Language Processing (CS 584)** - Assignments & activities  \n\n- **HW 0** - due **September 18, 2025** - 5 pts - *submitted* (grade 5/5)  \n- **HW 1** - due **October 3, 2025** - 105 pts - *submitted* (grade 105/105)  \n- **HW 2** - due **October 25, 2025** - 105 pts - *submitted* (grade pending)  \n- **HW 3** - due **November 20, 2025** - 105 pts - *not submitted*  \n\n**Attendance (small credit items)**  \n- **Attendance 1** - due **September 22, 2025** - 1 pt - *submitted* (grade 1)  \n- **Attendance 2** - due **October 27, 2025** - 1 pt - *submitted* (grade 1)  \n\n**Project work**  \n- **Project Proposal** - due **October 5, 2025** - 100 pts - *submitted* (grade 100)  \n- **Project Midterm Report** - due **November 7, 2025** - 100 pts - *not submitted*  \n\nLet me know if you'd like links to any of these items or help planning the upcoming work!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 24,
+      "query_text": "Go back to 555",
+      "category": "topic_switching",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The assignments for CS 555 are:\n* Project 0-Project Prep: 55/50 (graded)\n* Project 1-User Stories: 100/100 (graded)\n* Project 2-Prototype and Expo: 100/100 (graded)\n* Project 3-Team Formation and Story Board Creation: 100/100 (graded)\n* 1st Sprint: 100/100 (graded)\n* 2nd Sprint: unsubmitted (due November 5, 2025)\n* 3rd Sprint: unsubmitted (due November 19, 2025)\n* 4th Sprint: unsubmitted (due December 3, 2025)\n* Final Demonstration: unsubmitted (due December 4, 2025)\n* Quiz 02 XP: 50/50 (graded)\n* Quiz 01: User Stories: 48/50 (graded)\n* Quiz 03: Scrum: 50/50 (graded)\n* Quiz 04: Testing: 50/50 (graded)\n* Quiz 05: Continuous Integration and Pair Programming: 5/50 (pending review)\n* Quiz 07: Lean: 0/50 (pending review)\n* Activity5: Sprint 1 Review and Spring 2 Planning: 50/50 (graded)\n* Activity1: 10/10 (graded)\n* Activity2-Figma: 10/10 (graded)\n* Activity3-Prototype-Expo: 50/50 (graded)\n* Activity 4: Project Kickoff (if have not) and Sprint 1 Planning: 50/50 (graded)",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Agile Methods for Software Development (CS 555) - Assignments & quizzes**\n\n**Projects**\n- **Project 0 - Project Prep** - due September 10, 2025 - 50 pts - *submitted* (grade 55)  \n- **Project 1 - User Stories** - due September 24, 2025 - 100 pts - *submitted* (grade 100)  \n- **Project 2 - Prototype & Expo** - due October 1, 2025 - 100 pts - *submitted* (grade 100)  \n- **Project 3 - Team Formation & Story\u2011Board** - due October 12, 2025 - 100 pts - *submitted* (grade 100)  \n\n**Sprints**\n- **1st Sprint** - due October 24, 2025 - 100 pts - *submitted* (grade 100)  \n- **2nd Sprint** - due November 5, 2025 - 100 pts - *not submitted*  \n- **3rd Sprint** - due November 19, 2025 - 100 pts - *not submitted*  \n- **4th Sprint** - due December 3, 2025 - 100 pts - *not submitted*  \n- **Final Demonstration** - due December 4, 2025 - 100 pts - *not submitted*  \n\n**Quizzes**\n- **Quiz 01 - User Stories** - due September 19, 2025 - 50 pts - *submitted* (grade 48)  \n- **Quiz 02 - XP** - due September 26, 2025 - 50 pts - *submitted* (grade 50)  \n- **Quiz 03 - Scrum** - due October 3, 2025 - 50 pts - *submitted* (grade 50)  \n- **Quiz 04 - Testing** - due October 10, 2025 - 50 pts - *submitted* (grade 50)  \n- **Quiz 05 - Continuous Integration & Pair Programming** - due October 17, 2025 - 50 pts - *submitted* (grade 5, pending review)  \n- **Quiz 07 - Lean** - due October 31, 2025 - 50 pts - *submitted* (grade 0, pending review)  \n\n**Activities & Discussion**\n- **Activity 1** - due September 11, 2025 - 10 pts - *graded* (grade 10)  \n- **Activity 2 - Figma** - due September 26, 2025 - 10 pts - *submitted* (grade 10)  \n- **Activity 3 - Prototype\u2011Expo** - due October 2, 2025 - 50 pts - *submitted* (grade 50)  \n- **Activity 4 - Project Kickoff & Sprint 1 Planning** - due October 12, 2025 - 50 pts - *submitted* (grade 50)  \n- **Activity 5 - Sprint 1 Review & Sprint 2 Planning** - due October 23, 2025 - 50 pts - *submitted* (grade 50)  \n- **Project Selection Intention Discussion Board** - no set due date - 0 pts - *submitted*  \n\nLet me know if you'd like links to any of these items or help prioritizing the upcoming sprints!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 24,
+      "query_text": "Go back to 555",
+      "category": "topic_switching",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The assignments for CS 555 are:\n* Project 0-Project Prep: 55/50 (graded)\n* Project 1-User Stories: 100/100 (graded)\n* Project 2-Prototype and Expo: 100/100 (graded)\n* Project 3-Team Formation and Story Board Creation: 100/100 (graded)\n* 1st Sprint: 100/100 (graded)\n* 2nd Sprint: unsubmitted (due November 5, 2025)\n* 3rd Sprint: unsubmitted (due November 19, 2025)\n* 4th Sprint: unsubmitted (due December 3, 2025)\n* Final Demonstration: unsubmitted (due December 4, 2025)\n* Quiz 02 XP: 50/50 (graded)\n* Quiz 01: User Stories: 48/50 (graded)\n* Quiz 03: Scrum: 50/50 (graded)\n* Quiz 04: Testing: 50/50 (graded)\n* Quiz 05: Continuous Integration and Pair Programming: 5/50 (pending review)\n* Quiz 07: Lean: 0/50 (pending review)\n* Activity5: Sprint 1 Review and Spring 2 Planning: 50/50 (graded)\n* Activity1: 10/10 (graded)\n* Activity2-Figma: 10/10 (graded)\n* Activity3-Prototype-Expo: 50/50 (graded)\n* Activity 4: Project Kickoff (if have not) and Sprint 1 Planning: 50/50 (graded)",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Agile Methods for Software Development (CS 555) - Assignments & quizzes**\n\n**Projects**\n- **Project 0 - Project Prep** - due September 10, 2025 - 50 pts - *submitted* (grade 55)  \n- **Project 1 - User Stories** - due September 24, 2025 - 100 pts - *submitted* (grade 100)  \n- **Project 2 - Prototype & Expo** - due October 1, 2025 - 100 pts - *submitted* (grade 100)  \n- **Project 3 - Team Formation & Story\u2011Board** - due October 12, 2025 - 100 pts - *submitted* (grade 100)  \n\n**Sprints**\n- **1st Sprint** - due October 24, 2025 - 100 pts - *submitted* (grade 100)  \n- **2nd Sprint** - due November 5, 2025 - 100 pts - *not submitted*  \n- **3rd Sprint** - due November 19, 2025 - 100 pts - *not submitted*  \n- **4th Sprint** - due December 3, 2025 - 100 pts - *not submitted*  \n- **Final Demonstration** - due December 4, 2025 - 100 pts - *not submitted*  \n\n**Quizzes**\n- **Quiz 01 - User Stories** - due September 19, 2025 - 50 pts - *submitted* (grade 48)  \n- **Quiz 02 - XP** - due September 26, 2025 - 50 pts - *submitted* (grade 50)  \n- **Quiz 03 - Scrum** - due October 3, 2025 - 50 pts - *submitted* (grade 50)  \n- **Quiz 04 - Testing** - due October 10, 2025 - 50 pts - *submitted* (grade 50)  \n- **Quiz 05 - Continuous Integration & Pair Programming** - due October 17, 2025 - 50 pts - *submitted* (grade 5, pending review)  \n- **Quiz 07 - Lean** - due October 31, 2025 - 50 pts - *submitted* (grade 0, pending review)  \n\n**Activities & Discussion**\n- **Activity 1** - due September 11, 2025 - 10 pts - *graded* (grade 10)  \n- **Activity 2 - Figma** - due September 26, 2025 - 10 pts - *submitted* (grade 10)  \n- **Activity 3 - Prototype\u2011Expo** - due October 2, 2025 - 50 pts - *submitted* (grade 50)  \n- **Activity 4 - Project Kickoff & Sprint 1 Planning** - due October 12, 2025 - 50 pts - *submitted* (grade 50)  \n- **Activity 5 - Sprint 1 Review & Sprint 2 Planning** - due October 23, 2025 - 50 pts - *submitted* (grade 50)  \n- **Project Selection Intention Discussion Board** - no set due date - 0 pts - *submitted*  \n\nLet me know if you'd like links to any of these items or help prioritizing the upcoming sprints!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 25,
+      "query_text": "What's the first assignment in that course?",
+      "category": "topic_switching",
+      "test_run_id": "20251103_194218",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The first assignment in CS 555 is \"Project 0-Project Prep\".",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "The first assignment in **Agile Methods for Software Development (CS 555)** is:\n\n- **Project 0 - Project Prep**  \n  - **Due:** September 10, 2025 at 11:59 PM  \n  - **Points possible:** 50 pts  \n  - **Status:** Submitted (graded 55 / 50 pts)  \n\nThis was the initial deliverable for the course. Let me know if you need the link to view it or any help with the next steps!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    }
+  ],
+  "aggregate_stats": {
+    "by_category": {
+      "context_retention": {
+        "total_queries": 5,
+        "total_evaluations": 10,
+        "llama": {
+          "avg_correctness": 8.2,
+          "avg_completeness": 7.4,
+          "avg_clarity": 7.4,
+          "overall_avg": 7.67,
+          "pass_rate": 0.8,
+          "failure_breakdown": {
+            "extra_noise": 1
+          }
+        },
+        "gpt_oss": {
+          "avg_correctness": 9.4,
+          "avg_completeness": 8.8,
+          "avg_clarity": 8.8,
+          "overall_avg": 9.0,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      },
+      "assignment_tracking": {
+        "total_queries": 5,
+        "total_evaluations": 10,
+        "llama": {
+          "avg_correctness": 9.17,
+          "avg_completeness": 9.33,
+          "avg_clarity": 9.17,
+          "overall_avg": 9.22,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        },
+        "gpt_oss": {
+          "avg_correctness": 8.17,
+          "avg_completeness": 8.0,
+          "avg_clarity": 8.17,
+          "overall_avg": 8.11,
+          "pass_rate": 0.667,
+          "failure_breakdown": {
+            "wrong_data_returned": 2
+          }
+        }
+      },
+      "multi_tracking": {
+        "total_queries": 5,
+        "total_evaluations": 10,
+        "llama": {
+          "avg_correctness": 3.4,
+          "avg_completeness": 3.6,
+          "avg_clarity": 3.6,
+          "overall_avg": 3.53,
+          "pass_rate": 0.0,
+          "failure_breakdown": {
+            "incomplete_answer": 3,
+            "wrong_data_returned": 2
+          }
+        },
+        "gpt_oss": {
+          "avg_correctness": 6.8,
+          "avg_completeness": 7.0,
+          "avg_clarity": 7.0,
+          "overall_avg": 6.93,
+          "pass_rate": 0.6,
+          "failure_breakdown": {
+            "incomplete_answer": 1,
+            "hallucination": 2
+          }
+        }
+      },
+      "pronoun_resolution": {
+        "total_queries": 5,
+        "total_evaluations": 10,
+        "llama": {
+          "avg_correctness": 6.8,
+          "avg_completeness": 6.8,
+          "avg_clarity": 6.8,
+          "overall_avg": 6.8,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        },
+        "gpt_oss": {
+          "avg_correctness": 9.2,
+          "avg_completeness": 9.6,
+          "avg_clarity": 9.4,
+          "overall_avg": 9.4,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      },
+      "topic_switching": {
+        "total_queries": 5,
+        "total_evaluations": 10,
+        "llama": {
+          "avg_correctness": 7.33,
+          "avg_completeness": 7.0,
+          "avg_clarity": 7.0,
+          "overall_avg": 7.11,
+          "pass_rate": 0.833,
+          "failure_breakdown": {
+            "error_not_handled": 1
+          }
+        },
+        "gpt_oss": {
+          "avg_correctness": 9.17,
+          "avg_completeness": 9.33,
+          "avg_clarity": 9.67,
+          "overall_avg": 9.39,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      }
+    },
+    "overall": {
+      "total_queries": 25,
+      "total_evaluations": 54,
+      "llama": {
+        "avg_correctness": 7.07,
+        "avg_completeness": 6.93,
+        "avg_clarity": 6.89,
+        "overall_avg": 6.96,
+        "pass_rate": 0.741,
+        "failure_breakdown": {
+          "extra_noise": 1,
+          "incomplete_answer": 3,
+          "wrong_data_returned": 2,
+          "error_not_handled": 1
+        }
+      },
+      "gpt_oss": {
+        "avg_correctness": 8.56,
+        "avg_completeness": 8.56,
+        "avg_clarity": 8.63,
+        "overall_avg": 8.58,
+        "pass_rate": 0.852,
+        "failure_breakdown": {
+          "wrong_data_returned": 2,
+          "incomplete_answer": 1,
+          "hallucination": 2
+        }
+      }
+    }
+  }
+}

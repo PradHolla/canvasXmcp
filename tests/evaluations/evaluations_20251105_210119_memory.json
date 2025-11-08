@@ -1,0 +1,1852 @@
+{
+  "evaluation_metadata": {
+    "evaluation_run_id": "20251105_210119",
+    "timestamp": "2025-11-05T21:01:19.572927",
+    "evaluator": "your_name",
+    "total_queries_evaluated": 50,
+    "evaluation_timestamp": "2025-11-05T21:01:19.572981"
+  },
+  "evaluations": [
+    {
+      "query_id": 1,
+      "query_text": "What courses am I taking?",
+      "category": "simple_retrieval",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You are currently enrolled in the following courses:\n* Agile Methods for Software Development\n* Machine Learning: Fundamentals and Applications\n* Natural Language Processing\n* Introduction to Python for Financial Applications\n* Graduate Student Code of Academic Integrity",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Here are the courses you're currently enrolled in for the Fall 2025 term:\n\n- **Agile Methods for Software Development** (2025F CS 555\u2011A) - grade not posted yet  \n- **Machine Learning: Fundamentals and Applications** (2025F CS 559\u2011WS) - **A**  \n- **Natural Language Processing** (2025F CS 584\u2011A) - grade not posted yet  \n- **Introduction to Python for Financial Applications** (2025F FE 520\u2011A) - grade not posted yet  \n\nYou're also enrolled in a development\u2011course compliance class:\n\n- **Fall 2024 Graduate Student Code of Academic Integrity** - grade not posted yet  \n\nLet me know if you'd like details on any specific course (upcoming assignments, grades, announcements, etc.).",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 2,
+      "query_text": "What's due this week?",
+      "category": "simple_retrieval",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no assignments due in the next 7 days.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "There are no assignments due in the next 7 days.  \n\nIf you'd like to see upcoming work beyond this week or need details on any course's schedule, just let me know!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 3,
+      "query_text": "Show me my grades",
+      "category": "simple_retrieval",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are your current grades:\n* Agile Methods for Software Development: 99.71%\n* Machine Learning: Fundamentals and Applications: A (97.98%)\n* Natural Language Processing: 100%\n* Introduction to Python for Financial Applications: 87.27%\n* Graduate Student Code of Academic Integrity: 100%",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": null,
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Grades are appended to the next query, assuming it's an issue with my workflow"
+        }
+      }
+    },
+    {
+      "query_id": 4,
+      "query_text": "What quizzes are in CS 559?",
+      "category": "simple_retrieval",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the quizzes in CS 559 (Machine Learning: Fundamentals and Applications):\n* Quiz 1 - Linear Regression (Due: September 6, 2025) - Score: 8.5/10\n* Quiz 2 Linear Classification 1 (Due: September 13, 2025) - Score: 10/10\n* Quiz 3 linear classification 2 (Due: September 20, 2025) - Score: 10/10\n* Quiz 4 Model Selection (Due: September 27, 2025) - Score: 9/10\n* Quiz 5 Neural Network (Due: October 4, 2025) - Score: 9/10\n* Quiz 6 Kernel Method (Due: October 18, 2025) - Score: 10/10\n* Quiz 7 SVM (Due: October 25, 2025) - Score: 9/10\n* Quiz 8 Unsupervised Learning (Due: November 1, 2025) - Score: 8/10\n* Midterm (Due: October 14, 2025) - Score: 98/100",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Your current grades**\n\n- **Agile Methods for Software Development (CS 555\u2011A)** - Current score: 99.71 %  \n- **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)** - Current score: 97.98 % (**A**)  \n- **Natural Language Processing (CS 584\u2011A)** - Current score: 100 %  \n- **Introduction to Python for Financial Applications (FE 520\u2011A)** - Current score: 87.27 %  \n- **Fall 2024 Graduate Student Code of Academic Integrity** - Current score: 100 %  \n\n*(Final scores are still being calculated for most courses.)*  \n\n---\n\n**Quizzes in Machine Learning: Fundamentals and Applications (CS 559)**  \n\n- **Quiz 1 - Linear Regression** - 8.5 / 10 (graded)  \n- **Quiz 2 - Linear Classification 1** - 10 / 10 (graded)  \n- **Quiz 3 - Linear Classification 2** - 10 / 10 (graded)  \n- **Quiz 4 - Model Selection** - 9 / 10 (graded)  \n- **Quiz 5 - Neural Network** - 9 / 10 (graded)  \n- **Quiz 6 - Kernel Method** - 10 / 10 (graded)  \n- **Quiz 7 - SVM** - 9 / 10 (graded)  \n- **Quiz 8 - Unsupervised Learning** - 8 / 10 (graded)  \n- **Midterm** - 98 / 100 (graded)  \n\nLet me know if you'd like more detail on any assignment, upcoming deadlines, or upcoming grades for a specific course.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 5,
+      "query_text": "What's due tomorrow?",
+      "category": "simple_retrieval",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no assignments due tomorrow.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "There are no assignments or quizzes due tomorrow.  \n\nIf you'd like to see upcoming work for the next week or need details on any specific course, just let me know!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 6,
+      "query_text": "List all my courses",
+      "category": "simple_retrieval",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You are currently enrolled in the following courses:\n* Agile Methods for Software Development\n* Machine Learning: Fundamentals and Applications\n* Natural Language Processing\n* Introduction to Python for Financial Applications\n* Graduate Student Code of Academic Integrity",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Here are the courses you're currently enrolled in:\n\n- **Agile Methods for Software Development** (CS 555\u2011A) - Fall 2025  \n- **Machine Learning: Fundamentals and Applications** (CS 559\u2011WS) - Fall 2025  \n- **Natural Language Processing** (CS 584\u2011A) - Fall 2025  \n- **Introduction to Python for Financial Applications** (FE 520\u2011A) - Fall 2025  \n- **Fall 2024 Graduate Student Code of Academic Integrity** - Development course  \n\nLet me know if you'd like details (grades, assignments, announcements, etc.) for any of these.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 9
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 7,
+      "query_text": "What announcements are there?",
+      "category": "simple_retrieval",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the recent announcements from your courses:\n* Agile Methods for Software Development:\n  * Hybrid today due to the weather (Posted: October 30, 2025)\n  * Week 9 Agenda Update: Guest Lecture Postponed to Thu, 11/13 + This Week's Topic (Posted: October 28, 2025)\n  * Week 9 Agenda: Guest Lecture and In-class Meeting (Posted: October 27, 2025)\n  * Sprint 1 to Spring 2 Transition and Story Carry-Over Policy (Posted: October 27, 2025)",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 6,
+            "clarity": 7
+          },
+          "overall_score": 7.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Recent announcements (past 7 days)**  \n\n- **Hybrid today due to the weather** - posted October 30, 2025 at 1:33 PM (by Lu Xiao, Agile Methods for Software Development)  \n  *If the weather makes commuting difficult, you can join the class online via the Zoom link provided.*\n\n- **Week 9 Agenda Update: Guest Lecture postponed to Thu, 11/13 + This Week's Topic** - posted October 28, 2025 at 1:30 PM (by Lu Xiao, Agile Methods for Software Development)  \n  *The guest lecture originally scheduled for Thursday 10/30 is moved to Thursday 11/13 because of a forecasted storm.*\n\n- **Week 9 Agenda: Guest Lecture and In\u2011class Meeting** - posted October 27, 2025 at 3:36 PM (by Lu Xiao, Agile Methods for Software Development)  \n  *Sunny Wong, Senior Software Architect at Envestnet, will give a guest talk on Thursday 10/30 during the regular class meeting.*\n\n- **Sprint 1 to Sprint 2 Transition and Story Carry\u2011Over Policy** - posted October 27, 2025 at 3:29 PM (by Lu Xiao, Agile Methods for Software Development)  \n  *Details on how to handle incomplete stories as the course moves from Sprint 1 to Sprint 2.*\n\nThese are the only announcements that have been posted in the last week across all of your courses. Let me know if you'd like more detail on any of them or want to see announcements from an earlier period.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 8,
+      "query_text": "What's the structure of CS 555?",
+      "category": "simple_retrieval",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The structure of CS 555 (Agile Methods for Software Development) is as follows:\n* Project\n  * 555-Project-Overview.pdf\n  * CS555_Agile_Project_Pool_2025_Fall.pdf\n  * CS555_Agile_Project_Timeline.pdf\n  * GitHub_Projects_Backlog_Guide.docx\n  * Trello_Backlog_Guide.docx\n  * User_Story_Template_Updated.docx\n  * 555 Project (Optional) Starter Package\n* Reading\n* Week1-Orientation-9/4/2025\n  * Course-Logistics-2025.pdf\n  * 555-Project-Overview-2025.pdf\n  * Project 0-Project Prep\n  * CS555_Agile_Project_Pool_2025_Fall.pdf\n  * CS555_Project_Overview_slides.pdf\n  * week1_SoftwareProjectChallenges_2025.pdf\n  * Lecture-Recording-Week1\n* Week2-Culture, User Stories, and Use Cases-9/18/2025\n  * Quiz 01: User Stories\n  * Project 1-User Stories\n  * week2-Grenning2002-XP.pdf\n  * week2-Ambler2004-UserStory.pdf\n  * week2-culture-user-stories.pdf\n  * Lecture-Recording-Week2\n* Week3-Introduction to Agile-XP-9/11/2025\n  * Quiz 02 XP\n  * week3-RUP2003.pdf\n  * week3-Boehm2002-AgileMethods.pdf\n  * Week3-[Optional Reading]-RE-SA-17th-Annual-State-Of-Agile-Report.pdf\n  * Figma Quick Start Guide (for Project 2: Prototype Expo)\n  * Introduction-XP.pdf\n  * Project0-Stat-Summary\n* Week4-Scrum-9/25/2025\n  * Project 2-Prototype and Expo\n  * week4-Schwaber2013-Scrum.pdf\n  * Quiz 03: Scrum\n  * The Rise Of Zombie Scrum\n  * Fake Agile\n  * week4-Scrum.pdf\n* Week5-Testing-10/2/2025\n  * week4-Gamma1998-JUnit-Test.pdf\n  * week5-Testing.pdf\n  * Behavior_Driven_Development_A_Systematic_Literature_Review.pdf\n  * Quiz 04: Testing\n  * Project 3-Team Formation and Story Board Creation\n* Week6-Pair Programming-10/9/2025\n  * 1st Sprint\n  * week6-Williams2001-PP.pdf\n  * Exploring the efficacy of distributed pair programming.pdf\n  * Quiz 05: Continuous Integration and Pair Programming\n  * Activity 4: Project Kickoff (if have not) and Sprint 1 Planning\n  * week6 - CI and PP.pdf\n* Week7-Refactoring-10/16/2025\n  * Refactoring-1.pdf\n* Week8-Lean-10/23/2025\n  * 2nd Sprint\n  * week8-Poppendieck2012-Lean-SE.pdf\n  * Quiz 07: Lean\n  * Activity5: Sprint 1 Review and Spring 2 Planning\n  * week 8 - Lean.pdf",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**CS 555 - Agile Methods for Software Development (Fall 2025)**  \n\nThe course is organized into a series of weekly modules plus a few supporting sections:\n\n- **Project** - Overview documents, timelines, templates, and optional starter package for the semester\u2011long Agile project.  \n- **Reading** - Placeholder for supplemental readings (currently empty).  \n\n**Weekly modules**\n\n| Week | Focus | Main activities / resources |\n|------|-------|-----------------------------|\n| **Week 1 - Orientation (9 / 4 / 2025)** | Course logistics & project kickoff | * Course\u2011Logistics PDF<br>* 555\u2011Project\u2011Overview PDF<br>* Assignment: *Project 0 - Project Prep*<br>* Lecture recording |\n| **Week 2 - Culture, User Stories & Use Cases (9 / 18 / 2025)** | Understanding user stories, cultural aspects of Agile | * Quiz 1 - *User Stories*<br>* Assignment: *Project 1 - User Stories*<br>* Several reading PDFs on user\u2011story theory |\n| **Week 3 - Introduction to Agile\u2011XP (9 / 11 / 2025)** | XP practices and historical context | * Quiz 2 - *XP*<br>* PDFs on RUP, Boehm's Agile methods, and an optional State\u2011of\u2011Agile report<br>* Figma quick\u2011start guide (for Project 2 prototype) |\n| **Week 4 - Scrum (9 / 25 / 2025)** | Scrum framework & ceremonies | * Assignment: *Project 2 - Prototype & Expo*<br>* Quiz 3 - *Scrum*<br>* Scrum reading PDFs and a couple of external links (e.g., \"Zombie Scrum\") |\n| **Week 5 - Testing (10 / 2 / 2025)** | Unit testing, TDD, BDD | * Quiz 4 - *Testing*<br>* Assignment: *Project 3 - Team Formation & Story\u2011Board*<br>* PDFs on JUnit, testing fundamentals, and a BDD literature review |\n| **Week 6 - Pair Programming (10 / 9 / 2025)** | Collaborative coding & CI | * Assignment: *1st Sprint*<br>* Quiz 5 - *Continuous Integration & Pair Programming*<br>* Activity: *Project Kickoff / Sprint 1 Planning*<br>* Supporting PDFs on pair\u2011programming research |\n| **Week 7 - Refactoring (10 / 16 / 2025)** | Code improvement techniques | * PDF: *Refactoring\u20111* |\n| **Week 8 - Lean (10 / 23 / 2025)** | Lean principles for software development | * Assignment: *2nd Sprint*<br>* Quiz 7 - *Lean*<br>* Activity: *Sprint 1 Review & Sprint 2 Planning*<br>* Lean\u2011SE reading PDF |\n\nEach week's module contains the listed items (files, assignments, quizzes, or external links). The \"Project\" section holds all the long\u2011term Agile project artifacts you'll use throughout the semester.  \n\nLet me know if you'd like details on a specific assignment, quiz, or any of the reading materials!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 9,
+      "query_text": "Show files in CS 584",
+      "category": "simple_retrieval",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the files in CS 584 (Natural Language Processing):\n* 1-introduction.pdf\n* 2-ml-basics.pdf\n* 3-vector-semantics.pdf\n* 4-language-modeling.pdf\n* 5-more-rnn.pdf\n* 6-cnn-tokenization.pdf\n* 7-seq2seq.pdf\n* 8-attention-transformers.pdf\n* 9-pretraining.pdf\n* 25Fall_CS584_project_template.zip",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Files for Natural Language Processing (CS 584 - Fall 2025)**  \n\n- *1\u2011introduction.pdf* - \u2248 2.8 MB  \n- *2\u2011ml\u2011basics.pdf* - \u2248 1.9 MB  \n- *3\u2011vector\u2011semantics.pdf* - \u2248 1.9 MB  \n- *4\u2011language\u2011modeling.pdf* - \u2248 1.6 MB  \n- *5\u2011more\u2011rnn.pdf* - \u2248 1.2 MB  \n- *6\u2011cnn\u2011tokenization.pdf* - \u2248 3.5 MB  \n- *7\u2011seq2seq.pdf* - \u2248 1.7 MB  \n- *8\u2011attention\u2011transformers.pdf* - \u2248 2.4 MB  \n- *9\u2011pretraining.pdf* - \u2248 3.6 MB  \n- *25Fall_CS584_project_template.zip* - \u2248 0.2 MB  \n\nThese are the core lecture PDFs and the project template for the course. Let me know if you'd like to download a specific file or need details about any of the content!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 10,
+      "query_text": "What events are upcoming?",
+      "category": "simple_retrieval",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "There are no upcoming events or assignments in the next 7 days.",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 6,
+            "clarity": 6
+          },
+          "overall_score": 6.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Upcoming due dates (as of November 3 2025)**  \n\n- **November 4, 2025** - *Machine Learning (CS 559\u2011WS)* - **Homework 4** - due 11:59 PM  \n- **November 4, 2025** - *Natural Language Processing (CS 584)* - **Homework 4** - due 11:59 PM  \n- **November 5, 2025** - *Agile Methods for Software Development (CS 555\u2011A)* - **2nd Sprint** - due 11:59 PM  \n- **November 19, 2025** - *CS 555\u2011A* - **3rd Sprint** - due 11:59 PM  \n- **December 3, 2025** - *CS 555\u2011A* - **4th Sprint** - due 11:59 PM  \n- **December 4, 2025** - *CS 555\u2011A* - **Final Demonstration** - due 11:59 PM  \n\nThese are the only assignments/quizzes still open after today. Let me know if you need details or help planning for any of them!",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Wrong info with Assignment 4 for NLP"
+        }
+      }
+    },
+    {
+      "query_id": 11,
+      "query_text": "What's due in CS 555?",
+      "category": "course_specific",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the assignments in CS 555 (Agile Methods for Software Development):\n* Project 0-Project Prep (Due: September 10, 2025) - Score: 55/50\n* Project 1-User Stories (Due: September 24, 2025) - Score: 100/100\n* Project 2-Prototype and Expo (Due: October 1, 2025) - Score: 100/100\n* Project 3-Team Formation and Story Board Creation (Due: October 12, 2025) - Not submitted\n* 1st Sprint (Due: October 24, 2025) - Score: 95/100\n* 2nd Sprint (Due: November 5, 2025) - Not submitted\n* 3rd Sprint (Due: November 19, 2025) - Not submitted\n* 4th Sprint (Due: December 3, 2025) - Not submitted\n* Final Demonstration (Due: December 4, 2025) - Not submitted\n* Project Selection Intention Discussion Board (No due date) - Not submitted\n* Quiz 02 XP (Due: September 26, 2025) - Score: 50/50\n* Quiz 01: User Stories (Due: September 19, 2025) - Score: 48/50\n* Quiz 03: Scrum (Due: October 3, 2025) - Score: 50/50\n* Quiz 04: Testing (Due: October 10, 2025) - Score: 50/50\n* Quiz 05: Continuous Integration and Pair Programming (Due: October 17, 2025) - Score: 5/50\n* Quiz 07: Lean (Due: October 31, 2025) - Score: 0/50\n* Activity5: Sprint 1 Review and Spring 2 Planning (Due: October 23, 2025) - Score: 50/50\n* Activity1 (Due: September 11, 2025) - Score: 10/10\n* Activity2-Figma (Due: September 26, 2025) - Score: 10/10\n* Activity3-Prototype-Expo (Due: October 2, 2025) - Score: 50/50\n* Activity 4: Project Kickoff (if have not) and Sprint 1 Planning (Due: October 12, 2025) - Score: 50/50",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 6
+          },
+          "overall_score": 7.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**CS 555 - Agile Methods for Software Development (Fall 2025)**  \n\nUpcoming items that are still open (or not yet submitted) :\n\n- **Project 3 - Team Formation and Story\u2011Board Creation** - due **October 12, 2025** - *unsubmitted*  \n- **2nd Sprint** - due **November 5, 2025** - *unsubmitted*  \n- **3rd Sprint** - due **November 19, 2025** - *unsubmitted*  \n- **4th Sprint** - due **December 3, 2025** - *unsubmitted*  \n- **Final Demonstration** - due **December 4, 2025** - *unsubmitted*  \n\nAll earlier assignments (Project 0, Project 1, Project 2, 1st Sprint, and the various activities) have already been submitted and graded. Let me know if you need details on any of these tasks or help planning your work!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 12,
+      "query_text": "How am I doing in Machine Learning?",
+      "category": "course_specific",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You are currently doing well in Machine Learning, with a grade of A (97.98%).",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 7,
+            "clarity": 6
+          },
+          "overall_score": 7.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Machine Learning: Fundamentals and Applications (CS 559\u2011WS)**  \n\n- **Current overall score:** 97.98 %  \n- **Current letter grade:** **A**  \n- **Final (project\u2011weighted) score so far:** 70.7 % (currently recorded as a **C** - this reflects the portion of the grade that will be based on the final project/assessment).  \n\nAll quizzes and homework for the course have been submitted and graded, so your high current score shows you're mastering the material. The final project will determine the ultimate course grade, so focusing on that upcoming deliverable will be key.\n\nLet me know if you'd like details on any specific quiz, upcoming project requirements, or tips for the final assessment!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 13,
+      "query_text": "What's my grade in CS 559?",
+      "category": "course_specific",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Your current grade in CS 559 (Machine Learning: Fundamentals and Applications) is A (97.98%).",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 7,
+            "clarity": 6
+          },
+          "overall_score": 7.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Machine Learning: Fundamentals and Applications (CS 559\u2011WS)**  \n\n- **Current score:** 97.98 / 100 (**A**)  \n- **Final\u2011project\u2011weighted score so far:** 70.7 / 100 (**C**)  \n\nYour overall performance is strong, with an A based on the work completed to date. The final project will determine the ultimate course grade, so focusing on that upcoming deliverable will be key. Let me know if you'd like details on any specific quiz, assignment, or the final project requirements!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 14,
+      "query_text": "What quizzes are in Agile Methods?",
+      "category": "course_specific",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the quizzes in CS 555 (Agile Methods for Software Development):\n* Quiz 02 XP (Due: September 26, 2025) - Score: 50/50\n* Quiz 01: User Stories (Due: September 19, 2025) - Score: 48/50\n* Quiz 03: Scrum (Due: October 3, 2025) - Score: 50/50\n* Quiz 04: Testing (Due: October 10, 2025) - Score: 50/50\n* Quiz 05: Continuous Integration and Pair Programming (Due: October 17, 2025) - Score: 5/50\n* Quiz 07: Lean (Due: October 31, 2025) - Score: 0/50",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Quizzes in Agile Methods for Software Development (CS 555\u2011A)**  \n\n- **Quiz 01 - User Stories** - due September 19, 2025 (10 PM) - **48 / 50** (graded)  \n- **Quiz 02 - XP** - due September 26, 2025 (10 PM) - **50 / 50** (graded)  \n- **Quiz 03 - Scrum** - due October 3, 2025 (10 PM) - **50 / 50** (graded)  \n- **Quiz 04 - Testing** - due October 10, 2025 (10 PM) - **50 / 50** (graded)  \n- **Quiz 05 - Continuous Integration & Pair Programming** - due October 17, 2025 (10 PM) - **5 / 50** (pending review)  \n- **Quiz 07 - Lean** - due October 31, 2025 (10 PM) - **0 / 50** (pending review)  \n\nThese are all the quiz items currently listed for the course. Let me know if you need details on any specific quiz or help preparing for the upcoming ones!",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 8
+          },
+          "overall_score": 7.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 15,
+      "query_text": "Show CS 584 assignments",
+      "category": "course_specific",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the assignments in CS 584 (Natural Language Processing):\n* HW0 (Due: September 18, 2025) - Score: 5/5\n* HW1 (Due: October 3, 2025) - Score: 105/105\n* HW2 (Due: October 25, 2025) - Not graded\n* HW3 (Due: November 20, 2025) - Not submitted\n* Attendance 1 (Due: September 22, 2025) - Score: 1/1\n* Attendance 2 (Due: October 27, 2025) - Score: 1/1\n* Project Proposal (Due: October 5, 2025) - Score: 100/100\n* Project midterm report (Due: November 7, 2025) - Not submitted",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 6
+          },
+          "overall_score": 7.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Assignments for Natural Language Processing (CS 584 - Fall 2025)**  \n\n- **HW 0** - due September 18 2025 at 11:59 PM - graded 5 / 5 (submitted)  \n- **HW 1** - due October 3 2025 at 11:59 PM - graded 105 / 105 (submitted)  \n- **HW 2** - due October 25 2025 at 11:59 PM - submitted, grade not posted yet (awaiting grading)  \n- **HW 3** - due November 20 2025 at 11:59 PM - not submitted (still open)  \n\n**Attendance credits** (count toward participation)  \n\n- **Attendance 1** - September 22 2025 at 5:30 PM - graded 1 / 1 (submitted)  \n- **Attendance 2** - October 27 2025 at 5:30 PM - graded 1 / 1 (submitted)  \n\n**Project milestones**  \n\n- **Project Proposal** - due October 5 2025 at 11:59 PM - graded 100 / 100 (submitted)  \n- **Project Midterm Report** - due November 7 2025 at 11:59 PM - not submitted (still open)  \n\nLet me know if you'd like details on any specific assignment, submission instructions, or help planning your work for the upcoming deadlines!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 16,
+      "query_text": "What's due in my NLP course?",
+      "category": "course_specific",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The course name \"NLP\" is not recognized. Please provide the full course name or code, such as \"Natural Language Processing\" or \"CS 584\".",
+          "ratings": {
+            "correctness": 2,
+            "completeness": 2,
+            "clarity": 2
+          },
+          "overall_score": 2.0,
+          "pass": false,
+          "failure_type": "wrong_data_returned",
+          "notes": "It could not figure out what NLP meant"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Upcoming items for Natural Language Processing (CS 584 - Fall 2025)**  \n\n- **Project Midterm Report** - due **November 7, 2025** at 11:59 PM - not submitted yet.  \n- **HW 3** - due **November 20, 2025** at 11:59 PM - not submitted yet.  \n\nThese are the only assignments that are still open after today. Let me know if you need details on the requirements, submission steps, or help planning your work!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 17,
+      "query_text": "What files are in FE 520?",
+      "category": "course_specific",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You do not have permission to access the files in FE 520.",
+          "ratings": {
+            "correctness": 2,
+            "completeness": 2,
+            "clarity": 2
+          },
+          "overall_score": 2.0,
+          "pass": false,
+          "failure_type": "wrong_data_returned",
+          "notes": "Error accessing the course"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Files for Introduction to Python for Financial Applications (FE 520 - Fall 2025)**  \n\n- **Course Syllabus** - \"Course Syllabus\" (page)  \n- **Handout**  \n  - *Basic Command Line Syntax.pdf*  \n  - *Handbook for setting up Python and IDE on macOS.pdf*  \n- **Week 1** - *Variable.ipynb*  \n- **Week 2** - *String.ipynb*, *Number.ipynb*  \n- **Week 3** - *List.ipynb*, *Dictionary.ipynb*  \n- **Week 4** - *If_Statement.ipynb*  \n- **Week 5** - *While_Loop.ipynb*  \n- **Week 6** - *For_Loop.ipynb*, *Iteration.ipynb*  \n\nThese are the current course files organized by module. Let me know if you need a specific file or help with any of the notebook content!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 18,
+      "query_text": "Show modules for CS 559",
+      "category": "course_specific",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the modules for CS 559 (Machine Learning: Fundamentals and Applications):\n* Week 0 (8/26-9/1): Orientation\n  * cs559ws_fa25_wk00_Orientation.pdf\n  * Orientation Video\n* Week 1 (9/2-9/8): Linear Regression\n  * Week 1: Linear Regression\n  * Quiz 1 - Linear Regression\n  * hw1\n* Week 2 (9/9-9/15): Linear Classification 1\n  * Week 2 Linear Classification I\n  * Quiz 2 Linear Classification 1\n* Week 3 (9/16-9/22): Linear Classification 2\n  * Week 3: Linear Classification II\n  * Quiz 3 linear classification 2\n  * hw2\n* Week 4 (9/23-9/29): Model Selection\n  * Week 4: Model Selection\n  * Quiz 4 Model Selection\n* Week 5 (9/30-10/6): Neural Network\n  * Week 5: Neural Networks\n  * Quiz 5 Neural Network\n  * hw3\n* Week 6 (10/7-10/13): Midterm\n  * Week 6: Midterm\n  * Midterm\n* Week 7 (10/14-10/20): Kernel Method\n  * Week 7: Kernel Method\n  * Quiz 6 Kernel Method\n* Week 8 (10/21-10/27): Support Vector Machine\n  * Week 8: SVM\n  * Quiz 7 SVM\n  * hw4\n* Week 9 (10/28-11/3): Unsupervised Learning\n  * Week 9: Unsupervised Learning\n  * Quiz 8 Unsupervised Learning",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 10,
+            "clarity": 8
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Modules for Machine Learning: Fundamentals and Applications (CS 559\u2011WS)**  \n\n- **Week 0 - Orientation (8/26 - 9/1)** - 2 items (orientation PDF and video)  \n- **Week 1 - Linear Regression (9/2 - 9/8)** - 3 items (lecture page, Quiz 1, Homework 1)  \n- **Week 2 - Linear Classification 1 (9/9 - 9/15)** - 2 items (lecture page, Quiz 2)  \n- **Week 3 - Linear Classification 2 (9/16 - 9/22)** - 3 items (lecture page, Quiz 3, Homework 2)  \n- **Week 4 - Model Selection (9/23 - 9/29)** - 2 items (lecture page, Quiz 4)  \n- **Week 5 - Neural Network (9/30 - 10/6)** - 3 items (lecture page, Quiz 5, Homework 3)  \n- **Week 6 - Midterm (10/7 - 10/13)** - 2 items (midterm overview page, Midterm quiz)  \n- **Week 7 - Kernel Method (10/14 - 10/20)** - 2 items (lecture page, Quiz 6)  \n- **Week 8 - Support Vector Machine (10/21 - 10/27)** - 3 items (lecture page, Quiz 7, Homework 4)  \n- **Week 9 - Unsupervised Learning (10/28 - 11/3)** - 2 items (lecture page, Quiz 8)  \n\nThese are the weekly modules that structure the course content, quizzes, and assignments. Let me know if you'd like to dive into any specific week's materials!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 10,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 19,
+      "query_text": "What discussions are in CS 555?",
+      "category": "course_specific",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "There is one discussion in CS 555 (Agile Methods for Software Development):\n* Project Selection Intention Discussion Board (Posted: September 30, 2025) - 7 unread replies, 7 total replies",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 10,
+            "clarity": 8
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Discussions in Agile Methods for Software Development (CS 555\u2011A)**  \n\n- **Project Selection Intention Discussion Board** - posted September 30, 2025 at 4:56 PM (7 unread replies, 7 total replies)  \n\nThat's the only active discussion thread for the course right now. Let me know if you'd like to view the posts or reply to it!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 10,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 20,
+      "query_text": "Recent announcements in CS 584",
+      "category": "course_specific",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The announcements shown are not from CS 584 (Natural Language Processing). They are from CS 555 (Agile Methods for Software Development). To see the recent announcements in CS 584, please use the correct course ID.",
+          "ratings": {
+            "correctness": 2,
+            "completeness": 2,
+            "clarity": 2
+          },
+          "overall_score": 2.0,
+          "pass": false,
+          "failure_type": "wrong_data_returned",
+          "notes": "Failed to fetch assignments"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Recent announcements for Natural Language Processing (CS 584 - Fall 2025)**  \n\n- **CS584: HW3 released** - posted October 25, 2025 at 7:46 PM (author: Ping Wang)  \n  *Homework 3 is now available; the deadline is 11:59 PM on November 20, 2025.*\n\n- **CS584: Project Midterm Report** - posted October 22, 2025 at 12:57 PM (author: Ping Wang)  \n  *Guidelines for the midterm project report are posted; the submission deadline is 11:59 PM on November 7, 2025.*",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 10,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 21,
+      "query_text": "What's due in the next 3 days?",
+      "category": "temporal_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no assignments due in the next 3 days.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "There are no assignments, quizzes, or other graded items due in the next 3 days.  \n\nIf you'd like to see what's coming up after that window or need details on any upcoming work, just let me know!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 22,
+      "query_text": "Show assignments due by Friday",
+      "category": "temporal_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no assignments due by Friday.",
+          "ratings": {
+            "correctness": 4,
+            "completeness": 4,
+            "clarity": 4
+          },
+          "overall_score": 4.0,
+          "pass": false,
+          "failure_type": "wrong_data_returned",
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Assignments due by Friday ( November 5, 2025 )**  \n\n- **Agile Methods for Software Development (CS 555\u2011A)** - *2nd Sprint* - due **November 5, 2025** at 11:59 PM (still unsubmitted).  \n\nNo other enrolled courses have assignments with a deadline on or before Friday. Let me know if you'd like details on the sprint requirements or help planning your work!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 23,
+      "query_text": "What's due this month?",
+      "category": "temporal_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no assignments due this month.",
+          "ratings": {
+            "correctness": 1,
+            "completeness": 1,
+            "clarity": 1
+          },
+          "overall_score": 1.0,
+          "pass": false,
+          "failure_type": "incomplete_answer",
+          "notes": "Blank response"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Assignments due in November 2025**\n\n---\n\n### Agile Methods for Software Development (CS 555\u2011A)  \n- **2nd Sprint** - due **Friday, November 5, 2025** at 11:59 PM (unsubmitted)  \n- **3rd Sprint** - due **Thursday, November 19, 2025** at 11:59 PM (unsubmitted)  \n\n---\n\n### Natural Language Processing (CS 584)  \n- **Project Midterm Report** - due **Sunday, November 7, 2025** at 11:59 PM (unsubmitted)  \n- **HW 3** - due **Saturday, November 20, 2025** at 11:59 PM (unsubmitted)  \n\n---\n\nNo other enrolled courses have assignments with November deadlines. Let me know if you'd like details on any of these items or help planning your work!",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Might have missed 559's assignment"
+        }
+      }
+    },
+    {
+      "query_id": 24,
+      "query_text": "Upcoming deadlines",
+      "category": "temporal_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no upcoming deadlines in the next 7 days.",
+          "ratings": {
+            "correctness": 1,
+            "completeness": 1,
+            "clarity": 1
+          },
+          "overall_score": 1.0,
+          "pass": false,
+          "failure_type": "ambiguous_response",
+          "notes": "It is getting limited to the next 7 days"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Upcoming deadlines (today Nov 3 2025)**  \n\n- **CS 555 - Agile Methods for Software Development**  \n  - *2nd Sprint* - due **Friday, Nov 5, 2025** at 11:59 PM (still unsubmitted)  \n  - *3rd Sprint* - due **Thursday, Nov 19, 2025** at 11:59 PM (still unsubmitted)  \n\n- **CS 584 - Natural Language Processing**  \n  - *Project Midterm Report* - due **Sunday, Nov 7, 2025** at 11:59 PM (not submitted)  \n  - *HW 3* - due **Saturday, Nov 20, 2025** at 11:59 PM (not submitted)  \n\nNo other courses have pending items with deadlines in the next few weeks. Let me know if you'd like details on any of these tasks or help planning your work!",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 8,
+            "clarity": 9
+          },
+          "overall_score": 7.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 25,
+      "query_text": "What's overdue?",
+      "category": "temporal_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no overdue assignments.",
+          "ratings": {
+            "correctness": 1,
+            "completeness": 1,
+            "clarity": 1
+          },
+          "overall_score": 1.0,
+          "pass": false,
+          "failure_type": "incomplete_answer",
+          "notes": "Failed to fetch data from CS 555"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Overdue items (past their due date and not submitted)**  \n\n- **Agile Methods for Software Development (CS 555\u2011A)**  \n  - *Project 3 - Team Formation and Story\u2011Board Creation* - was due **October 12, 2025** at 11:59 PM - **still unsubmitted**  \n\nAll other assignments in your enrolled courses have either been submitted on time or have future due dates. Let me know if you'd like details on the overdue project or help planning how to complete it!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Interestingly, it did not use any tools, it most likely accessed its memory"
+        }
+      }
+    },
+    {
+      "query_id": 26,
+      "query_text": "Show me next week's assignments",
+      "category": "temporal_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no assignments due next week.",
+          "ratings": {
+            "correctness": 1,
+            "completeness": 1,
+            "clarity": 1
+          },
+          "overall_score": 1.0,
+          "pass": false,
+          "failure_type": "incomplete_answer",
+          "notes": "It's failing to access data after a certain point, maybe the model is getting overwhelmed"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Assignments due next week (November 4 - November 10, 2025)**  \n\n- **Agile Methods for Software Development (CS 555\u2011A)** - *2nd Sprint* - due **Friday, November 5, 2025** at 11:59 PM - **still unsubmitted**  \n\n- **Natural Language Processing (CS 584)** - *Project Midterm Report* - due **Sunday, November 7, 2025** at 11:59 PM - **not submitted**  \n\nThese are the only items with deadlines falling within the coming week. Let me know if you'd like the requirements for any of them or help planning how to tackle them!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 27,
+      "query_text": "What quizzes are coming up?",
+      "category": "temporal_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no quizzes coming up in the next 7 days.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "There are no quizzes with due dates coming up in the next two weeks. All scheduled quizzes for your courses have already been completed. If you'd like to review any past quizzes or need help preparing for upcoming assignments, just let me know!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 28,
+      "query_text": "Deadlines for November",
+      "category": "temporal_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no deadlines in November.",
+          "ratings": {
+            "correctness": 1,
+            "completeness": 1,
+            "clarity": 1
+          },
+          "overall_score": 1.0,
+          "pass": false,
+          "failure_type": "incomplete_answer",
+          "notes": "Blank"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**November 2025 deadlines**\n\n---\n\n### Agile Methods for Software Development (CS 555\u2011A)  \n- **2nd Sprint** - due **November 5, 2025** at 11:59 PM (unfinished)  \n- **3rd Sprint** - due **November 19, 2025** at 11:59 PM (unfinished)  \n\n### Natural Language Processing (CS 584)  \n- **Project Midterm Report** - due **November 7, 2025** at 11:59 PM (not submitted)  \n- **HW 3** - due **November 20, 2025** at 11:59 PM (not submitted)  \n\n---\n\nNo other enrolled courses have November deadlines. Let me know if you'd like details on any of these items or help planning your work!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 29,
+      "query_text": "What's urgent?",
+      "category": "temporal_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no urgent assignments or deadlines in the next 3 days.",
+          "ratings": {
+            "correctness": 1,
+            "completeness": 1,
+            "clarity": 1
+          },
+          "overall_score": 1.0,
+          "pass": false,
+          "failure_type": "incomplete_answer",
+          "notes": "Failing to analyze data properly"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Urgent items (overdue or due very soon)**  \n\n- **Project 3 - Team Formation & Story\u2011Board Creation** (CS 555 - Agile Methods) - **overdue** (was due October 12, 2025) - still unsubmitted.  \n- **2nd Sprint** (CS 555 - Agile Methods) - due **November 5, 2025** (in 2 days) - not submitted yet.  \n- **Project Midterm Report** (CS 584 - Natural Language Processing) - due **November 7, 2025** (in 4 days) - not submitted.  \n\nThese three tasks should be your top priority. Let me know if you need the assignment details, submission instructions, or help planning how to complete them.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 30,
+      "query_text": "Show late assignments",
+      "category": "temporal_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no late assignments.",
+          "ratings": {
+            "correctness": 1,
+            "completeness": 1,
+            "clarity": 1
+          },
+          "overall_score": 1.0,
+          "pass": false,
+          "failure_type": "incomplete_answer",
+          "notes": "Failing to analyze data properly"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Late (overdue) assignments**\n\n- **Agile Methods for Software Development (CS 555\u2011A)**\n  - **Project 3 - Team Formation and Story\u2011Board Creation** - was due **October 12, 2025** at 11:59 PM and is still **unsubmitted**.\n\nAll other assignments in your enrolled courses are either submitted on time or have future due dates. Let me know if you'd like the details or submission instructions for the overdue project.",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 31,
+      "query_text": "Show all my grades",
+      "category": "aggregation",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are your current grades:\n* Agile Methods for Software Development: 99.71%\n* Machine Learning: Fundamentals and Applications: A (97.98%)\n* Natural Language Processing: 100%\n* Introduction to Python for Financial Applications: 87.27%\n* Graduate Student Code of Academic Integrity: 100%",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Your current grades**\n\n- **Agile Methods for Software Development (CS 555\u2011A)** - Current score **99.71 %**  \n- **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)** - Current score **97.98 %** (letter grade **A**) - Final\u2011project\u2011weighted score **70.7 %** (currently a **C**)  \n- **Natural Language Processing (CS 584)** - Current score **100 %**  \n- **Introduction to Python for Financial Applications (FE 520)** - Current score **87.27 %**  \n- **Fall 2024 Graduate Student Code of Academic Integrity** - Current score **100 %**  \n\nLet me know if you'd like more detail on any specific course (grade breakdown, upcoming assessments, etc.).",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 32,
+      "query_text": "List all quizzes across courses",
+      "category": "aggregation",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the quizzes across your courses:\n* Agile Methods for Software Development:\n  * Quiz 02 XP (Due: September 26, 2025) - Score: 50/50\n  * Quiz 01: User Stories (Due: September 19, 2025) - Score: 48/50\n  * Quiz 03: Scrum (Due: October 3, 2025) - Score: 50/50\n  * Quiz 04: Testing (Due: October 10, 2025) - Score: 50/50\n  * Quiz 05: Continuous Integration and Pair Programming (Due: October 17, 2025) - Score: 5/50\n  * Quiz 07: Lean (Due: October 31, 2025) - Score: 0/50\n* Machine Learning: Fundamentals and Applications:\n  * Quiz 1 - Linear Regression (Due: September 6, 2025) - Score: 8.5/10\n  * Quiz 2 Linear Classification 1 (Due: September 13, 2025) - Score: 10/10\n  * Quiz 3 linear classification 2 (Due: September 20, 2025) - Score: 10/10\n  * Quiz 4 Model Selection (Due: September 27, 2025) - Score: 9/10\n  * Quiz 5 Neural Network (Due: October 4, 2025) - Score: 9/10\n  * Quiz 6 Kernel Method (Due: October 18, 2025) - Score: 10/10\n  * Quiz 7 SVM (Due: October 25, 2025) - Score: 9/10\n  * Quiz 8 Unsupervised Learning (Due: November 1, 2025) - Score: 8/10\n  * Midterm (Due: October 14, 2025) - Score: 98/100\n* Graduate Student Code of Academic Integrity:\n  * GSCoAI Quiz (Due: September 16, 2024) - Score: 11/11\n\nNo quizzes were found for Natural Language Processing or Introduction to Python for Financial Applications.",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Quizzes across all of your courses**\n\n---\n\n### Agile Methods for Software Development (CS 555\u2011A)  \n- **Quiz 01 - User Stories** - due September 19 2025 (10 PM) - score 48 / 50 (graded)  \n- **Quiz 02 - XP** - due September 26 2025 (10 PM) - score 50 / 50 (graded)  \n- **Quiz 03 - Scrum** - due October 3 2025 (10 PM) - score 50 / 50 (graded)  \n- **Quiz 04 - Testing** - due October 10 2025 (10 PM) - score 50 / 50 (graded)  \n- **Quiz 05 - Continuous Integration & Pair Programming** - due October 17 2025 (10 PM) - score 5 / 50 (pending review)  \n- **Quiz 07 - Lean** - due October 31 2025 (10 PM) - score 0 / 50 (pending review)  \n\n---\n\n### Machine Learning: Fundamentals and Applications (CS 559\u2011WS)  \n- **Quiz 1 - Linear Regression** - due September 6 2025 - score 8.5 / 10 (graded)  \n- **Quiz 2 - Linear Classification 1** - due September 13 2025 - score 10 / 10 (graded)  \n- **Quiz 3 - Linear Classification 2** - due September 20 2025 - score 10 / 10 (graded)  \n- **Quiz 4 - Model Selection** - due September 27 2025 - score 9 / 10 (graded)  \n- **Quiz 5 - Neural Network** - due October 4 2025 - score 9 / 10 (graded)  \n- **Quiz 6 - Kernel Method** - due October 18 2025 - score 10 / 10 (graded)  \n- **Quiz 7 - SVM** - due October 25 2025 - score 9 / 10 (graded)  \n- **Quiz 8 - Unsupervised Learning** - due November 1 2025 - score 8 / 10 (graded)  \n- **Midterm** - due October 14 2025 - score 98 / 100 (graded)  \n\n---\n\n*(No quizzes are listed for the NLP (CS 584) or the Python for Financial Applications (FE 520) courses.)*  \n\nLet me know if you'd like details on any specific quiz, review materials, or help preparing for upcoming assessments!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 33,
+      "query_text": "All upcoming assignments",
+      "category": "aggregation",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the upcoming assignments across your courses:\n* Agile Methods for Software Development:\n  * 2nd Sprint (Due: November 5, 2025) - Not submitted\n  * 3rd Sprint (Due: November 19, 2025) - Not submitted\n  * 4th Sprint (Due: December 3, 2025) - Not submitted\n  * Final Demonstration (Due: December 4, 2025) - Not submitted\n* Machine Learning: Fundamentals and Applications:\n  * hw4 (Due: November 4, 2025) - Not submitted\n  * Quiz 8 Unsupervised Learning (Due: November 1, 2025) - Score: 8/10\n* Natural Language Processing:\n  * HW3 (Due: November 20, 2025) - Not submitted\n  * Project midterm report (Due: November 7, 2025) - Not submitted\n* Introduction to Python for Financial Applications:\n  * Assignment 2 (Due: October 23, 2025) - Not graded\n\nNo upcoming assignments were found for Graduate Student Code of Academic Integrity.",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Upcoming assignments (due after today Nov 3 2025)**  \n\n---\n\n### Agile Methods for Software Development (CS 555\u2011A)  \n- **2nd Sprint** - due **Nov 5, 2025** at 11:59 PM *(still unsubmitted)*  \n- **3rd Sprint** - due **Nov 19, 2025** at 11:59 PM *(unsubmitted)*  \n- **4th Sprint** - due **Dec 3, 2025** at 11:59 PM *(unsubmitted)*  \n- **Final Demonstration** - due **Dec 4, 2025** at 11:59 PM *(unsubmitted)*  \n\n---\n\n### Machine Learning: Fundamentals and Applications (CS 559\u2011WS)  \n- **Homework 3** - due **Nov 20, 2025** at 11:59 PM *(not submitted yet)*  \n\n---\n\n### Natural Language Processing (CS 584)  \n- **Project Midterm Report** - due **Nov 7, 2025** at 11:59 PM *(not submitted yet)*  \n- **HW 3** - due **Nov 20, 2025** at 11:59 PM *(not submitted yet)*  \n\n---\n\nThese are the only assignments that still have future deadlines. Let me know if you need the assignment details, submission instructions, or help planning how to tackle any of them!",
+          "ratings": {
+            "correctness": 4,
+            "completeness": 7,
+            "clarity": 6
+          },
+          "overall_score": 5.67,
+          "pass": false,
+          "failure_type": "wrong_data_returned",
+          "notes": "Wrong data with 559?"
+        }
+      }
+    },
+    {
+      "query_id": 34,
+      "query_text": "Compare my performance across courses",
+      "category": "aggregation",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here is a comparison of your performance across courses:\n* Agile Methods for Software Development: 99.71%\n* Machine Learning: Fundamentals and Applications: A (97.98%)\n* Natural Language Processing: 100%\n* Introduction to Python for Financial Applications: 87.27%\n* Graduate Student Code of Academic Integrity: 100%\n\nYou are performing well in all your courses, with high scores in Agile Methods for Software Development, Machine Learning: Fundamentals and Applications, Natural Language Processing, and Graduate Student Code of Academic Integrity. Your score in Introduction to Python for Financial Applications is slightly lower, but still good.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Performance snapshot (current scores)**  \n\n| Course | Current score | Letter grade (if posted) | Comments |\n|--------|---------------|--------------------------|----------|\n| **Agile Methods for Software Development (CS 555\u2011A)** | **99.7 %** | - (grade not posted yet) | Near\u2011perfect work on all submitted projects and quizzes. Keep the momentum for the remaining sprints and the final demonstration. |\n| **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)** | **97.9 %** | **A** (current) | Excellent grasp of the material so far. The final\u2011project component is currently weighted at **70.7 %** (showing a **C**), so the upcoming project will have the biggest impact on your final grade. |\n| **Natural Language Processing (CS 584)** | **100 %** | - (grade not posted) | All graded assignments are perfect. The only pending work is the **Project Midterm Report** (due Nov 7) and **HW 3** (due Nov 20). |\n| **Introduction to Python for Financial Applications (FE 520\u2011A)** | **87.3 %** | - (grade not posted) | Solid performance; there's room to boost the score with the remaining assignments. |\n| **Fall 2024 Graduate Student Code of Academic Integrity** | **100 %** | - | Completed. |\n\n### What the numbers tell you  \n\n- **Strengths:** You consistently earn high marks in the technical courses (CS 555, CS 559, CS 584). Your quiz and project scores are at or near the top of the scale.  \n- **Potential risk:** The **final project** in CS 559 is currently pulling the overall grade down to a **C** for that component. Delivering a strong mid\u2011term report and final project will be crucial to maintain the overall **A**.  \n- **Opportunity for improvement:** In **FE 520** you have a good baseline (87 %). Completing the upcoming assignments with the same diligence should push you into the high\u201180s/90s range.  \n\n### Quick action items  \n\n1. **CS 559 - Project work** - prioritize the mid\u2011term report (due Nov 7) and start outlining the final project.  \n2. **CS 555 - 2nd Sprint** - due Nov 5; submit promptly to avoid another overdue item.  \n3. **CS 584 - Project Midterm Report** - due Nov 7; review the guidelines and submit early.  \n\nFocusing on these high\u2011impact items will keep your overall performance strong across all courses. Let me know if you'd like the detailed rubrics or a study plan for any of them!",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Still getting confused with 559 and 584"
+        }
+      }
+    },
+    {
+      "query_id": 35,
+      "query_text": "Total assignments this week",
+      "category": "aggregation",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no assignments due this week.",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 6,
+            "clarity": 6
+          },
+          "overall_score": 6.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Both are failing to fetch 559's data properly"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Assignments due this week (Monday Nov 3 - Sunday Nov 9, 2025)**  \n\n| Course | Assignment | Due date |\n|--------|------------|----------|\n| **Agile Methods for Software Development (CS 555\u2011A)** | 2nd Sprint | **Friday, Nov 5, 2025** at 11:59 PM |\n| **Natural Language Processing (CS 584)** | Project Midterm Report | **Sunday, Nov 7, 2025** at 11:59 PM |\n\n**Total assignments due this week:** **2**.  \n\nLet me know if you'd like the assignment details, rubrics, or help planning how to complete them!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 36,
+      "query_text": "All announcements from this week",
+      "category": "aggregation",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the announcements from this week:\n* Agile Methods for Software Development:\n  * Hybrid today due to the weather (Posted: October 30, 2025)\n  * Week 9 Agenda Update: Guest Lecture Postponed to Thu, 11/13 + This Week's Topic (Posted: October 28, 2025)\n  * Week 9 Agenda: Guest Lecture and In-class Meeting (Posted: October 27, 2025)\n  * Sprint 1 to Spring 2 Transition and Story Carry-Over Policy (Posted: October 27, 2025)\n\nNo announcements were found for other courses.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 7,
+            "clarity": 6
+          },
+          "overall_score": 7.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Announcements posted this week (October 27 - November 3, 2025)**  \n\n- **Hybrid today due to the weather** - posted October 30, 2025 at 1:33 PM (author: Lu Xiao)  \n  *If the weather makes commuting difficult, you can join the class online via the Zoom link provided.*\n\n- **Week 9 Agenda Update: Guest Lecture postponed to Thu, Nov 13 + This Week's Topic** - posted October 28, 2025 at 1:30 PM (author: Lu Xiao)  \n  *The guest lecture originally scheduled for Thursday Oct 30 is moved to Thursday Nov 13 because of a forecasted storm.*\n\n- **Week 9 Agenda: Guest Lecture and In\u2011class Meeting** - posted October 27, 2025 at 3:36 PM (author: Lu Xiao)  \n  *Reminder that Sunny Wong will give a guest talk on Thursday Oct 30 during the regular class meeting.*\n\n- **Sprint 1 to Sprint 2 Transition and Story Carry\u2011Over Policy** - posted October 27, 2025 at 3:29 PM (author: Lu Xiao)  \n  *Details on how incomplete user stories should be handled as the course moves from Sprint 1 to Sprint 2.*",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 37,
+      "query_text": "Show all my quiz scores",
+      "category": "aggregation",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are your quiz scores across courses:\n* Agile Methods for Software Development:\n  * Quiz 02 XP: 50/50\n  * Quiz 01: User Stories: 48/50\n  * Quiz 03: Scrum: 50/50\n  * Quiz 04: Testing: 50/50\n  * Quiz 05: Continuous Integration and Pair Programming: 5/50\n  * Quiz 07: Lean: 0/50\n* Machine Learning: Fundamentals and Applications:\n  * Quiz 1 - Linear Regression: 8.5/10\n  * Quiz 2 Linear Classification 1: 10/10\n  * Quiz 3 linear classification 2: 10/10\n  * Quiz 4 Model Selection: 9/10\n  * Quiz 5 Neural Network: 9/10\n  * Quiz 6 Kernel Method: 10/10\n  * Quiz 7 SVM: 9/10\n  * Quiz 8 Unsupervised Learning: 8/10\n  * Midterm: 98/100\n* Graduate Student Code of Academic Integrity:\n  * GSCoAI Quiz: 11/11\n\nNo quizzes were found for Natural Language Processing or Introduction to Python for Financial Applications.",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 9,
+            "clarity": 8
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Your quiz scores**\n\n---\n\n### Agile Methods for Software Development (CS 555\u2011A)  \n- **Quiz 01 - User Stories** - **48 / 50** (graded)  \n- **Quiz 02 - XP** - **50 / 50** (graded)  \n- **Quiz 03 - Scrum** - **50 / 50** (graded)  \n- **Quiz 04 - Testing** - **50 / 50** (graded)  \n- **Quiz 05 - Continuous Integration & Pair Programming** - **5 / 50** (pending review)  \n- **Quiz 07 - Lean** - **0 / 50** (pending review)  \n\n---\n\n### Machine Learning: Fundamentals and Applications (CS 559\u2011WS)  \n- **Quiz 1 - Linear Regression** - **8.5 / 10** (graded)  \n- **Quiz 2 - Linear Classification 1** - **10 / 10** (graded)  \n- **Quiz 3 - Linear Classification 2** - **10 / 10** (graded)  \n- **Quiz 4 - Model Selection** - **9 / 10** (graded)  \n- **Quiz 5 - Neural Network** - **9 / 10** (graded)  \n- **Quiz 6 - Kernel Method** - **10 / 10** (graded)  \n- **Quiz 7 - SVM** - **9 / 10** (graded)  \n- **Quiz 8 - Unsupervised Learning** - **8 / 10** (graded)  \n- **Midterm** - **98 / 100** (graded)  \n\n---\n\n*No quizzes are listed for the NLP (CS 584) or the Python for Financial Applications (FE 520) courses.*  \n\nLet me know if you'd like details on any specific quiz or help reviewing the material!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 9,
+            "clarity": 10
+          },
+          "overall_score": 9.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 38,
+      "query_text": "What courses have assignments due?",
+      "category": "aggregation",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the courses with assignments due:\n* Agile Methods for Software Development:\n  * 2nd Sprint (Due: November 5, 2025) - Not submitted\n  * 3rd Sprint (Due: November 19, 2025) - Not submitted\n  * 4th Sprint (Due: December 3, 2025) - Not submitted\n  * Final Demonstration (Due: December 4, 2025) - Not submitted\n* Machine Learning: Fundamentals and Applications:\n  * hw4 (Due: November 4, 2025) - Not submitted\n  * Quiz 8 Unsupervised Learning (Due: November 1, 2025) - Score: 8/10\n* Natural Language Processing:\n  * HW3 (Due: November 20, 2025) - Not submitted\n  * Project midterm report (Due: November 7, 2025) - Not submitted\n\nNo upcoming assignments were found for Introduction to Python for Financial Applications or Graduate Student Code of Academic Integrity.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Courses that currently have pending assignments (future due dates)**  \n\n| Course | Upcoming assignments (due date) |\n|--------|---------------------------------|\n| **Agile Methods for Software Development (CS 555\u2011A)** | * **2nd Sprint** - due **Nov 5, 2025** (still unsubmitted) <br>* **3rd Sprint** - due **Nov 19, 2025** (unsubmitted) <br>* **4th Sprint** - due **Dec 3, 2025** (unsubmitted) <br>* **Final Demonstration** - due **Dec 4, 2025** (unsubmitted) |\n| **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)** | * **Homework 3** - due **Nov 20, 2025** (not submitted) |\n| **Natural Language Processing (CS 584)** | * **Project Midterm Report** - due **Nov 7, 2025** (not submitted) <br>* **HW 3** - due **Nov 20, 2025** (not submitted) |\n\n*No pending assignments are listed for Introduction to Python for Financial Applications (FE 520) or the Graduate Student Code of Academic Integrity course.*  \n\nLet me know if you'd like the details, rubrics, or a plan for any of these upcoming tasks!",
+          "ratings": {
+            "correctness": 4,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 7.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": "559 and 584 is getting confused here again. Since it's accessing from memory, it's repeating the same mistakes"
+        }
+      }
+    },
+    {
+      "query_id": 39,
+      "query_text": "Which course has the most assignments?",
+      "category": "aggregation",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The course with the most assignments is Agile Methods for Software Development (CS 555) with 19 assignments.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Course with the most assignments:** **Agile Methods for Software Development (CS 555\u2011A)**  \n\n- **Number of assignments:** 14 (upcoming or already submitted)  \n- **Other courses:**  \n  - Machine Learning (CS 559\u2011WS) - 8 assignments  \n  - Natural Language Processing (CS 584) - 8 assignments  \n  - Introduction to Python for Financial Applications (FE 520) - no assignment data available  \n\nSo CS 555 has the highest assignment load across your enrolled courses. Let me know if you'd like details on any of those assignments or help planning them!",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Both models need to do better with accessing things here"
+        }
+      }
+    },
+    {
+      "query_id": 40,
+      "query_text": "Overall performance summary",
+      "category": "aggregation",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here is an overall performance summary:\n* You are performing exceptionally well in Agile Methods for Software Development (CS 555) with a score of 99.71%.\n* You have an A grade (97.98%) in Machine Learning: Fundamentals and Applications (CS 559).\n* You have a perfect score of 100% in Natural Language Processing (CS 584).\n* You are doing well in Introduction to Python for Financial Applications (FE 520) with a score of 87.27%.\n* You have a perfect score of 100% in Graduate Student Code of Academic Integrity.\n\nOverall, you are performing well across all your courses, with high scores in most of them.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Overall Performance Summary (Fall 2025)**  \n\n| Course | Current Score | Letter Grade (if posted) | Final\u2011project / weighted score | Key Strengths | Areas to Watch |\n|--------|---------------|--------------------------|------------------------------|---------------|----------------|\n| **Agile Methods for Software Development (CS 555\u2011A)** | **99.7 %** | - (grade not posted) | 57.15 % (project\u2011weighted) | Near\u2011perfect scores on every quiz and project submitted so far; consistently high submission quality. | The project\u2011weighted component is still low because many later project items are pending. Finish the overdue **Project 3** and the upcoming sprints to raise the final grade. |\n| **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)** | **97.98 %** | **A** | 70.7 % (project\u2011weighted, currently a **C**) | Excellent quiz performance (all 8\u201110/10) and perfect homework scores; strong grasp of core concepts. | The final\u2011project portion is dragging the overall grade down. Deliver a strong mid\u2011term report (due Nov 7) and a solid final project to bring the course grade up to an A. |\n| **Natural Language Processing (CS 584)** | **100 %** | - (grade not posted) | - (no final\u2011project score yet) | Perfect scores on all graded assignments and quizzes; flawless submission record. | Only two pending items: **Project Midterm Report** (due Nov 7) and **HW 3** (due Nov 20). Completing them on time will keep the perfect record. |\n| **Introduction to Python for Financial Applications (FE 520\u2011A)** | **87.27 %** | - (grade not posted) | 45.71 % (final\u2011score) | Good performance on early labs and attendance; solid foundation in Python basics. | No upcoming assignments are listed, but the final\u2011score indicates room for improvement on later assessments. Review any pending labs or final exam material. |\n| **Fall 2024 Graduate Student Code of Academic Integrity** | **100 %** | - | - | Completed compliance requirement. | No further action needed. |\n\n### What the numbers tell you\n\n- **Consistent high achiever** in quizzes and early assignments across all technical courses.\n- **Project work is the decisive factor** for CS 555 and especially CS 559. Those components are still pending or low\u2011scored, so they will determine the final letter grades.\n- **CS 584 is on track for an A** provided the two remaining deliverables are submitted on time.\n- **FE 520 is solid but could benefit from a final\u2011exam push** to raise the overall percentage.\n\n### Quick Action Items\n\n1. **CS 555 - Project 3 (overdue)** - submit ASAP; then focus on the **2nd Sprint** (due Nov 5).  \n2. **CS 559 - Project Midterm Report** (due Nov 7) and start outlining the final project.  \n3. **CS 584 - Project Midterm Report** (due Nov 7) - review guidelines and submit early.  \n4. **CS 584 - HW 3** (due Nov 20) - begin work now to avoid a last\u2011minute rush.  \n5. **FE 520 - Review any remaining material** (labs, final exam prep) to improve the final score.\n\nAddressing the pending project work will convert your already\u2011strong quiz performance into high overall grades across the board. Let me know if you need any rubrics, submission links, or a study plan for any of these tasks!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 41,
+      "query_text": "Which course needs the most attention?",
+      "category": "complex_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Based on your current grades, Introduction to Python for Financial Applications (FE 520) might need the most attention as it has the lowest score among your courses at 87.27%. However, it's still a good score, and you might not need to devote a lot of extra attention to it. \n\nMachine Learning: Fundamentals and Applications (CS 559) also has a relatively lower final grade (C) compared to your other courses, so you might want to review that course as well.",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Both models have an interesting way of deciding, but the final/pending grade understanding needs to be changed here"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**The course that needs the most immediate attention is **_Agile Methods for Software Development (CS 555\u2011A)_**.  \n\n### Why CS 555 stands out\n\n| Factor | What the data shows |\n|--------|----------------------|\n| **Overdue work** | **Project 3 - Team Formation & Story\u2011Board Creation** was due Oct 12 and is still **unsubmitted**. Overdue items can't be recovered automatically and will heavily penalize the final project score. |\n| **Upcoming deadline** | **2nd Sprint** is due **Nov 5** (in 2 days) and is still **unsubmitted**. This sprint also contributes to the project\u2011weighted portion of the grade. |\n| **Grade impact** | Your current overall score is **99.71 %**, but the project\u2011weighted component is only **57.15 %** because many later project pieces are missing. Completing the overdue project and the upcoming sprint will raise that component dramatically and push the final course grade up. |\n| **Workload** | CS 555 has the highest number of assignments (14 total) and a tight sprint schedule, so any delay quickly compounds. |\n| **Comparison to other courses** |\n| * **CS 559 (Machine Learning)** - All quizzes are perfect; the only risk is the final project, but the mid\u2011term report isn't due until Nov 7, giving you a few days to start. |\n| * **CS 584 (NLP)** - Two pending items (midterm report Nov 7 and HW 3 Nov 20) but no overdue work. |\n| * **FE 520** - No pending assignments listed; the grade is already stable. |\n\n### What to do next\n\n1. **Submit Project 3 right away** - locate the required files (project\u2011board template, story\u2011board) and upload them to Canvas. Even a partial submission will stop further penalty and give you a chance to earn points.  \n2. **Complete the 2nd Sprint** before the **Nov 5** deadline - review the sprint rubric (usually posted in the \"Sprint 2\" module) and aim to submit early to avoid last\u2011minute issues.  \n3. **Plan the remaining sprints** (3rd, 4th) and the final demonstration now that the immediate deadlines are clear; allocate a few hours each week so the workload stays manageable.  \n\nAddressing these two items will eliminate the only overdue work you have, protect the upcoming sprint deadline, and dramatically improve the project\u2011weighted portion of your CS 555 grade. Once CS 555 is back on track, you can shift focus to the upcoming mid\u2011term report for CS 559 and the midterm report for CS 584. Let me know if you'd like the assignment rubrics, submission links, or a quick timeline for the sprint work!",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 42,
+      "query_text": "Am I improving in Machine Learning?",
+      "category": "complex_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Your current grade in Machine Learning: Fundamentals and Applications (CS 559) is A (97.98%), indicating that you are performing well in the course. However, your final grade is C (70.7%), which suggests that there may be some areas where you need to improve. To determine if you are improving, you should review your past assignments and quizzes to see if your scores have been consistently high or if there has been an improvement over time.",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Machine Learning: Fundamentals and Applications (CS 559\u2011WS) - Progress Check**\n\n| Item | Score | Date (approx.) | Comment |\n|------|-------|----------------|---------|\n| **Quiz 1 - Linear Regression** | 8.5 / 10 | Early September | Baseline - solid but room for improvement. |\n| **Quiz 2 - Linear Classification 1** | 10 / 10 | Mid\u2011September | Jump to a perfect score. |\n| **Quiz 3 - Linear Classification 2** | 10 / 10 | Late September | Maintained the perfect performance. |\n| **Quiz 4 - Model Selection** | 9 / 10 | Early October | Small dip, still excellent. |\n| **Quiz 5 - Neural Network** | 9 / 10 | Early October | Consistently high. |\n| **Quiz 6 - Kernel Method** | 10 / 10 | Mid\u2011October | Back to perfect. |\n| **Quiz 7 - SVM** | 9 / 10 | Late October | Very strong. |\n| **Quiz 8 - Unsupervised Learning** | 8 / 10 | Early November | Slight dip but still well above average. |\n| **Midterm** | 98 / 100 | Mid\u2011October | Near\u2011perfect mastery of the material. |\n\n### What the numbers tell you\n\n1. **Steady upward trend after the first quiz** - you moved from 8.5 / 10 to a series of perfect (10 / 10) or near\u2011perfect (9 / 10) scores. That jump shows you quickly grasped the core concepts and applied them effectively.\n\n2. **Consistency** - after the initial improvement, your performance stabilized in the high\u20119/10 range. Maintaining that level across eight quizzes and a midterm is a strong indicator of mastery.\n\n3. **Overall course score** - your current cumulative score is **97.98 %** (letter grade **A**). This reflects the high quiz and midterm marks you've earned so far.\n\n4. **Area to watch** - the **project\u2011weighted component** is currently **70.7 %** (showing a **C**). While your quiz work is excellent, the final project will have the biggest impact on your final grade. Improving the project work will bring the overall course grade in line with the strong quiz performance.\n\n### Quick recommendations for continued improvement\n\n- **Leverage the strong quiz foundation** when you start the project: the concepts you've already demonstrated (linear models, kernels, SVMs, etc.) can be directly applied to the project's experiments and write\u2011ups.\n- **Review the feedback** (if any) from the midterm and earlier quizzes to ensure you're not repeating minor mistakes in the project deliverables.\n- **Set milestones** for the project (data collection \u2192 model building \u2192 evaluation \u2192 report) so you can track progress and avoid a last\u2011minute rush.\n\n**Bottom line:** Your quiz scores show clear improvement early on and now a high, consistent level of performance. The next step is to translate that quiz mastery into a strong project, which will lift the final course grade to match your excellent test results. Let me know if you'd like the project rubric, a timeline template, or any specific help with the upcoming deliverables!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 43,
+      "query_text": "What should I focus on this week?",
+      "category": "complex_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no assignments due this week. You can focus on reviewing your past assignments, preparing for upcoming quizzes or exams, or working on any other tasks that are not necessarily due this week but are important for your overall performance in your courses.",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Top priorities for the coming week (Nov 3 - Nov 9, 2025)**  \n\n1. **Finish the overdue project for CS 555 - Agile Methods**  \n   - **Project 3 - Team Formation & Story\u2011Board Creation** (was due Oct 12).  \n   - Upload the story\u2011board and any supporting documents today - an overdue submission still earns points and stops further penalty.  \n\n2. **Submit CS 555 - 2nd Sprint** (due **Nov 5, 2025 at 11:59 PM**)  \n   - Review the sprint rubric (in the \"Sprint 2\" module).  \n   - Aim to finish and upload **before** the deadline to avoid a last\u2011minute rush.  \n\n3. **Complete the CS 584 - Project Midterm Report** (due **Nov 7, 2025 at 11:59 PM**)  \n   - Check the guidelines posted under *Files \u2192 Project*.  \n   - Draft the report today, get a quick peer review, and submit early (the system accepts submissions up to the deadline).  \n\n4. **Start the CS 559 - Project Midterm Report** (due **Nov 7, 2025 at 11:59 PM**)  \n   - The report is the biggest weight in the final\u2011project component (currently pulling your CS 559 grade down).  \n   - Outline the sections (problem statement, data, model, results, discussion) and gather any code/notebooks you'll include.  \n\n5. **Plan the CS 559 - Final Project**  \n   - After the midterm report, set milestones (data collection \u2192 model experiments \u2192 write\u2011up \u2192 final submission).  \n   - Allocate a few hours each evening this week to avoid a crunch later in the semester.  \n\n6. **Quick review of weak spots**  \n   - **CS 555 - Quiz 05 (CI & Pair Programming)** and **Quiz 07 (Lean)** still show 0/50 and 5/50.  \n   - Skim the lecture notes and the \"Sprint 1 \u2192 Sprint 2 Transition\" announcement to refresh those concepts; they'll help in the upcoming sprints.  \n\n---\n\n### Suggested weekly schedule (example)\n\n| Day | Focus |\n|-----|-------|\n| **Mon** | Submit CS 555 Project 3; begin CS 555 Sprint 2 work |\n| **Tue** | Finish CS 555 Sprint 2; start CS 584 midterm report |\n| **Wed** | Submit CS 555 Sprint 2 (deadline Nov 5); finish CS 584 midterm report |\n| **Thu** | Submit CS 584 midterm report; outline CS 559 midterm report |\n| **Fri** | Draft CS 559 midterm report; review CI/Pair\u2011Programming material |\n| **Sat** | Polish CS 559 midterm report; set milestones for final project |\n| **Sun** | Final check & submit CS 559 midterm report (deadline Nov 7) |\n\n---\n\n**Why these items matter**\n\n- **Overdue work (CS 555 Project 3)** directly reduces your project\u2011weighted grade; fixing it now prevents a permanent loss.  \n- **Upcoming deadlines (Sprint 2, midterm reports)** are within 2\u20114 days - missing them would add more penalties.  \n- **Project components** (CS 559 and CS 584) are the only parts that can still lower your final grades despite excellent quiz scores.  \n- **Reviewing low\u2011scoring quizzes** reinforces concepts you'll need for the sprints and upcoming projects.\n\nTackle the list in the order above, and you'll clear all urgent items while setting a solid foundation for the rest of the semester. Let me know if you need any rubrics, submission links, or a more detailed sprint checklist!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": "559 and 584 mixup here too"
+        }
+      }
+    },
+    {
+      "query_id": 44,
+      "query_text": "Compare my quiz performance across courses",
+      "category": "complex_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here is a comparison of your quiz performance across courses:\n* Agile Methods for Software Development:\n  * Quiz 02 XP: 50/50\n  * Quiz 01: User Stories: 48/50\n  * Quiz 03: Scrum: 50/50\n  * Quiz 04: Testing: 50/50\n  * Quiz 05: Continuous Integration and Pair Programming: 5/50\n  * Quiz 07: Lean: 0/50\n* Machine Learning: Fundamentals and Applications:\n  * Quiz 1 - Linear Regression: 8.5/10\n  * Quiz 2 Linear Classification 1: 10/10\n  * Quiz 3 linear classification 2: 10/10\n  * Quiz 4 Model Selection: 9/10\n  * Quiz 5 Neural Network: 9/10\n  * Quiz 6 Kernel Method: 10/10\n  * Quiz 7 SVM: 9/10\n  * Quiz 8 Unsupervised Learning: 8/10\n  * Midterm: 98/100\n* Graduate Student Code of Academic Integrity:\n  * GSCoAI Quiz: 11/11\n\nNo quizzes were found for Natural Language Processing or Introduction to Python for Financial Applications.\n\nYou are performing well in Machine Learning: Fundamentals and Applications, with high scores in most quizzes. In Agile Methods for Software Development, you have been performing well initially, but your scores have dropped significantly in the last two quizzes. You might want to review the material and practice more to improve your performance.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Quiz performance comparison**\n\n| Course | # of quizzes | Total points earned | Total points possible | Average score | Overall rating |\n|--------|--------------|--------------------|-----------------------|--------------|----------------|\n| **Agile Methods for Software Development (CS 555\u2011A)** | 6 (two quizzes still pending review) | 48 + 50 + 50 + 50 + 5 + 0 = **203** | 50 + 50 + 50 + 50 + 50 + 50 = **300** | **203 / 300 \u2248 67.7 %** | Mixed - strong early quizzes, but two recent quizzes (CI & Pair\u2011Programming, Lean) scored very low, pulling the average down. |\n| **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)** | 9 (8 quizzes + midterm) | 8.5 + 10 + 10 + 9 + 9 + 10 + 9 + 8 + 98 = **171.5** | 10 + 10 + 10 + 10 + 10 + 10 + 10 + 10 + 100 = **180** | **171.5 / 180 \u2248 95.3 %** | Excellent - consistently high scores on every quiz and a near\u2011perfect midterm. |\n| **Natural Language Processing (CS 584)** | - | - | - | - | No quizzes recorded for this course. |\n| **Introduction to Python for Financial Applications (FE 520)** | - | - | - | - | No quizzes recorded for this course. |\n\n### What the numbers tell you\n\n- **CS 559** is your strongest quiz performer, averaging **\u2248 95 %** across all assessments. Your mastery of the machine\u2011learning concepts is clearly reflected in the scores.\n- **CS 555** shows a **\u2248 68 %** average, but the low scores are confined to the two most recent quizzes (CI & Pair\u2011Programming = 5 / 50 and Lean = 0 / 50). Earlier quizzes were perfect (48\u201150 / 50).  \n- The disparity is mainly **the recent quizzes**; once those are reviewed (they're still pending), the overall average for CS 555 will improve.\n\n### Quick recommendations\n\n1. **Review the material for Quiz 05 (CI & Pair\u2011Programming) and Quiz 07 (Lean).** The lecture notes and the \"Sprint 1 \u2192 Sprint 2 Transition\" announcement contain the concepts you need.  \n2. **Consider a brief self\u2011quiz** on those topics to identify gaps before the next sprint assignments.  \n3. **Maintain the study habits that gave you perfect scores in CS 559**--they'll help you raise the CS 555 average as you finish the remaining sprints.  \n\nOverall, you're excelling in Machine Learning, and a focused review of the recent Agile\u2011Methods quizzes will bring your CS 555 performance back up to the same high level. Let me know if you'd like the specific lecture resources or a short study plan for those topics!",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Handling pending review poorly here. Did well before."
+        }
+      }
+    },
+    {
+      "query_id": 45,
+      "query_text": "Show me the hardest assignments",
+      "category": "complex_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the hardest assignments across your courses:\n* Agile Methods for Software Development:\n  * Project 0-Project Prep: 55/50\n  * Quiz 05: Continuous Integration and Pair Programming: 5/50\n  * Quiz 07: Lean: 0/50\n* Machine Learning: Fundamentals and Applications:\n  * Quiz 1 - Linear Regression: 8.5/10\n* Introduction to Python for Financial Applications:\n  * Assignment 1: 86/100\n\nThe hardest assignments are Quiz 05: Continuous Integration and Pair Programming and Quiz 07: Lean in Agile Methods for Software Development, and Quiz 1 - Linear Regression in Machine Learning: Fundamentals and Applications.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 6,
+            "clarity": 6
+          },
+          "overall_score": 6.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Assignments that appear to be the toughest (low scores or still missing)**  \n\n---\n\n### Agile Methods for Software Development (CS 555\u2011A)  \n- **Project 3 - Team Formation & Story\u2011Board Creation** - was due Oct 12 and is still **unsubmitted** (overdue).  \n- **Quiz 05 - Continuous Integration & Pair Programming** - score **5 / 50** (pending review).  \n- **Quiz 07 - Lean** - score **0 / 50** (pending review).  \n\n*These low\u2011scoring quizzes and the overdue project suggest the sprint\u2011related material is the most challenging part of this course.*\n\n---\n\n### Machine Learning: Fundamentals and Applications (CS 559\u2011WS)  \n- **Homework 3** - not submitted yet (due Nov 20).  \n\n*All other quizzes and the midterm are near\u2011perfect, so the upcoming homework is the only remaining hurdle.*\n\n---\n\n### Natural Language Processing (CS 584)  \n- **HW 3** - not submitted yet (due Nov 20).  \n\n*All earlier work is graded 100 %, making this pending homework the current challenge.*\n\n---\n\n### Introduction to Python for Financial Applications (FE 520\u2011A)  \n- No assignments are listed as missing or low\u2011scoring, so there are no obvious \"hard\" items at the moment.\n\n---\n\n#### Quick next steps  \n1. **CS 555** - Submit Project 3 immediately and review the CI/Pair\u2011Programming and Lean lecture material to boost those quiz scores.  \n2. **CS 559** - Start Homework 3 now; break it into smaller tasks to avoid a last\u2011minute rush.  \n3. **CS 584** - Begin HW 3 early; use the provided lecture PDFs as a reference.  \n\nTackling these items will clear the most difficult work across your courses. Let me know if you'd like the rubrics, submission links, or a brief study plan for any of them!",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 46,
+      "query_text": "What's my weakest subject?",
+      "category": "complex_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Based on your current grades, your weakest subject is likely Machine Learning: Fundamentals and Applications (CS 559), as it has the lowest final grade (C) among your courses. However, your current score in this course is still high (97.98%). \n\nAnother course that might be considered weak is Introduction to Python for Financial Applications (FE 520), as it has a relatively lower current score (87.27%) compared to your other courses. \n\nIt's worth noting that the final grades for most of your courses are not available yet, so it's difficult to determine your weakest subject with certainty.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Have work cut out for me with grade calculation"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Your weakest subject right now is *Introduction to Python for Financial Applications* (FE 520\u2011A).**\n\n### Why it's the weakest\n\n| Metric | FE 520\u2011A | Next\u2011closest |\n|--------|----------|--------------|\n| **Current score** | **87.27 %** | CS 555 (99.71 %) |\n| **Final\u2011score (overall course weight)** | **45.71 %** | CS 555 (57.15 %) |\n| **Assignments/Quizzes** | No graded quizzes recorded; only a few early labs and attendance points. | CS 555 has many graded items (projects, quizzes) that push its average up. |\n| **Pending work** | No upcoming assignments listed, but the low final\u2011score shows earlier work (labs/participation) didn't earn many points. | CS 555 has overdue work, but its current grade is still near\u2011perfect. |\n\nA final\u2011score of **45.71 %** means the bulk of the course grade (mid\u2011term, final exam, or a major project that hasn't been posted yet) is still missing or scored low. Even though the \"current\" percentage looks decent, the final grade will be determined by the components that are still pending, and right now they're pulling the overall result down far below your other courses.\n\n### Quick actions to lift FE 520\n\n1. **Check the syllabus / grade breakdown** - locate the missing high\u2011weight items (usually a final project or exam).  \n2. **Reach out to the instructor or TA** - ask if there are any upcoming labs, a final project, or a make\u2011up exam you can start now.  \n3. **Review the lab notebooks and assignments you've already submitted** - see where points were lost (often in code style, documentation, or test coverage).  \n4. **Allocate a focused study block** - spend a few hours this week reviewing the core Python\u2011for\u2011finance concepts (pandas, NumPy, financial\u2011time\u2011series handling).  \n5. **Practice with a small \"capstone\" script** - build a short portfolio\u2011analysis notebook and run it through the grading rubric; this can serve as a quick way to earn extra credit if the instructor allows it.\n\n### How it compares to your other courses\n\n- **CS 555 (Agile Methods)** - Near\u2011perfect current work (99.7 %) but a low project\u2011weight (57 %). Still far above FE 520's final score.  \n- **CS 559 (Machine Learning)** - Excellent quiz and midterm performance (97.9 % current, A). The only risk is the final project, but even a modest project will keep you well above FE 520.  \n- **CS 584 (NLP)** - Perfect scores so far (100 %). Only two pending items remain, both with ample time.  \n- **Graduate\u2011Student Code of Academic Integrity** - Completed with 100 %.\n\n### Bottom line\n\nFocus your immediate effort on **FE 520** to locate and complete the missing high\u2011weight component(s). Once you secure those points, your overall GPA impact will improve noticeably, and you'll have a more balanced performance across all courses. Let me know if you'd like the syllabus link, grading rubric, or help brainstorming a quick project idea for FE 520!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 47,
+      "query_text": "Prioritize my assignments by urgency",
+      "category": "complex_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no urgent assignments due in the next 7 days. You can focus on other tasks or review your past assignments to improve your understanding of the material.",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 6,
+            "clarity": 5
+          },
+          "overall_score": 6.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Understanding is not so great"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Urgency\u2011based assignment list (today Nov 3 2025)**  \n\n| # | Course (code) | Assignment | Due date | Status | Why it's urgent | Quick next step |\n|---|---------------|------------|----------|--------|-----------------|-----------------|\n| 1 | **CS 555 - Agile Methods** | **Project 3 - Team Formation & Story\u2011Board Creation** | **Oct 12 2025** (overdue) | Not submitted | Overdue items lose points permanently and drag down the project\u2011weighted portion of the grade. | Upload the story\u2011board and any supporting docs **today**; even a partial submission will stop further penalty. |\n| 2 | **CS 555 - Agile Methods** | **2nd Sprint** | **Nov 5 2025 (11:59 PM)** | Unsubmitted | Only 2 days left; this sprint counts toward the same project\u2011weighted component that is already low. | Finish the sprint deliverables tonight and submit before the deadline. |\n| 3 | **CS 584 - Natural Language Processing** | **Project Midterm Report** | **Nov 7 2025 (11:59 PM)** | Not submitted | 4 days left; the report is the first major graded deliverable for the course. | Draft the report today, get a quick peer review, and submit early (the system accepts early submissions). |\n| 4 | **CS 555 - Agile Methods** | **3rd Sprint** | **Nov 19 2025 (11:59 PM)** | Unsubmitted | Two weeks away but the next sprint after the 2nd Sprint; completing it early prevents a backlog. | Outline the sprint goals now; aim to finish by **Nov 15** to give a buffer. |\n| 5 | **CS 559 - Machine Learning** | **Homework 3** | **Nov 20 2025 (11:59 PM)** | Not submitted | Two weeks away but the only remaining homework; early work avoids a last\u2011minute rush. | Break the homework into sub\u2011tasks (data prep, model, write\u2011up) and start today; target a draft by **Nov 13**. |\n| 6 | **CS 584 - Natural Language Processing** | **HW 3** | **Nov 20 2025 (11:59 PM)** | Not submitted | Same window as the ML homework; tackling both together can be efficient. | Allocate a block of time after the ML homework draft to finish the NLP HW. |\n| 7 | **CS 555 - Agile Methods** | **4th Sprint** | **Dec 3 2025 (11:59 PM)** | Unsubmitted | End\u2011of\u2011semester sprint; gives you a few weeks to plan after the 3rd Sprint. | Keep the 3rd Sprint on schedule; then schedule the 4th Sprint work for early\u2011December. |\n| 8 | **CS 555 - Agile Methods** | **Final Demonstration** | **Dec 4 2025 (11:59 PM)** | Unsubmitted | The final graded showcase; completing it after the 4th Sprint is the last step to secure a high project score. | Begin preparing the demo materials once the 4th Sprint is submitted. |\n\n### How to use this list  \n\n1. **Clear the overdue item first** (Project 3).  \n2. **Knock out the 2\u2011day deadline** (2nd Sprint).  \n3. **Shift to the next\u2011closest deadline** (CS 584 midterm report).  \n4. **Work ahead on the 3rd Sprint** so you have a buffer before the Nov 19 due date.  \n5. **Start the two Nov 20 assignments** in parallel, breaking each into smaller chunks.  \n6. **Plan the remaining CS 555 sprints and final demo** once the earlier items are secured.\n\nFocusing on the tasks in this order will eliminate overdue penalties, keep you on track for the nearest deadlines, and give you enough runway to finish the later work without a crunch. Let me know if you need any rubrics, submission links, or a detailed checklist for any of the items above!",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 48,
+      "query_text": "Suggest a study schedule",
+      "category": "complex_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "import datetime\n\ndef suggest_study_schedule(assignments):\n    # Sort assignments by due date\n    assignments.sort(key=lambda x: x['due_at'])\n\n    # Create a study schedule\n    study_schedule = []\n    for assignment in assignments:\n        due_date = datetime.datetime.strptime(assignment['due_at'], '%B %d, %Y')\n        study_date = due_date - datetime.timedelta(days=1)\n        study_schedule.append({'date': study_date.strftime('%B %d, %Y'), 'assignment': assignment['name']})\n\n    return study_schedule\n\n# Example usage:\nassignments = [\n    {'name': 'Assignment 1', 'due_at': 'November 5, 2025'},\n    {'name': 'Assignment 2', 'due_at': 'November 19, 2025'},\n    {'name': 'Assignment 3', 'due_at': 'December 3, 2025'}\n]\n\nstudy_schedule = suggest_study_schedule(assignments)\nfor study_day in study_schedule:\n    print(f\"Study on {study_day['date']} for {study_day['assignment']}\")",
+          "ratings": {
+            "correctness": 1,
+            "completeness": 1,
+            "clarity": 1
+          },
+          "overall_score": 1.0,
+          "pass": false,
+          "failure_type": "error_not_handled",
+          "notes": "Huge failure. Returned code"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Weekly Study & Work Schedule (Monday Nov 3 - Sunday Nov 9, 2025)**  \n\n| Day | Time Block | Focus | What to Do | Goal for the Day |\n|-----|------------|-------|------------|------------------|\n| **Mon Nov 3** | 9 - 11 am | **CS 555 - Overdue Project 3** | * Gather story\u2011board, backlog, and any supporting docs.<br>* Upload to Canvas (even a partial submission). | Submit Project 3 (stop the overdue penalty). |\n| | 1 - 3 pm | **CS 555 - Sprint 2** | * Review Sprint 2 rubric & user\u2011story list.<br>* Finish deliverables (code, documentation, demo video). | Have Sprint 2 ready for final review. |\n| | 4 - 5 pm | **Quick Review - CI & Pair\u2011Programming** | * Re\u2011read Week 6 notes & \"Sprint 1 \u2192 Sprint 2 Transition\" announcement.<br>* Write a 1\u2011page summary of key concepts. | Refresh material that caused low quiz scores. |\n| **Tue Nov 4** | 9 - 11 am | **CS 555 - Sprint 2 Submission** | * Polish any remaining bits, run a final test.<br>* Submit before the 11:59 pm deadline. | Sprint 2 officially submitted. |\n| | 12 - 2 pm | **CS 584 - Midterm Report Draft** | * Outline sections (intro, data, method, results, discussion).<br>* Fill in the \"Method\" and \"Results\" using the latest notebooks. | Draft ~50 % of the report. |\n| | 3 - 5 pm | **CS 559 - Project Midterm Prep** | * Review project guidelines, choose dataset & model.<br>* Create a task list (data prep, model, evaluation, write\u2011up). | Clear roadmap for the midterm report. |\n| **Wed Nov 5** | 9 - 11 am | **CS 584 - Finish Midterm Report** | * Complete discussion & conclusion.<br>* Add figures/tables, proof\u2011read.<br>* Submit (deadline Nov 7). | Report submitted early (peace of mind). |\n| | 12 - 2 pm | **CS 559 - Start Homework 3** | * Read the assignment prompt.<br>* Split into sub\u2011tasks: data cleaning, baseline model, experiment, write\u2011up.<br>* Begin data cleaning. | 25 % of HW 3 done. |\n| | 3 - 5 pm | **CS 555 - Sprint 3 Planning** | * Review Sprint 3 rubric (due Nov 19).<br>* Draft user stories & backlog for Sprint 3.<br>* Set milestones for next week. | Sprint 3 plan ready. |\n| **Thu Nov 6** | 9 - 11 am | **CS 559 - Continue Homework 3** | * Implement baseline model, run initial experiments. | 50 % of HW 3 done. |\n| | 12 - 2 pm | **CS 584 - HW 3 Prep** | * Open HW 3 PDF, note required deliverables.<br>* Sketch a solution outline (e.g., implement a transformer\u2011based model). | Clear action list for HW 3. |\n| | 3 - 5 pm | **CS 555 - Review CI & Lean Topics** | * Watch the \"Lean\" lecture video.<br>* Write 2\u20113 flashcards for key concepts. | Reinforce weak quiz material. |\n| **Fri Nov 7** | 9 - 11 am | **CS 559 - Midterm Report Draft** | * Fill in \"Problem Statement\" and \"Methodology\".<br>* Add preliminary results (use earlier experiments). | 30 % of the report drafted. |\n| | 12 - 2 pm | **CS 584 - HW 3 Development** | * Start coding the required model/notebook. | First runnable version of HW 3. |\n| | 3 - 5 pm | **CS 555 - Sprint 2 Post\u2011mortem** | * Review feedback (if any).<br>* Note lessons for Sprint 3. | Capture improvement points. |\n| **Sat Nov 8** | 10 - 12 pm | **CS 559 - Finish Midterm Report** | * Complete results, discussion, references.<br>* Proofread and submit (deadline Nov 7 was yesterday, but most instructors accept a short grace period). | Report submitted. |\n| | 1 - 3 pm | **CS 584 - Continue HW 3** | * Train the model, generate evaluation metrics.<br>* Write a brief report section. | HW 3 ~60 % complete. |\n| | 4 - 5 pm | **Light Review - Python for Finance (FE 520)** | * Open the \"Basic Command Line Syntax\" PDF.<br>* Run a quick script that reads a CSV of stock prices and computes returns. | Keep the FE 520 skills fresh. |\n| **Sun Nov 9** | 10 - 12 pm | **CS 555 - Sprint 3 Work** | * Implement the first user story from the Sprint 3 backlog.<br>* Commit code to the project repo. | 20 % of Sprint 3 done. |\n| | 1 - 3 pm | **CS 584 - Finish HW 3** | * Finalize code, add comments, generate required plots.<br>* Submit before the Nov 20 deadline. | HW 3 submitted. |\n| | 4 - 5 pm | **Planning for Next Week** | * Review upcoming due dates (CS 555 Sprint 3, CS 559 HW 3, CS 555 Sprint 4).<br>* Allocate time blocks for each in the next week's schedule. | Clear roadmap for Nov 10\u201116. |\n\n### How to use this schedule\n1. **Stick to the time blocks** - treat them like class periods; set a timer and avoid distractions.  \n2. **Take short 5\u2011minute breaks** between blocks to stay fresh.  \n3. **Adjust as needed** - if a task finishes early, move on to the next block; if it runs long, shift lower\u2011priority items to the following day.  \n4. **End each day with a 5\u2011minute \"win\u2011log\"** - note what you completed and what still needs attention; this makes the next day's planning easier.  \n\nFollowing this plan will clear all overdue work, meet the nearest deadlines, and give you steady progress on the larger upcoming assignments while reinforcing the topics that have been challenging. Let me know if you need any rubrics, submission links, or a deeper dive into any of the tasks!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 49,
+      "query_text": "Which assignments are worth the most points?",
+      "category": "complex_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "import json\n\n# Example data\nassignments = [\n    {\"id\": 615228, \"name\": \"Project 0-Project Prep\", \"due_at\": \"September 10, 2025 at 11:59 PM\", \"points_possible\": 50.0},\n    {\"id\": 615229, \"name\": \"Project 1-User Stories\", \"due_at\": \"September 24, 2025 at 11:59 PM\", \"points_possible\": 100.0},\n    {\"id\": 615230, \"name\": \"Project 2-Prototype and Expo\", \"due_at\": \"October 01, 2025 at 11:59 PM\", \"points_possible\": 100.0},\n    {\"id\": 615231, \"name\": \"Project 3-Team Formation and Story Board Creation\", \"due_at\": \"October 12, 2025 at 11:59 PM\", \"points_possible\": 100.0},\n    {\"id\": 615221, \"name\": \"1st Sprint\", \"due_at\": \"October 24, 2025 at 11:59 PM\", \"points_possible\": 100.0},\n    {\"id\": 615222, \"name\": \"2nd Sprint\", \"due_at\": \"November 05, 2025 at 11:59 PM\", \"points_possible\": 100.0},\n    {\"id\": 615223, \"name\": \"3rd Sprint\", \"due_at\": \"November 19, 2025 at 11:59 PM\", \"points_possible\": 100.0},\n    {\"id\": 615224, \"name\": \"4th Sprint\", \"due_at\": \"December 03, 2025 at 11:59 PM\", \"points_possible\": 100.0},\n    {\"id\": 615226, \"name\": \"Final Demonstration\", \"due_at\": \"December 04, 2025 at 11:59 PM\", \"points_possible\": 100.0}\n]\n\n# Sort assignments by points_possible in descending order\nsorted_assignments = sorted(assignments, key=lambda x: x['points_possible'], reverse=True)\n\n# Print the top 5 assignments with the most points\nfor assignment in sorted_assignments[:5]:\n    print(f\"{assignment['name']}: {assignment['points_possible']} points\")",
+          "ratings": {
+            "correctness": 1,
+            "completeness": 1,
+            "clarity": 1
+          },
+          "overall_score": 1.0,
+          "pass": false,
+          "failure_type": "error_not_handled",
+          "notes": "Huge failure. Thinking logic is given as response"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Assignments with the highest point values (across all of your enrolled courses)**  \n\n| Course (code) | Assignment | Points possible | Due date (for reference) |\n|---------------|------------|----------------|--------------------------|\n| **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)** | **HW 1** - online upload | **100 pts** | September 16 2025 (already graded) |\n|  | **HW 2** - online upload | **100 pts** | September 30 2025 (already graded) |\n|  | **HW 3** - online upload | **100 pts** | October 21 2025 (submitted, awaiting grade) |\n|  | **HW 4** - online upload | **100 pts** | November 4 2025 (still unsubmitted) |\n|  | **Midterm** - online quiz | **100 pts** | October 14 2025 (graded 98 / 100) |\n| **Agile Methods for Software Development (CS 555\u2011A)** | **Project 1 - User Stories** | **100 pts** | September 24 2025 (graded) |\n|  | **Project 2 - Prototype and Expo** | **100 pts** | October 1 2025 (graded) |\n|  | **Project 3 - Team Formation & Story\u2011Board Creation** | **100 pts** | October 12 2025 (overdue, not submitted) |\n|  | **1st Sprint** | **100 pts** | October 24 2025 (graded) |\n|  | **2nd Sprint** | **100 pts** | November 5 2025 (still unsubmitted) |\n|  | **3rd Sprint** | **100 pts** | November 19 2025 (still unsubmitted) |\n|  | **4th Sprint** | **100 pts** | December 3 2025 (still unsubmitted) |\n|  | **Final Demonstration** | **100 pts** | December 4 2025 (still unsubmitted) |\n|  | **Quiz 01 - User Stories** | **50 pts** | September 19 2025 (graded 48 / 50) |\n|  | **Quiz 02 - XP** | **50 pts** | September 26 2025 (graded 50 / 50) |\n|  | **Quiz 03 - Scrum** | **50 pts** | October 3 2025 (graded 50 / 50) |\n|  | **Quiz 04 - Testing** | **50 pts** | October 10 2025 (graded 50 / 50) |\n|  | **Quiz 05 - Continuous Integration & Pair Programming** | **50 pts** | October 17 2025 (graded 5 / 50) |\n|  | **Quiz 07 - Lean** | **50 pts** | October 31 2025 (graded 0 / 50) |\n| **Natural Language Processing (CS 584)** | **HW 1** | **105 pts** | October 3 2025 (graded 105 / 105) |\n|  | **HW 2** | **105 pts** | October 25 2025 (graded 105 / 105) |\n|  | **HW 3** | **105 pts** | November 20 2025 (still unsubmitted) |\n|  | **HW 0** (intro) | **5 pts** | September 18 2025 (graded 5 / 5) |\n\n### What this means for you\n- **The biggest grade movers** are the 100\u2011point assignments in CS 559 and CS 555, plus the 105\u2011point homework items in CS 584.  \n- **CS 555's project\u2011related work** (Project 3 and the upcoming sprints) carries a huge weight; completing those will dramatically improve the project\u2011weighted portion of your final grade.  \n- **CS 559's HW 4** (due Nov 4) and the **CS 584 HW 3** (due Nov 20) are the next high\u2011value tasks you still need to submit.  \n\nPrioritizing the overdue/high\u2011point items first will give you the greatest boost to your overall grades. Let me know if you'd like the rubrics, submission links, or a quick checklist for any of these assignments!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 50,
+      "query_text": "Analysis of my academic performance",
+      "category": "complex_queries",
+      "test_run_id": "20251102_231236",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Based on the data, here's an analysis of your academic performance:\n\n1. You're performing exceptionally well in Agile Methods for Software Development (CS 555) with a current score of 99.71%. However, your final score is significantly lower at 57.15%, indicating that you might have struggled with some assignments or exams.\n\n2. In Machine Learning: Fundamentals and Applications (CS 559), you're currently doing well with an A grade (97.98%). However, your final grade is C (70.7%), suggesting that you might have had some difficulties with the course material or assessments.\n\n3. You're excelling in Natural Language Processing (CS 584) with a perfect score of 100%. However, your final score is relatively low at 45.14%, indicating that you might have faced challenges in the course.\n\n4. In Introduction to Python for Financial Applications (FE 520), you're doing well with a score of 87.27%. Your final score is 45.71%, which is relatively low.\n\n5. You've achieved a perfect score of 100% in Graduate Student Code of Academic Integrity.\n\nOverall, you're performing well in most of your courses, but there are some areas where you need to improve. You should review your past assignments and assessments to identify the areas where you struggled and work on improving your understanding of those topics.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Academic Performance Overview (Fall 2025)**  \n\n---\n\n### 1. Grade Summary by Course  \n| Course | Current Score | Letter Grade (if posted) | Final\u2011project / weighted score | Overall impression |\n|--------|---------------|--------------------------|------------------------------|--------------------|\n| **Agile Methods for Software Development (CS 555\u2011A)** | **99.7 %** | - (grade not posted) | **57 %** (project\u2011weighted) | Near\u2011perfect work on quizzes and early projects, but the project component is dragging the final grade down. |\n| **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)** | **97.98 %** | **A** | **70.7 %** (project\u2011weighted, currently a **C**) | Excellent quiz and midterm performance; the final\u2011project weight is the only weak spot. |\n| **Natural Language Processing (CS 584)** | **100 %** | - (grade not posted) | - (no final\u2011project score yet) | Perfect scores on all graded work; only two pending deliverables remain. |\n| **Introduction to Python for Financial Applications (FE 520\u2011A)** | **87.27 %** | - (grade not posted) | **45.7 %** (final\u2011score) | Solid baseline, but the low final\u2011score suggests a major graded component (likely a final exam or project) is still pending. |\n| **Fall 2024 Graduate Student Code of Academic Integrity** | **100 %** | - | - | Completed. |\n\n---\n\n### 2. Trends & Patterns  \n\n- **Quiz performance**  \n  - **CS 559**: average **\u2248 95 %** across 8 quizzes + midterm - consistently high.  \n  - **CS 555**: average **\u2248 68 %** because two recent quizzes (CI & Pair Programming, Lean) scored **5/50** and **0/50**. Earlier quizzes were perfect.  \n  - **CS 584**: no quizzes recorded.  \n\n- **Assignment completion**  \n  - All homework in **CS 559** and **CS 584** have been submitted (some still awaiting grading).  \n  - **CS 555** has several overdue or unsubmitted items (Project 3, 2nd Sprint, later sprints).  \n  - **FE 520** shows no pending assignments, but the low final\u2011score indicates a missing high\u2011weight assessment.\n\n- **Project / sprint work**  \n  - **CS 555**: each sprint and project is worth **100 pts**; the overdue **Project 3** and upcoming **2nd\u20114th sprints** are critical for raising the project\u2011weighted portion.  \n  - **CS 559**: the final\u2011project (currently weighted at **70 %**) will determine whether the overall course stays an **A** or drops.  \n\n- **Overdue items** (most urgent)  \n  - **CS 555 - Project 3 (Team Formation & Story\u2011Board)** - overdue since Oct 12.  \n  - **CS 555 - 2nd Sprint** - due Nov 5 (2 days away).  \n\n---\n\n### 3. Strengths  \n\n- **Consistent mastery of core concepts** in Machine Learning and NLP (quiz scores \u2265 90 %).  \n- **High submission rate** for homework in CS 559 and CS 584 (all turned in).  \n- **Excellent early performance** in CS 555 (first four quizzes all perfect).  \n\n---\n\n### 4. Areas Needing Improvement  \n\n| Course | Issue | Impact |\n|--------|-------|--------|\n| **CS 555** | Low scores on recent quizzes (CI & Pair Programming, Lean) and overdue project work. | Project\u2011weighted grade currently **\u2248 57 %**, pulling the final grade down. |\n| **CS 559** | Final\u2011project component (currently **70 %**, a **C**) will dominate the final grade. | Even a modest project can raise the overall course grade from a **C** to an **A**. |\n| **FE 520** | Final\u2011score **45 %**, indicating a major assessment not yet completed or graded. | Risk of a low overall grade in this course. |\n| **CS 584** | No major issues yet, but two pending deliverables (midterm report, HW 3) must be completed on time to maintain the perfect record. | Minor risk if deadlines are missed. |\n\n---\n\n### 5. Recommendations - What to Prioritize This Week  \n\n1. **Clear the overdue work in CS 555**  \n   - Submit **Project 3** immediately (even a partial submission stops further penalty).  \n   - Finish and submit **2nd Sprint** before the **Nov 5** deadline.  \n\n2. **Start the high\u2011value CS 559 final project**  \n   - Review the project rubric (100 pts).  \n   - Draft a project plan today; allocate at least **2 hrs each day** to data preparation, modeling, and write\u2011up.  \n\n3. **Complete CS 584 pending items**  \n   - **Midterm Report** (due Nov 7) - draft today, proofread, and submit early.  \n   - Begin **HW 3** (due Nov 20) so it's well\u2011ahead of schedule.  \n\n4. **Address weak quiz topics in CS 555**  \n   - Re\u2011read the \"Continuous Integration & Pair Programming\" and \"Lean\" lecture notes.  \n   - Create flashcards or short summary sheets; practice with a few example problems.  \n\n5. **Investigate FE 520 final assessment**  \n   - Check the syllabus or contact the instructor to confirm the remaining graded component (likely a final exam or project).  \n   - Begin reviewing core Python\u2011for\u2011finance material now to be ready for the final.  \n\n6. **Maintain the momentum in CS 559 and CS 584**  \n   - Keep the perfect homework record by submitting upcoming assignments early.  \n   - Use the strong quiz performance as a confidence boost for the final project.  \n\n---\n\n### 6. Quick \"Score\u2011Boost\" Checklist  \n\n- **Submit overdue CS 555 items** \u2192 + 100 pts each.  \n- **Turn in CS 555 2nd Sprint** \u2192 + 100 pts (immediate grade lift).  \n- **Finish CS 559 final project** \u2192 can raise the project\u2011weighted score from **70 %** to **\u2248 90 %**, turning the overall course grade from **C** to **A**.  \n- **Complete CS 584 midterm report & HW 3** \u2192 preserve the perfect 100 % record.  \n- **Identify FE 520 final exam** \u2192 allocate study time now to avoid a low final\u2011score.  \n\n---\n\n### 7. Bottom Line  \n\nYour academic performance is strong overall--especially in quizzes and early assignments. The **key to converting that strength into final grades** is to **complete the high\u2011point project and sprint work** that currently remain unfinished, particularly in **CS 555** and **CS 559**. Address those items first, then shift focus to the remaining pending deliverables in **CS 584** and the final assessment in **FE 520**.  \n\nLet me know if you'd like the specific rubrics, submission links, or a more detailed weekly plan for any of these tasks!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 10,
+            "clarity": 10
+          },
+          "overall_score": 10.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    }
+  ],
+  "aggregate_stats": {
+    "by_category": {
+      "simple_retrieval": {
+        "total_queries": 10,
+        "total_evaluations": 20,
+        "llama": {
+          "avg_correctness": 8.9,
+          "avg_completeness": 7.5,
+          "avg_clarity": 7.6,
+          "overall_avg": 8.0,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        },
+        "gpt_oss": {
+          "avg_correctness": 9.0,
+          "avg_completeness": 8.4,
+          "avg_clarity": 8.5,
+          "overall_avg": 8.63,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      },
+      "course_specific": {
+        "total_queries": 10,
+        "total_evaluations": 20,
+        "llama": {
+          "avg_correctness": 6.4,
+          "avg_completeness": 6.4,
+          "avg_clarity": 5.3,
+          "overall_avg": 6.03,
+          "pass_rate": 0.7,
+          "failure_breakdown": {
+            "wrong_data_returned": 3
+          }
+        },
+        "gpt_oss": {
+          "avg_correctness": 8.8,
+          "avg_completeness": 9.3,
+          "avg_clarity": 9.1,
+          "overall_avg": 9.07,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      },
+      "temporal_queries": {
+        "total_queries": 10,
+        "total_evaluations": 20,
+        "llama": {
+          "avg_correctness": 2.9,
+          "avg_completeness": 2.9,
+          "avg_clarity": 2.9,
+          "overall_avg": 2.9,
+          "pass_rate": 0.2,
+          "failure_breakdown": {
+            "wrong_data_returned": 1,
+            "incomplete_answer": 6,
+            "ambiguous_response": 1
+          }
+        },
+        "gpt_oss": {
+          "avg_correctness": 8.3,
+          "avg_completeness": 9.1,
+          "avg_clarity": 9.2,
+          "overall_avg": 8.87,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      },
+      "aggregation": {
+        "total_queries": 10,
+        "total_evaluations": 20,
+        "llama": {
+          "avg_correctness": 8.9,
+          "avg_completeness": 8.7,
+          "avg_clarity": 8.5,
+          "overall_avg": 8.7,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        },
+        "gpt_oss": {
+          "avg_correctness": 8.0,
+          "avg_completeness": 9.1,
+          "avg_clarity": 9.1,
+          "overall_avg": 8.73,
+          "pass_rate": 0.9,
+          "failure_breakdown": {
+            "wrong_data_returned": 1
+          }
+        }
+      },
+      "complex_queries": {
+        "total_queries": 10,
+        "total_evaluations": 20,
+        "llama": {
+          "avg_correctness": 6.4,
+          "avg_completeness": 5.8,
+          "avg_clarity": 5.7,
+          "overall_avg": 5.97,
+          "pass_rate": 0.8,
+          "failure_breakdown": {
+            "error_not_handled": 2
+          }
+        },
+        "gpt_oss": {
+          "avg_correctness": 8.2,
+          "avg_completeness": 8.8,
+          "avg_clarity": 8.8,
+          "overall_avg": 8.6,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      }
+    },
+    "overall": {
+      "total_queries": 50,
+      "total_evaluations": 100,
+      "llama": {
+        "avg_correctness": 6.7,
+        "avg_completeness": 6.26,
+        "avg_clarity": 6.0,
+        "overall_avg": 6.32,
+        "pass_rate": 0.74,
+        "failure_breakdown": {
+          "wrong_data_returned": 4,
+          "incomplete_answer": 6,
+          "ambiguous_response": 1,
+          "error_not_handled": 2
+        }
+      },
+      "gpt_oss": {
+        "avg_correctness": 8.46,
+        "avg_completeness": 8.94,
+        "avg_clarity": 8.94,
+        "overall_avg": 8.78,
+        "pass_rate": 0.98,
+        "failure_breakdown": {
+          "wrong_data_returned": 1
+        }
+      }
+    }
+  }
+}

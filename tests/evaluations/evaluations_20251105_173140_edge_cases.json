@@ -1,0 +1,895 @@
+{
+  "evaluation_metadata": {
+    "evaluation_run_id": "20251105_173140",
+    "timestamp": "2025-11-05T17:31:40.150712",
+    "evaluator": "your_name",
+    "total_queries_evaluated": 22,
+    "evaluation_timestamp": "2025-11-05T17:31:40.150717"
+  },
+  "evaluations": [
+    {
+      "query_id": 1,
+      "query_text": "What's due?",
+      "category": "ambiguous_queries",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no assignments due in the next 7 days.",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "There are no assignments due in the next 7 days.  \n\nWould you like to check assignments further out, see your current grades, or get help with anything else?",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 2,
+      "query_text": "Show me stuff",
+      "category": "ambiguous_queries",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You are currently enrolled in the following courses:\n* Agile Methods for Software Development\n* Machine Learning: Fundamentals and Applications (Grade: A)\n* Natural Language Processing\n* Introduction to Python for Financial Applications\n* Fall 2024 Graduate Student Code of Academic Integrity\n\nTo get more information about a specific course, you can ask about assignments, quizzes, or grades for that course. For example, you can ask \"What are my upcoming assignments?\" or \"What is my grade in Machine Learning?\"",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Sure thing! What would you like to see?\n\n- Your current courses  \n- Upcoming assignments (next 7 days)  \n- Recent announcements  \n- Grades for a specific class or overall performance  \n- Assignments or quizzes for a particular course  \n\nJust let me know which of these (or anything else) you'd like to view.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 3,
+      "query_text": "Grades",
+      "category": "ambiguous_queries",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are your current grades:\n* Agile Methods for Software Development: 100.35%\n* Machine Learning: Fundamentals and Applications: 97.98% (A)\n* Natural Language Processing: 100%\n* Introduction to Python for Financial Applications: 87.27%\n* Fall 2024 Graduate Student Code of Academic Integrity: 100%\n\nLet me know if you have any other questions!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Your current grades**\n\n- **CS 555 - Agile Methods for Software Development**  \n  - Current score: **100.35/100**  \n  - Final score (unweighted): **64.21/100**\n\n- **CS 559 - Machine Learning: Fundamentals and Applications**  \n  - Current score: **97.98/100** (Grade: **A**)  \n  - Final score (unweighted): **63.39/100** (Grade: **F**)\n\n- **CS 584 - Natural Language Processing**  \n  - Current score: **100.0/100**  \n  - Final score (unweighted): **45.14/100**\n\n- **FE 520 - Introduction to Python for Financial Applications**  \n  - Current score: **87.27/100**  \n  - Final score (unweighted): **21.33/100**\n\n- **Graduate Student Code of Academic Integrity**  \n  - Current score: **100.0/100**  \n  - Final score: **100.0/100**\n\nLet me know if you'd like details for a specific course, upcoming assignments, or anything else!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Some more clarity on final grade would be a nice thing"
+        }
+      }
+    },
+    {
+      "query_id": 4,
+      "query_text": "Assignments",
+      "category": "ambiguous_queries",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the assignments for Agile Methods for Software Development:\n\n* Project 0-Project Prep - Due: September 10, 2025 - Score: 55/50\n* Project 1-User Stories - Due: September 24, 2025 - Score: 100/100\n* Project 2-Prototype and Expo - Due: October 1, 2025 - Score: 100/100\n* Project 3-Team Formation and Story Board Creation - Due: October 12, 2025 - Score: 100/100\n* 1st Sprint - Due: October 24, 2025 - Score: 100/100\n* 2nd Sprint - Due: November 5, 2025\n* 3rd Sprint - Due: November 19, 2025\n* 4th Sprint - Due: December 3, 2025\n* Final Demonstration - Due: December 4, 2025\n* Project Selection Intention Discussion Board\n* Quiz 02 XP  - Due: September 26, 2025 - Score: 50/50\n* Quiz 01: User Stories  - Due: September 19, 2025 - Score: 48/50\n* Quiz 03: Scrum - Due: October 3, 2025 - Score: 50/50\n* Quiz 04: Testing - Due: October 10, 2025 - Score: 50/50\n* Quiz 05: Continuous Integration and Pair Programming  - Due: October 17, 2025 - Score: 5/50\n* Quiz 07: Lean - Due: October 31, 2025 - Score: 0/50\n* Activity5: Sprint 1 Review and Spring 2 Planning - Due: October 23, 2025 - Score: 50/50\n* Activity1 - Due: September 11, 2025 - Score: 10/10\n* Activity2-Figma - Due: September 26, 2025 - Score: 10/10\n* Activity3-Prototype-Expo - Due: October 2, 2025 - Score: 50/50\n* Activity 4: Project Kickoff (if have not) and Sprint 1 Planning - Due: October 12, 2025 - Score: 50/50\n\nYou have 5 upcoming assignments due soon.",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 6,
+            "clarity": 6
+          },
+          "overall_score": 6.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Only considered CS 555"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**Your current assignments (by course)**  \n\n---\n\n### Agile Methods for Software Development (CS 555)  \n- **Project 0 - Project Prep** - Due Sep 10, 2025 - Submitted, grade 55/50 (over\u2011score due to extra credit)  \n- **Project 1 - User Stories** - Due Sep 24, 2025 - Submitted, grade 100/100  \n- **Project 2 - Prototype & Expo** - Due Oct 1, 2025 - Submitted, grade 100/100  \n- **Project 3 - Team Formation & Story\u2011Board** - Due Oct 12, 2025 - Submitted, grade 100/100  \n- **1st Sprint** - Due Oct 24, 2025 - Submitted, grade 100/100  \n- **2nd Sprint** - Due Nov 5, 2025 - *Not submitted yet*  \n- **3rd Sprint** - Due Nov 19, 2025 - *Not submitted yet*  \n- **4th Sprint** - Due Dec 3, 2025 - *Not submitted yet*  \n- **Final Demonstration** - Due Dec 4, 2025 - *Not submitted yet*  \n- **Quiz 01 - User Stories** - Due Sep 19, 2025 - Submitted, grade 48/50  \n- **Quiz 02 - XP** - Due Sep 26, 2025 - Submitted, grade 50/50  \n- **Quiz 03 - Scrum** - Due Oct 3, 2025 - Submitted, grade 50/50  \n- **Quiz 04 - Testing** - Due Oct 10, 2025 - Submitted, grade 50/50  \n- **Quiz 05 - CI & Pair Programming** - Due Oct 17, 2025 - Submitted, grade 5/50 (pending review)  \n- **Quiz 07 - Lean** - Due Oct 31, 2025 - Submitted, grade 0/50 (pending review)  \n\n---\n\n### Machine Learning: Fundamentals & Applications (CS 559)  \n- **hw1** - Due Sep 16, 2025 - Submitted, grade 100/100  \n- **hw2** - Due Sep 30, 2025 - Submitted, grade 100/100  \n- **hw3** - Due Oct 21, 2025 - Submitted (awaiting grading)  \n- **hw4** - Due Nov 4, 2025 - *Submitted, not yet graded*  \n- **hw5** - Due Nov 18, 2025 - *Not submitted*  \n- **Quiz 1 - Linear Regression** - Due Sep 6, 2025 - Submitted, grade 8.5/10  \n- **Quiz 2 - Linear Classification 1** - Due Sep 13, 2025 - Submitted, grade 10/10  \n- **Quiz 3 - Linear Classification 2** - Due Sep 20, 2025 - Submitted, grade 10/10  \n- **Quiz 4 - Model Selection** - Due Sep 27, 2025 - Submitted, grade 9/10  \n- **Quiz 5 - Neural Network** - Due Oct 4, 2025 - Submitted, grade 9/10  \n- **Quiz 6 - Kernel Method** - Due Oct 18, 2025 - Submitted, grade 10/10  \n- **Quiz 7 - SVM** - Due Oct 25, 2025 - Submitted, grade 9/10  \n- **Quiz 8 - Unsupervised Learning** - Due Nov 1, 2025 - Submitted, grade 8/10  \n- **Quiz 9 - Combining Models** - Due Nov 8, 2025 - *Not submitted, no grade yet*  \n- **Midterm** - Due Oct 14, 2025 - Submitted, grade 98/100  \n\n---\n\n### Natural Language Processing (CS 584)  \n- **HW0** - Due Sep 18, 2025 - Submitted, grade 5/5  \n- **HW1** - Due Oct 3, 2025 - Submitted, grade 105/105  \n- **HW2** - Due Oct 25, 2025 - Submitted (awaiting grading)  \n- **HW3** - Due Nov 20, 2025 - *Not submitted*  \n- **Attendance 1** - Sep 22, 2025 - Submitted, grade 1/1  \n- **Attendance 2** - Oct 27, 2025 - Submitted, grade 1/1  \n- **Project Proposal** - Oct 5, 2025 - Submitted, grade 100/100  \n- **Project Midterm Report** - Nov 7, 2025 - *Not submitted*  \n\n---\n\n### Introduction to Python for Financial Applications (FE 520)  \n- **Assignment 1** - Due Oct 2, 2025 - Submitted, grade 86/100  \n- **Assignment 2** - Due Oct 23, 2025 - Submitted (awaiting grading)  \n- **Assignment 3** - Due Nov 16, 2025 - *Not submitted*  \n- **Mid\u2011term Exam** - Due Dec 7, 2025 - *Not submitted*  \n- **Final Project** - Due Dec 12, 2025 - *Not submitted*  \n- **Attendance** - No specific due date - Graded 10/10  \n\n---\n\n### Graduate Student Code of Academic Integrity  \n- No graded assignments or upcoming work listed.\n\n---\n\n**What to focus on next:**  \n\n- **CS 555:** 2nd Sprint (Nov 5) - submit soon.  \n- **CS 559:** Quiz 9 (Nov 8) - still open.  \n- **CS 584:** HW3 (Nov 20) and Project Midterm Report (Nov 7).  \n- **FE 520:** Assignment 3 (Nov 16) and upcoming exams in December.  \n\nLet me know if you'd like details for a specific course, help with a particular assignment, or a reminder set for any due date!",
+          "ratings": {
+            "correctness": 10,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 5,
+      "query_text": "Next week",
+      "category": "ambiguous_queries",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no upcoming assignments for the next 7 days.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "There are no assignments due in the next 7 days. Let me know if you'd like to check assignments for a later time frame or need help with anything else!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 6,
+      "query_text": "What's due in CS 999?",
+      "category": "invalid_references",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "There are no assignments due in CS 999 in the next 7 days.",
+          "ratings": {
+            "correctness": 6,
+            "completeness": 6,
+            "clarity": 6
+          },
+          "overall_score": 6.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "I don't see a course named **CS 999** in your current enrollments, so I can't pull any assignments for it.\n\nAt the moment there are no assignments due in the next two weeks for any of your enrolled courses. If you meant a different class (e.g., CS 555, CS 559, CS 584, or FE 520), just let me know and I can pull the upcoming due dates for that course.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 7,
+      "query_text": "Show me quiz scores for Underwater Basket Weaving",
+      "category": "invalid_references",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "course_id = get_course_id_by_name(\"Underwater Basket Weaving\")\nprint({\"name\": \"get_quizzes\", \"parameters\": {\"course_id\": course_id}})",
+          "ratings": {
+            "correctness": 2,
+            "completeness": 2,
+            "clarity": 2
+          },
+          "overall_score": 2.0,
+          "pass": false,
+          "failure_type": "error_not_handled",
+          "notes": "Returned Code"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "I'm sorry--I couldn't find a course called **Underwater Basket Weaving** in your Canvas enrollment. Could you double\u2011check the name or let me know which of your actual courses you'd like quiz scores for?",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 8,
+      "query_text": "My grade in that course I dropped",
+      "category": "invalid_references",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Since you've dropped the course, it won't show up in your current enrolled courses. However, I can still provide you with a list of your current enrolled courses and their respective grades. \n\nHere are your current enrolled courses and grades:\n* 2025F CS 555-A - Agile Methods for Software Development: 100.35%\n* 2025F CS 559-WS - Machine Learning: Fundamentals and Applications: A (97.98%)\n* 2025F CS 584-A - Natural Language Processing: 100.0%\n* 2025F FE 520-A - Introduction to Python for Financial Applications: 87.27%\n* Fall 2024 Graduate Student Code of Academic Integrity: 100.0%\n\nIf you're looking for the grade of the course you dropped, you might need to check your academic record or contact your academic advisor for more information.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": "error_not_handled",
+          "notes": "Returned Code"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Sure thing! Could you let me know the name or code of the course you dropped? That way I can pull up your current grade for you.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 9,
+      "query_text": "Assignments in NonExistent Course",
+      "category": "invalid_references",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Since the course \"NonExistent Course\" does not exist, there are no assignments to retrieve.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": "error_not_handled",
+          "notes": "Returned Code"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "I'm sorry--I can't find a course called **\"NonExistent Course.\"** It may be a typo or a course you haven't enrolled in.\n\nIf you'd like to see assignments for a different class, just let me know the correct course name (or code), and I'll pull up the details for you.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 10,
+      "query_text": "cs555whatsduetoday",
+      "category": "malformed_queries",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "There are no assignments due today in CS 555.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": "error_not_handled",
+          "notes": "Returned Code"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "**CS 555 - Agile Methods for Software Development**\n\n- **Due today (November 3, 2025):** No assignments, quizzes, or activities are scheduled for today.  \n- **Next upcoming deadline:** **2nd Sprint** - due **November 5, 2025** at 11:59 PM. It's still open for submission.  \n- **Current standing:** Your overall course score is **100.35 %**.\n\nLet me know if you'd like details on the 2nd Sprint requirements or help planning your work for the upcoming weeks!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 11,
+      "query_text": "SHOW ME ALL THE THINGS NOW!!!",
+      "category": "malformed_queries",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are your current grades across all courses:\n* Agile Methods for Software Development: 100.35%\n* Machine Learning: Fundamentals and Applications: 97.98% (A)\n* Natural Language Processing: 100%\n* Introduction to Python for Financial Applications: 87.27%\n* Fall 2024 Graduate Student Code of Academic Integrity: 100%",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 7,
+            "clarity": 7
+          },
+          "overall_score": 7.33,
+          "pass": true,
+          "failure_type": "error_not_handled",
+          "notes": "Returned Code"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Here's a quick snapshot of everything you have right now:\n\n**Courses & Grades**\n\n- **Agile Methods for Software Development (CS 555\u2011A)**\n  - Current score: 100.35/100  \n  - Final score (unposted): 64.21/100  \n  - No letter grade posted yet  \n\n- **Machine Learning: Fundamentals and Applications (CS 559\u2011WS)**\n  - Current score: 97.98/100 \u2192 **A**  \n  - Final score (unposted): 63.39/100 \u2192 **F** (final grade posted)  \n\n- **Natural Language Processing (CS 584\u2011A)**\n  - Current score: 100.0/100  \n  - Final score (unposted): 45.14/100  \n\n- **Introduction to Python for Financial Applications (FE 520\u2011A)**\n  - Current score: 87.27/100  \n  - Final score (unposted): 21.33/100  \n\n- **Graduate Student Code of Academic Integrity (Fall 2024)**\n  - Current score: 100.0/100  \n\n**Upcoming Assignments**\n\n- There are **no assignments due in the next 7 days**.\n\n**Recent Announcements (last 7 days)**  \n\n- **CS 555\u2011A - Hybrid today due to the weather** (posted Oct 30, 2025) - Join online via the Zoom link provided.  \n- **CS 555\u2011A - Week 9 agenda update** (posted Oct 28, 2025) - Guest lecture postponed to Thu, Nov 13 due to a forecasted storm.\n\nLet me know if you'd like details on a specific course, its assignments, quizzes, or anything else!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 8.67,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 12,
+      "query_text": "what's... like... you know... due?",
+      "category": "malformed_queries",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You don't have any assignments due in the next 7 days.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": "error_not_handled",
+          "notes": "Returned Code"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "There are no assignments due in the next 7 days. If you'd like to check a longer time frame or need details for a specific course, just let me know!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 13,
+      "query_text": "\u0647\u0644 \u0644\u062f\u064a \u0648\u0627\u062c\u0628\u0627\u062a\u061f",
+      "category": "malformed_queries",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no upcoming assignments due in the next 7 days.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": "error_not_handled",
+          "notes": "Returned Code"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "\u0644\u064a\u0633 \u0644\u062f\u064a\u0643 \u0623\u064a \u0648\u0627\u062c\u0628\u0627\u062a \u0645\u0633\u062a\u062d\u0642\u0629 \u062e\u0644\u0627\u0644 \u0627\u0644\u0623\u064a\u0627\u0645 \u0627\u0644\u0633\u0628\u0639\u0629 \u0627\u0644\u0642\u0627\u062f\u0645\u0629. \u0647\u0644 \u062a\u0631\u063a\u0628 \u0641\u064a \u0627\u0644\u0627\u0637\u0644\u0627\u0639 \u0639\u0644\u0649 \u062c\u0645\u064a\u0639 \u0627\u0644\u0648\u0627\u062c\u0628\u0627\u062a \u0627\u0644\u0645\u062a\u0627\u062d\u0629 \u0641\u064a \u0645\u0642\u0631\u0631\u0627\u062a\u0643 \u0623\u0648 \u0645\u0639\u0631\u0641\u0629 \u0645\u0627 \u0633\u064a\u064f\u0642\u064e\u062f\u0651\u064e\u0645 \u0641\u064a \u0627\u0644\u0645\u0633\u062a\u0642\u0628\u0644 \u0627\u0644\u0642\u0631\u064a\u0628\u061f",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 10
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 14,
+      "query_text": "\u6211\u6709\u4ec0\u4e48\u4f5c\u4e1a\uff1f",
+      "category": "malformed_queries",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "You have no assignments due in the next 7 days. Would you like to check a specific course or extend the date range?",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": "error_not_handled",
+          "notes": "Returned Code"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "\u4ee5\u4e0b\u662f\u60a8\u5f53\u524d\u672a\u63d0\u4ea4\u6216\u5c1a\u672a\u5b8c\u6210\u7684\u4f5c\u4e1a\uff08\u4e0d\u5305\u62ec\u5df2\u5b8c\u6210\u7684\u6d4b\u9a8c\uff09\uff1a\n\n**Agile Methods for Software Development (CS 555\u2011A)**\n- 2nd Sprint - \u622a\u6b62\u65e5\u671f **2025\u5e7411\u67085\u65e5** - \u672a\u63d0\u4ea4  \n- 3rd Sprint - \u622a\u6b62\u65e5\u671f **2025\u5e7411\u670819\u65e5** - \u672a\u63d0\u4ea4  \n- 4th Sprint - \u622a\u6b62\u65e5\u671f **2025\u5e7412\u67083\u65e5** - \u672a\u63d0\u4ea4  \n- Final Demonstration - \u622a\u6b62\u65e5\u671f **2025\u5e7412\u67084\u65e5** - \u672a\u63d0\u4ea4  \n\n**Machine Learning: Fundamentals and Applications (CS 559\u2011WS)**\n- hw4 - \u622a\u6b62\u65e5\u671f **2025\u5e7411\u67084\u65e5** - \u672a\u63d0\u4ea4  \n- hw5 - \u622a\u6b62\u65e5\u671f **2025\u5e7411\u670818\u65e5** - \u672a\u63d0\u4ea4  \n\n**Natural Language Processing (CS 584\u2011A)**\n- Assignment 3 - \u622a\u6b62\u65e5\u671f **2025\u5e7411\u670816\u65e5** - \u672a\u63d0\u4ea4  \n- Mid\u2011term Exam Fall 2025 - \u622a\u6b62\u65e5\u671f **2025\u5e7412\u67087\u65e5** - \u672a\u63d0\u4ea4  \n- Final Project - \u622a\u6b62\u65e5\u671f **2025\u5e7412\u670812\u65e5** - \u672a\u63d0\u4ea4  \n\n**Introduction to Python for Financial Applications (FE 520\u2011A)**\n- HW3 - \u622a\u6b62\u65e5\u671f **2025\u5e7411\u670820\u65e5** - \u672a\u63d0\u4ea4  \n\n\u5982\u679c\u60a8\u9700\u8981\u67e5\u770b\u67d0\u4e2a\u4f5c\u4e1a\u7684\u8be6\u7ec6\u8bf4\u660e\u6216\u63d0\u4ea4\u5165\u53e3\uff0c\u8bf7\u544a\u8bc9\u6211\u5bf9\u5e94\u7684\u8bfe\u7a0b\u6216\u4f5c\u4e1a\u540d\u79f0\uff0c\u6211\u53ef\u4ee5\u4e3a\u60a8\u63d0\u4f9b\u8fdb\u4e00\u6b65\u7684\u5e2e\u52a9\u3002\u795d\u60a8\u987a\u5229\u5b8c\u6210\uff01",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 9,
+            "clarity": 10
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 15,
+      "query_text": "What's due in 2026?",
+      "category": "empty_results",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "There are no assignments due in the next 365 days.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": "error_not_handled",
+          "notes": "Returned Code"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "At the moment there are no assignments or quizzes scheduled for any of your courses that are due in 2026. All of the upcoming due dates in the system fall within 2025. If a new assignment is added later that has a 2026 deadline, it will appear in the upcoming\u2011assignments list.",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 16,
+      "query_text": "Show me assignments I already submitted",
+      "category": "empty_results",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "Here are the assignments you have already submitted for Agile Methods for Software Development:\n\n* Project 0-Project Prep - September 10, 2025 at 11:59 PM - Score: 55/50\n* Project 1-User Stories - September 24, 2025 at 11:59 PM - Score: 100/100\n* Project 2-Prototype and Expo - October 1, 2025 at 11:59 PM - Score: 100/100\n* Project 3-Team Formation and Story Board Creation - October 12, 2025 at 11:59 PM - Score: 100/100\n* 1st Sprint - October 24, 2025 at 11:59 PM - Score: 100/100\n* Project Selection Intention Discussion Board - No due date - Not graded\n* Quiz 02 XP  - September 26, 2025 at 11:59 PM - Score: 50/50\n* Quiz 01: User Stories  - September 19, 2025 at 10:00 PM - Score: 48/50\n* Quiz 03: Scrum - October 3, 2025 at 10:00 PM - Score: 50/50\n* Quiz 04: Testing - October 10, 2025 at 10:00 PM - Score: 50/50\n* Quiz 05: Continuous Integration and Pair Programming  - October 17, 2025 at 10:00 PM - Score: 5/50 (Pending review)\n* Quiz 07: Lean - October 31, 2025 at 10:00 PM - Score: 0/50 (Pending review)\n* Activity5: Sprint 1 Review and Spring 2 Planning - October 23, 2025 at 11:59 PM - Score: 50/50\n* Activity1 - September 11, 2025 at 11:59 PM - Score: 10/10\n* Activity2-Figma - September 26, 2025 at 11:59 PM - Score: 10/10\n* Activity3-Prototype-Expo - October 2, 2025 at 11:59 PM - Score: 50/50\n* Activity 4: Project Kickoff (if have not) and Sprint 1 Planning - October 12, 2025 at 11:59 PM - Score: 50/50\n\nTo see assignments for other courses, please specify the course name.",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 6,
+            "clarity": 6
+          },
+          "overall_score": 6.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": "Still with CS 555"
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Here are the assignments (and quizzes) you've already turned in, organized by course:\n\n**Agile Methods for Software Development (CS 555)**\n- Project 0 - Project Prep - graded 55/50  \n- Project 1 - User Stories - graded 100/100  \n- Project 2 - Prototype and Expo - graded 100/100  \n- Project 3 - Team Formation & Story Board - graded 100/100  \n- 1st Sprint - graded 100/100  \n- Project Selection Intention Discussion Board - submitted (no grade yet)  \n- Quiz 02 XP - graded 50/50  \n- Quiz 01 - User Stories - graded 48/50  \n- Quiz 03 - Scrum - graded 50/50  \n- Quiz 04 - Testing - graded 50/50  \n- Quiz 05 - Continuous Integration & Pair Programming - graded 5/50 (pending review)  \n- Quiz 07 - Lean - graded 0/50 (pending review)  \n- Activity 5 - Sprint 1 Review & Sprint 2 Planning - graded 50/50  \n- Activity 2 - Figma - graded 10/10  \n- Activity 3 - Prototype\u2011Expo - graded 50/50  \n- Activity 4 - Project Kickoff & Sprint 1 Planning - graded 50/50  \n\n**Machine Learning: Fundamentals and Applications (CS 559)**\n- hw1 - graded 100/100  \n- hw2 - graded 100/100  \n- hw3 - submitted (grade pending)  \n- hw4 - submitted (grade pending)  \n- Quiz 1 - Linear Regression - graded 8.5/10  \n- Quiz 2 - Linear Classification 1 - graded 10/10  \n- Quiz 3 - Linear Classification 2 - graded 10/10  \n- Quiz 4 - Model Selection - graded 9/10  \n- Quiz 5 - Neural Network - graded 9/10  \n- Quiz 6 - Kernel Method - graded 10/10  \n- Quiz 7 - SVM - graded 9/10  \n- Quiz 8 - Unsupervised Learning - graded 8/10  \n- Quiz 9 - Combining Models - submitted (grade pending)  \n- Midterm - graded 98/100  \n\n**Natural Language Processing (CS 584)**\n- HW0 - graded 5/5  \n- HW1 - graded 105/105  \n- HW2 - submitted (grade pending)  \n- Attendance 1 - graded 1/1  \n- Attendance 2 - graded 1/1  \n- Project Proposal - graded 100/100  \n\n**Introduction to Python for Financial Applications (FE 520)**\n- Assignment 1 - graded 86/100  \n- Assignment 2 - submitted (grade pending)  \n- Attendance - graded 10/10  \n\n**Fall 2024 Graduate Student Code of Academic Integrity**\n- GSCoAI Quiz - graded 11/11  \n\n*All of the items above show a \"submitted\" status, meaning your work has already been turned in.*",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 17,
+      "query_text": "Quizzes in courses with no quizzes",
+      "category": "empty_results",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The courses \"2025F CS 555-A\" and \"2025F CS 559-WS\" have quizzes, while \"2025F CS 584-A\" does not.",
+          "ratings": {
+            "correctness": 7,
+            "completeness": 6,
+            "clarity": 6
+          },
+          "overall_score": 6.33,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Here are the courses you're enrolled in that currently have **no quizzes**:\n\n- **2025F CS 584\u2011A** - *Natural Language Processing*  \n- **2025F FE 520\u2011A** - *Introduction to Python for Financial Applications*  \n- **Fall 2024 Graduate Student Code of Academic Integrity**  \n\nIf you need details about assignments, announcements, or anything else for these courses, just let me know!",
+          "ratings": {
+            "correctness": 9,
+            "completeness": 9,
+            "clarity": 9
+          },
+          "overall_score": 9.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 18,
+      "query_text": "Announcements from last year",
+      "category": "empty_results",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "",
+          "ratings": {
+            "correctness": 4,
+            "completeness": 4,
+            "clarity": 4
+          },
+          "overall_score": 4.0,
+          "pass": false,
+          "failure_type": "error_not_handled",
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Here are the announcements that were posted during last year (2024):\n\n- **Midterm Exam Review Session** - *October 10, 2024* - *Introduction to Psychology*  \n  \"Join us for a review session on October 15 at 3 pm in Room 101.\"\n\n- **Homework 5 Feedback** - *September 20, 2024* - *Calculus II*  \n  \"Feedback for Homework 5 is now available. Check the Grades section.\"\n\n- **Project Proposal Deadline Extended** - *October 25, 2024* - *World History*  \n  \"The deadline for the final project proposal is now November 5.\"\n\n- **Lab 3 Materials Uploaded** - *November 2, 2024* - *Computer Science 101*  \n  \"Lab 3 instructions and files are now available in the Files section.\"",
+          "ratings": {
+            "correctness": 2,
+            "completeness": 2,
+            "clarity": 2
+          },
+          "overall_score": 2.0,
+          "pass": false,
+          "failure_type": "hallucination",
+          "notes": "Hallucinated the non existent response"
+        }
+      }
+    },
+    {
+      "query_id": 19,
+      "query_text": "What's due in the next 0 days?",
+      "category": "boundary_conditions",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "There are no assignments due today.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "There are no assignments due today. Let me know if you'd like to check upcoming deadlines for the next few days or need help with anything else!",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 20,
+      "query_text": "Show assignments due 1000 days from now",
+      "category": "boundary_conditions",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "There are no assignments due in the next 1000 days.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "There are no assignments scheduled to be due within the next 1,000 days.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 21,
+      "query_text": "Get courses with ID 0",
+      "category": "boundary_conditions",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The course ID \"0\" is not valid. Please provide a valid course name or ID.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Sure! Would you like me to show you a list of all the courses you're currently enrolled in?",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    },
+    {
+      "query_id": 22,
+      "query_text": "Quiz scores for assignment -1",
+      "category": "boundary_conditions",
+      "test_run_id": "20251103_172054",
+      "model_evaluations": {
+        "us.meta.llama4-maverick-17b-instruct-v1:0": {
+          "model_name": "Llama Maverick 17B",
+          "response": "The course \"assignment -1\" was not found. However, here are your current grades for all enrolled courses:\n* 2025F CS 555-A: 100.35%\n* 2025F CS 559-WS: 97.98% (A)\n* 2025F CS 584-A: 100.0%\n* 2025F FE 520-A: 87.27%\n* Fall 2024 Graduate Student Code of Academic Integrity: 100.0%",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        },
+        "openai.gpt-oss-120b-1:0": {
+          "model_name": "GPT-OSS 120B",
+          "response": "Sure thing! Could you let me know which course you're referring to and which assignment (or quiz) you'd like the scores for? That'll help me pull the right information for you.",
+          "ratings": {
+            "correctness": 8,
+            "completeness": 8,
+            "clarity": 8
+          },
+          "overall_score": 8.0,
+          "pass": true,
+          "failure_type": null,
+          "notes": ""
+        }
+      }
+    }
+  ],
+  "aggregate_stats": {
+    "by_category": {
+      "ambiguous_queries": {
+        "total_queries": 5,
+        "total_evaluations": 10,
+        "llama": {
+          "avg_correctness": 7.2,
+          "avg_completeness": 7.2,
+          "avg_clarity": 7.2,
+          "overall_avg": 7.2,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        },
+        "gpt_oss": {
+          "avg_correctness": 8.2,
+          "avg_completeness": 8.0,
+          "avg_clarity": 8.0,
+          "overall_avg": 8.07,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      },
+      "invalid_references": {
+        "total_queries": 4,
+        "total_evaluations": 8,
+        "llama": {
+          "avg_correctness": 6.0,
+          "avg_completeness": 6.0,
+          "avg_clarity": 6.0,
+          "overall_avg": 6.0,
+          "pass_rate": 0.75,
+          "failure_breakdown": {
+            "error_not_handled": 3
+          }
+        },
+        "gpt_oss": {
+          "avg_correctness": 8.5,
+          "avg_completeness": 8.25,
+          "avg_clarity": 8.25,
+          "overall_avg": 8.33,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      },
+      "malformed_queries": {
+        "total_queries": 5,
+        "total_evaluations": 10,
+        "llama": {
+          "avg_correctness": 8.0,
+          "avg_completeness": 7.8,
+          "avg_clarity": 7.8,
+          "overall_avg": 7.87,
+          "pass_rate": 1.0,
+          "failure_breakdown": {
+            "error_not_handled": 5
+          }
+        },
+        "gpt_oss": {
+          "avg_correctness": 8.0,
+          "avg_completeness": 8.8,
+          "avg_clarity": 9.2,
+          "overall_avg": 8.67,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      },
+      "empty_results": {
+        "total_queries": 4,
+        "total_evaluations": 8,
+        "llama": {
+          "avg_correctness": 6.75,
+          "avg_completeness": 6.25,
+          "avg_clarity": 6.25,
+          "overall_avg": 6.42,
+          "pass_rate": 0.75,
+          "failure_breakdown": {
+            "error_not_handled": 2
+          }
+        },
+        "gpt_oss": {
+          "avg_correctness": 7.25,
+          "avg_completeness": 7.25,
+          "avg_clarity": 7.25,
+          "overall_avg": 7.25,
+          "pass_rate": 0.75,
+          "failure_breakdown": {
+            "hallucination": 1
+          }
+        }
+      },
+      "boundary_conditions": {
+        "total_queries": 4,
+        "total_evaluations": 8,
+        "llama": {
+          "avg_correctness": 8.0,
+          "avg_completeness": 8.0,
+          "avg_clarity": 8.0,
+          "overall_avg": 8.0,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        },
+        "gpt_oss": {
+          "avg_correctness": 8.0,
+          "avg_completeness": 8.0,
+          "avg_clarity": 8.0,
+          "overall_avg": 8.0,
+          "pass_rate": 1.0,
+          "failure_breakdown": {}
+        }
+      }
+    },
+    "overall": {
+      "total_queries": 22,
+      "total_evaluations": 44,
+      "llama": {
+        "avg_correctness": 7.23,
+        "avg_completeness": 7.09,
+        "avg_clarity": 7.09,
+        "overall_avg": 7.14,
+        "pass_rate": 0.909,
+        "failure_breakdown": {
+          "error_not_handled": 10
+        }
+      },
+      "gpt_oss": {
+        "avg_correctness": 8.0,
+        "avg_completeness": 8.09,
+        "avg_clarity": 8.18,
+        "overall_avg": 8.09,
+        "pass_rate": 0.955,
+        "failure_breakdown": {
+          "hallucination": 1
+        }
+      }
+    }
+  }
+}
