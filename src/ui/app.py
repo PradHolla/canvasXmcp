@@ -11,15 +11,16 @@ from dotenv import load_dotenv
 from langchain_aws import ChatBedrockConverse
 from langchain_mcp_adapters.tools import load_mcp_tools
 from langgraph.prebuilt import create_react_agent
-from langgraph.checkpoint.memory import MemorySaver
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
+from datetime import datetime
 
 # Add parent directory to path
 root_dir = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(root_dir))
 
 from src.utils.token_tracker import TokenTracker
+from src.agent.checkpointer import get_checkpointer, close_checkpointer
 
 load_dotenv()
 
@@ -27,6 +28,9 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Get current date for context
+today = datetime.now()
+current_date = today.strftime("%A, %B %d, %Y")  # "Sunday, November 09, 2025"
 
 @cl.on_chat_start
 async def on_chat_start():
@@ -37,6 +41,10 @@ async def on_chat_start():
     session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
     cl.user_session.set("tracker", tracker)
     cl.user_session.set("session_id", session_id)
+
+    thread_id = cl.user_session.get("id")  # Chainlit's session ID
+    cl.user_session.set("thread_id", thread_id)
+    logger.info(f"Starting conversation with thread_id: {thread_id}")
     
     # Show loading message
     msg = cl.Message(content="🔌 Connecting to Canvas...")
@@ -62,7 +70,7 @@ async def on_chat_start():
         logger.info(f"Loaded {len(tools)} Canvas tools")
         
         # Create Bedrock LLM
-        model_id = os.getenv("GPT_OSS", "us.meta.llama4-maverick-17b-instruct-v1:0")
+        model_id = os.getenv("GPT_OSS", "openai.gpt-oss-120b-1:0")
         llm = ChatBedrockConverse(
             model=f"{model_id}",
             region_name=os.getenv("AWS_REGION", "us-east-1"),
@@ -71,21 +79,23 @@ async def on_chat_start():
         )
         
         # Create memory
-        memory = MemorySaver()
+        memory = await get_checkpointer()
         
         # Create ReAct agent with memory
         agent = create_react_agent(
             llm,
             tools,
             checkpointer=memory,
-            prompt="""You are a Canvas LMS assistant that helps students with their coursework.
+            prompt = f"""You are a Canvas LMS assistant that helps students with their coursework.
+
+TODAY'S DATE: {current_date}
 
 TOOLS:
 - get_courses() - enrolled courses
-- get_upcoming_assignments(days=7) - assignments due soon
-- get_assignments(course_id) - all course assignments
+- get_upcoming_assignments(days=7, include_overdue=True) - assignments due in next N days
+- get_assignments(course_id) - all assignments for a specific course
 - get_quizzes(course_id) - course quizzes with grades
-- get_grades(course_id) - course grade
+- get_grades(course_id) - grade for a specific course
 - get_all_grades() - all course grades at once
 - get_course_summary(course_id) - complete course overview
 - get_announcements(days=7) - recent announcements
@@ -100,12 +110,64 @@ RULES:
 6. Never show course IDs or technical details
 7. Be concise and helpful
 
-IMPORTANT: Canvas APIs need numeric course IDs (like "80546"), not names.
-If user mentions a course by name, call get_course_id_by_name() first.
+CRITICAL COURSE ACCESS RULES:
+
+1. ALWAYS call get_course_id_by_name() when user mentions a course by NAME
+2. NEVER guess or invent course IDs
+3. NEVER use course IDs from memory without verification
+
+CORRECT WORKFLOW:
+User: "Show me CS 559 assignments"
+Step 1: get_course_id_by_name("CS 559") → returns course ID
+Step 2: get_assignments(course_id=<that ID>)
+Step 3: Verify response shows "CS 559"
+
+If tool returns error about course access:
+- Call get_courses() to show enrolled courses
+- Apologize and ask user to clarify
+- NEVER retry with random course IDs
+
+TEMPORAL QUERY HANDLING:
+
+Today is {today.strftime('%A, %B %d, %Y')} (Day {today.day} of {today.strftime('%B')})
+
+When user asks about timeframes, calculate days from TODAY:
+
+"this week" → Days until end of current week (Saturday)
+  Example: If today is Sunday Nov 9, Saturday is Nov 15 → use days=6
+
+"this month" → Days until end of current month
+  Example: If today is Nov 9, end of month is Nov 30 → use days=21
+  
+"next 7 days" → Literal 7 days → use days=7
+
+"by Friday" → Days until next Friday
+  Example: If today is Sunday Nov 9, Friday is Nov 14 → use days=5
+
+"overdue" → Show only overdue items
+  Use: get_upcoming_assignments(days=0, include_overdue=True)
+
+IMPORTANT: 
+- Always explain your date calculation in reasoning
+- get_upcoming_assignments automatically includes overdue items from past week
+- For "only upcoming" (no overdue), use include_overdue=False
+
+Examples:
+User: "What's due this week?"
+Reasoning: Today is Sunday Nov 9. End of week is Saturday Nov 15. That's 6 days ahead.
+Call: get_upcoming_assignments(days=6)
+
+User: "What's due this month?"
+Reasoning: Today is Nov 9. End of November is Nov 30. That's 21 days ahead.
+Call: get_upcoming_assignments(days=21)
+
+User: "What's overdue?"
+Reasoning: User wants only overdue items. Use 0 days with include_overdue=True.
+Call: get_upcoming_assignments(days=0, include_overdue=True)
 
 Present information cleanly with bullet points. No raw JSON.
 """
-        )
+)
         
         # Store in user session
         cl.user_session.set("agent", agent)
@@ -146,6 +208,7 @@ async def on_message(message: cl.Message):
     tracker = cl.user_session.get("tracker")
     model_id = cl.user_session.get("model_id")
     session_id = cl.user_session.get("session_id")
+    thread_id = cl.user_session.get("thread_id")
     
     if not agent:
         await cl.Message(
@@ -163,7 +226,7 @@ async def on_message(message: cl.Message):
     try:
         # Configure agent with memory and limits
         config = {
-            "configurable": {"thread_id": cl.context.session.id},
+            "configurable": {"thread_id": thread_id},
             "recursion_limit": 50
         }
         
@@ -172,6 +235,21 @@ async def on_message(message: cl.Message):
             {"messages": [("user", message.content)]},
             config=config
         )
+
+        # DEBUG: Log what agent generated
+        last_message = complete_result['messages'][-1]
+        print(f"\n=== LAST MESSAGE ===")
+        print(f"Type: {last_message.type}")
+        print(f"Content preview: {str(last_message.content)[:100]}")
+
+        if hasattr(last_message, 'additional_kwargs'):
+            print(f"Additional kwargs: {last_message.additional_kwargs.keys()}")
+
+        # Check if there's reasoning content
+        state = await agent.aget_state(config)
+        for msg in state.values.get("messages", [])[-3:]:
+            print(f"  - Role: {msg.type}, Type: {type(msg).__name__}")
+        print("===================\n")
         
         # Calculate response time
         response_time = time.time() - start_time
@@ -290,10 +368,10 @@ async def on_chat_end():
         await cl.Message(
             content=f"""📊 **Session Summary**
 
-Total queries: {summary['total_queries']}
-Total tokens: {summary['total_tokens']:,}
-Total cost: ${summary['total_cost_usd']:.4f}
-"""
+    Total queries: {summary['total_queries']}
+    Total tokens: {summary['total_tokens']:,}
+    Total cost: ${summary['total_cost_usd']:.4f}
+    """
         ).send()
     
     # Clean up connections
@@ -304,3 +382,5 @@ Total cost: ${summary['total_cost_usd']:.4f}
             await stdio_context.__aexit__(None, None, None)
     except Exception as e:
         logger.error(f"Error cleaning up connections: {e}")
+    
+    await close_checkpointer()

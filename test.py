@@ -1,49 +1,77 @@
-# test_agent.py
+import chainlit as cl
+import boto3
+from langchain_aws import ChatBedrockConverse
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
 
-import asyncio
-from src.agent.canvas_agent import CanvasAgent
+# --- Configuration ---
+
+# 1. Set up the AWS Bedrock client
+# (Pulls credentials from your 'aws configure' setup or env variables)
+bedrock_client = boto3.client(
+    service_name="bedrock-runtime",
+    region_name="us-east-1"  # IMPORTANT: Change this to your Bedrock region
+)
+
+# 2. Define the Llama 3 model ID
+# You can find other model IDs in your AWS Bedrock console
+LLAMA_3_MODEL_ID = "meta.llama3-8b-instruct-v1:0"
+
+# -----------------------
 
 
-async def main():
-    # Initialize agent
-    agent = CanvasAgent()
-    await agent.initialize()
+@cl.on_chat_start
+async def on_chat_start():
+    """
+    This function runs when a new chat session starts.
+    It initializes the LangChain components for that session.
+    """
     
-    print("="*60)
-    print("TESTING CANVAS AGENT")
-    print("="*60)
+    llm = ChatBedrockConverse(
+        model="openai.gpt-oss-120b-1:0",
+        region_name="us-east-1",
+        temperature=0.3,
+        max_tokens=4096
+    )
+
+    # Initialize the LangChain ConversationChain
+    # This chain automatically uses a ConversationBufferMemory
+    # This is the "In-Session Memory"
+    conversation_chain = ConversationChain(
+        llm=llm,
+        verbose=True,  # Good for debugging
+        memory=ConversationBufferMemory()
+    )
+
+    # *** THIS IS THE KEY TO PERSISTENCE ***
+    # Store the initialized chain in the Chainlit user session
+    # Chainlit automatically handles saving/loading this session
+    cl.user_session.set("chain", conversation_chain)
+
+    await cl.Message(content="Hello! How can I assist you today?").send()
+
+
+@cl.on_message
+async def on_message(message: cl.Message):
+    """
+    This function runs every time the user sends a message.
+    """
     
-    # Test queries
-    queries = [
-        "What courses am I enrolled in?",
-        "What assignments are due in the next 7 days?",
-        "Show me recent announcements from my courses"
-    ]
-    
-    for i, query in enumerate(queries, 1):
-        print(f"\n{'='*60}")
-        print(f"Query {i}: {query}")
-        print("="*60)
-        
-        response = await agent.query(query)
-        print(f"\nAgent Response:\n{response}\n")
-    
-    # Cleanup
-    await agent.cleanup()
-    print("\n✅ All tests complete!")
+    # Retrieve the specific ConversationChain for this user's session
+    chain = cl.user_session.get("chain")
 
-    # After cleanup
-    summary = agent.tracker.get_summary()
-    print("\n" + "="*60)
-    print("💰 COST SUMMARY")
-    print("="*60)
-    print(f"Total queries: {summary['total_queries']}")
-    print(f"Total tokens: {summary['total_tokens']:,}")
-    print(f"Average tokens/query: {summary['avg_tokens_per_query']}")
-    print(f"Total cost: ${summary['total_cost_usd']:.4f}")
-    print("="*60)
+    # This callback streams the LLM's response to the UI
+    cb = cl.AsyncLangchainCallbackHandler()
 
+    # Run the chain asynchronously
+    # The 'ainvoke' method will automatically:
+    # 1. Load the history from the 'memory' object
+    # 2. Append the new 'message.content'
+    # 3. Send it all to Llama 3
+    # 4. Get the response
+    # 5. Save the new input and response to the 'memory' object
+    response = await chain.ainvoke(message.content, callbacks=[cb])
 
-
-if __name__ == "__main__":
-    asyncio.run(main())
+    # Send the final response from the chain
+    # The actual text is in the "response" key
+    await cl.Message(content=response["response"]).send()

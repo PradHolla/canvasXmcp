@@ -38,11 +38,32 @@ async def get_assignments(
 
 @mcp.tool()
 async def get_upcoming_assignments(
-    days: int = Field(default=7, description="Number of days to look ahead")
+    days: int = Field(
+        default=7, 
+        description="Number of days to look ahead from today. Use smart values: 6 for 'this week', 21 for 'this month', etc."
+    ),
+    include_overdue: bool = Field(
+        default=True,
+        description="Include overdue unsubmitted assignments from the past week"
+    )
 ) -> List[Dict[str, Any]]:
-    """Get all upcoming assignments across all courses, sorted by due date."""
-    result = canvas.get_upcoming_assignments(days)
+    """
+    Get assignments due in the upcoming days, with smart handling of temporal queries.
+    
+    Examples:
+    - "What's due this week?" → days=6 (Sun-Sat)
+    - "What's due this month?" → days=21 (rest of November)
+    - "What's due in 5 days?" → days=5
+    - "What's overdue?" → days=0, include_overdue=True
+    
+    By default, includes overdue unsubmitted assignments from the past 7 days.
+    """
+    result = canvas.get_upcoming_assignments(
+        days=days,
+        include_past_week=include_overdue
+    )
     return sanitize_data(result)
+
 
 @mcp.tool()
 async def get_grades(

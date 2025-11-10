@@ -202,21 +202,40 @@ class CanvasClient:
         self._set_cache(cache_key, result)
         return result
     
-    def get_upcoming_assignments(self, days: int = 7) -> List[Dict[str, Any]]:
+    def get_upcoming_assignments(
+        self, 
+        days: int = 7, 
+        include_past_week: bool = True,
+        from_date: datetime = None,
+        to_date: datetime = None
+    ) -> List[Dict[str, Any]]:
         """
-        Get assignments due in the next N days (optimized with caching)
+        Get assignments due in a date range with smart defaults.
         
         Args:
-            days: Number of days to look ahead
+            days: Number of days to look ahead (default: 7)
+            include_past_week: Include overdue unsubmitted assignments from past 7 days (default: True)
+            from_date: Optional explicit start date (overrides days)
+            to_date: Optional explicit end date (overrides days)
             
         Returns:
-            List of upcoming assignments with course info
+            List of upcoming/overdue assignments with course info
         """
         courses = self.get_courses()
         
-        # Use local time
-        now = datetime.now()
-        future = now + timedelta(days=days)
+        # Use local timezone-aware datetime
+        now = datetime.now().astimezone()
+        
+        # Determine date range
+        if from_date and to_date:
+            # Explicit date range provided (for "this month", "this week" queries)
+            start_date = from_date.astimezone() if from_date.tzinfo else from_date.replace(tzinfo=now.tzinfo)
+            end_date = to_date.astimezone() if to_date.tzinfo else to_date.replace(tzinfo=now.tzinfo)
+        else:
+            # Use days parameter
+            # Include past week if flag is set (catches recent overdue items)
+            start_date = now - timedelta(days=7) if include_past_week else now
+            end_date = now + timedelta(days=days)
         
         upcoming = []
         
@@ -228,29 +247,59 @@ class CanvasClient:
                 
                 for assignment in assignments:
                     due_at_raw = assignment.get("due_at_raw")
-                    if due_at_raw:
-                        try:
-                            # Parse and convert to local time
-                            due_date = datetime.fromisoformat(due_at_raw.replace('Z', '+00:00'))
-                            due_date_local = due_date.astimezone()
+                    if not due_at_raw:
+                        continue
+                    
+                    try:
+                        # Parse Canvas UTC timestamp and convert to local time
+                        due_date = datetime.fromisoformat(due_at_raw.replace('Z', '+00:00'))
+                        due_date_local = due_date.astimezone()
+                        
+                        # Check if assignment is in date range
+                        is_in_range = start_date <= due_date_local <= end_date
+                        
+                        # Also include if it's overdue and unsubmitted (even if outside explicit range)
+                        is_overdue_unsubmitted = (
+                            due_date_local < now and 
+                            not assignment.get("has_submitted_submissions", False) and
+                            include_past_week
+                        )
+                        
+                        if is_in_range or is_overdue_unsubmitted:
+                            upcoming.append({
+                                **assignment,
+                                "course_name": course["name"],
+                                "course_code": course.get("course_code", ""),
+                                "due_date_local": due_date_local.isoformat(),
+                                "is_overdue": due_date_local < now,
+                                "days_until_due": (due_date_local - now).days
+                            })
                             
-                            if now <= due_date_local <= future:
-                                upcoming.append({
-                                    **assignment,
-                                    "course_name": course["name"],
-                                    "course_code": course.get("course_code", "")
-                                })
-                        except:
-                            continue
-            except:
+                    except Exception as e:
+                        # Log but continue processing other assignments
+                        logger.debug(f"Error parsing due date for {assignment.get('name', 'unknown')}: {e}")
+                        continue
+                        
+            except Exception as e:
+                logger.warning(f"Error fetching assignments for course {course.get('name', 'unknown')}: {e}")
                 continue
         
         if not upcoming:
-            return [{"message": f"No assignments due in the next {days} days"}]
+            # Provide contextual message based on date range
+            if from_date and to_date:
+                return [{
+                    "message": f"No assignments due between {from_date.strftime('%b %d')} and {to_date.strftime('%b %d, %Y')}"
+                }]
+            else:
+                return [{
+                    "message": f"No assignments due in the next {days} days"
+                }]
         
-        # Sort by due date
-        upcoming.sort(key=lambda x: x.get("due_at_raw", ""))
+        # Sort by: overdue first (if any), then by due date
+        upcoming.sort(key=lambda x: (not x.get("is_overdue", False), x.get("due_at_raw", "")))
+        
         return upcoming
+
     
     def get_grades(self, course_id: str) -> Dict[str, Any]:
         """
