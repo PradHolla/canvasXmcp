@@ -14,16 +14,24 @@ from langgraph.prebuilt import create_react_agent
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 from datetime import datetime
+from langchain_core.messages import HumanMessage
 
 # Add parent directory to path
 root_dir = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(root_dir))
 
 from src.utils.token_tracker import TokenTracker
-from src.agent.checkpointer import get_checkpointer, close_checkpointer
+from src.agent.checkpointer import (
+    get_checkpointer, 
+    close_checkpointer,
+    get_all_conversations,
+    get_conversation_title,
+    delete_conversation,
+    initialize_metadata_table,
+)
 
 load_dotenv()
-
+initialize_metadata_table()
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -31,6 +39,80 @@ logger = logging.getLogger(__name__)
 # Get current date for context
 today = datetime.now()
 current_date = today.strftime("%A, %B %d, %Y")  # "Sunday, November 09, 2025"
+
+@cl.action_callback("new_chat")
+async def on_new_chat(action):
+    """Create a new conversation"""
+    import uuid
+    new_thread_id = str(uuid.uuid4())
+    
+    cl.user_session.set("thread_id", new_thread_id)
+    
+    await cl.Message(
+        content="🆕 **New conversation started!**\n\nWhat would you like to know?"
+    ).send()
+
+@cl.action_callback("load_conversation")
+async def on_load_conversation(action):
+    """Load a previous conversation"""
+    thread_id = action.payload["thread_id"]
+    
+    cl.user_session.set("thread_id", thread_id)
+    
+    agent = cl.user_session.get("agent")
+    config = {"configurable": {"thread_id": thread_id}}
+    
+    try:
+        state = await agent.aget_state(config)
+        
+        if state and "messages" in state.values:
+            messages = state.values["messages"]
+            
+            # Filter to show only user and assistant messages
+            display_messages = []
+            for msg in messages:
+                if hasattr(msg, 'type'):
+                    if msg.type == 'user':
+                        content = msg.content if isinstance(msg.content, str) else str(msg.content)
+                        display_messages.append(f"**👤 You:** {content[:150]}")
+                    elif msg.type == 'assistant':
+                        # Handle different content formats
+                        if isinstance(msg.content, str):
+                            display_messages.append(f"**🤖 Assistant:** {msg.content[:150]}")
+                        elif isinstance(msg.content, list):
+                            # GPT-OSS format - extract text blocks
+                            text_parts = [
+                                block.get('text', '') 
+                                for block in msg.content 
+                                if isinstance(block, dict) and block.get('type') == 'text'
+                            ]
+                            if text_parts:
+                                display_messages.append(f"**🤖 Assistant:** {text_parts[0][:150]}")
+            
+            # Show last 5 messages
+            preview = "📜 **Conversation Loaded!**\n\n"
+            preview += f"Total messages: {len(messages)} | Showing last 5:\n\n"
+            preview += "\n\n".join(display_messages[-5:])
+            preview += "\n\n---\n✅ **You can now continue this conversation!**"
+            
+            await cl.Message(content=preview).send()
+        else:
+            await cl.Message(content="⚠️ No messages found in this conversation.").send()
+    
+    except Exception as e:
+        logger.error(f"Error loading conversation: {e}")
+        await cl.Message(content=f"❌ Error loading conversation: {str(e)}").send()
+
+@cl.action_callback("delete_conversation")
+async def on_delete_conversation(action):
+    """Delete a conversation"""
+    thread_id = action.payload["thread_id"]  # ✅ Extract from dict
+    
+    try:
+        await delete_conversation(thread_id)
+        await cl.Message(content="🗑️ Conversation deleted!").send()
+    except Exception as e:
+        await cl.Message(content=f"❌ Error deleting: {str(e)}").send()
 
 @cl.on_chat_start
 async def on_chat_start():
@@ -175,8 +257,31 @@ Present information cleanly with bullet points. No raw JSON.
         cl.user_session.set("mcp_session", session)
         cl.user_session.set("stdio_context", stdio_context)
         
-        # Update message
-        msg.content = """✅ **Canvas Assistant Ready!**
+        conversations = await get_all_conversations()
+    
+        actions = [
+            cl.Action(
+                name="new_chat",
+                payload={"action": "new"},  # ✅ Dictionary, not string
+                label="🆕 New Chat"
+            )
+        ]
+
+        for conv in conversations[:10]:
+            title = await get_conversation_title(conv["thread_id"])
+            
+            actions.append(
+                cl.Action(
+                    name="load_conversation",
+                    payload={"thread_id": conv["thread_id"]},  # ✅ Dictionary
+                    label=f"💬 {title}"
+                )
+            )
+
+
+        
+        # Update welcome message with actions
+        msg.content = f"""✅ **Canvas Assistant Ready!**
 
 I can help you with:
 - 📚 View your enrolled courses
@@ -185,13 +290,13 @@ I can help you with:
 - 📢 Read recent announcements
 - 🧠 Remember our conversation
 
-**Try asking:**
-- "What courses am I taking?"
-- "What's due this week?"
-- "How am I doing in CS 559?"
+**Previous Conversations:** {len(conversations)}
 
 💰 *Token usage is being tracked*
 """
+
+        
+        msg.actions = actions  # Add action buttons
         await msg.update()
     
     except Exception as e:
@@ -236,20 +341,18 @@ async def on_message(message: cl.Message):
             config=config
         )
 
-        # DEBUG: Log what agent generated
-        last_message = complete_result['messages'][-1]
-        print(f"\n=== LAST MESSAGE ===")
-        print(f"Type: {last_message.type}")
-        print(f"Content preview: {str(last_message.content)[:100]}")
-
-        if hasattr(last_message, 'additional_kwargs'):
-            print(f"Additional kwargs: {last_message.additional_kwargs.keys()}")
-
-        # Check if there's reasoning content
         state = await agent.aget_state(config)
-        for msg in state.values.get("messages", [])[-3:]:
-            print(f"  - Role: {msg.type}, Type: {type(msg).__name__}")
-        print("===================\n")
+        all_messages = state.values.get("messages", [])
+
+        # Filter for HumanMessage instances
+        human_messages = [m for m in all_messages if isinstance(m, HumanMessage)]
+
+        # Save title if first message
+        if len(human_messages) == 1:
+            from src.agent.checkpointer import save_conversation_title
+            title = message.content[:50]
+            await save_conversation_title(thread_id, title)
+            logger.info(f"SAVED TITLE: '{title}'")
         
         # Calculate response time
         response_time = time.time() - start_time
@@ -358,8 +461,6 @@ async def on_message(message: cl.Message):
 @cl.on_chat_end
 async def on_chat_end():
     """Clean up MCP connection and show cost summary"""
-    session = cl.user_session.get("mcp_session")
-    stdio_context = cl.user_session.get("stdio_context")
     tracker = cl.user_session.get("tracker")
     
     # Show session summary
@@ -373,14 +474,5 @@ async def on_chat_end():
     Total cost: ${summary['total_cost_usd']:.4f}
     """
         ).send()
-    
-    # Clean up connections
-    try:
-        if session:
-            await session.__aexit__(None, None, None)
-        if stdio_context:
-            await stdio_context.__aexit__(None, None, None)
-    except Exception as e:
-        logger.error(f"Error cleaning up connections: {e}")
     
     await close_checkpointer()
