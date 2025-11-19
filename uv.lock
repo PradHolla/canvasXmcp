@@ -353,6 +353,7 @@ dependencies = [
     { name = "aiosqlite" },
     { name = "boto3" },
     { name = "chainlit" },
+    { name = "fastapi" },
     { name = "fastmcp" },
     { name = "langchain" },
     { name = "langchain-aws" },
@@ -363,7 +364,9 @@ dependencies = [
     { name = "mcp" },
     { name = "python-dotenv" },
     { name = "requests" },
+    { name = "sse-starlette" },
     { name = "streamlit" },
+    { name = "uvicorn" },
 ]
 
 [package.metadata]
@@ -371,6 +374,7 @@ requires-dist = [
     { name = "aiosqlite", specifier = ">=0.21.0" },
     { name = "boto3", specifier = ">=1.40.47" },
     { name = "chainlit", specifier = ">=2.8.3" },
+    { name = "fastapi", specifier = ">=0.116.2" },
     { name = "fastmcp", specifier = ">=2.12.4" },
     { name = "langchain", specifier = ">=0.3.27" },
     { name = "langchain-aws", specifier = ">=0.2.35" },
@@ -381,7 +385,9 @@ requires-dist = [
     { name = "mcp", specifier = ">=1.16.0" },
     { name = "python-dotenv", specifier = ">=1.1.1" },
     { name = "requests", specifier = ">=2.32.5" },
+    { name = "sse-starlette", specifier = ">=3.0.2" },
     { name = "streamlit", specifier = ">=1.51.0" },
+    { name = "uvicorn", specifier = ">=0.37.0" },
 ]
 
 [[package]]
