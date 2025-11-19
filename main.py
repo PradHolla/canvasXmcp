@@ -1,12 +1,14 @@
 import os
+import sys
 import json
 import logging
 import time
 from contextlib import asynccontextmanager
 from datetime import datetime
-from typing import List, Optional, Dict, Any
+from typing import List, Optional
 
-from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
+# NO sys.path hacks needed anymore!
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -17,10 +19,8 @@ from langchain_mcp_adapters.tools import load_mcp_tools
 from langgraph.prebuilt import create_react_agent
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
-from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 
-# Import your existing modules
-# Ensure your PYTHONPATH includes the root directory so these work
+# Clean imports from src
 from src.utils.token_tracker import TokenTracker
 from src.agent.checkpointer import (
     get_checkpointer,
@@ -49,22 +49,23 @@ class ThreadResponse(BaseModel):
 # --- Lifespan Manager ---
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """
-    Manages the lifecycle of the application.
-    Starts the MCP server connection once and keeps it alive.
-    """
     logger.info("🚀 Starting Canvas LMS Agent API...")
     
-    # 1. Initialize Metadata Table for History
-    await initialize_metadata_table()
+    # 1. Initialize DB (Synchronous - No await!)
+    initialize_metadata_table()
     
     # 2. Connect to MCP Server
-    # We use a single global connection for the backend to avoid 
-    # spawning a new subprocess for every request.
     try:
+        # Simple path to the server script
+        script_path = "src/mcp/canvas_server.py"
+        
+        logger.info(f"🔌 Connecting to MCP Server at: {script_path}")
+
+        # Use sys.executable to ensure we use the same python environment
         server_params = StdioServerParameters(
-            command="sh", 
-            args=["-c", "PYTHONPATH=. uv run src/mcp/canvas_server.py"]
+            command=sys.executable, 
+            args=[script_path], 
+            env={**os.environ, "PYTHONUNBUFFERED": "1"}
         )
         
         # Start the stdio client
@@ -81,7 +82,7 @@ async def lifespan(app: FastAPI):
         
     except Exception as e:
         logger.error(f"❌ Failed to initialize MCP server: {e}")
-        raise e
+        app.state.tools = [] 
 
     yield
 
@@ -95,10 +96,10 @@ async def lifespan(app: FastAPI):
 # --- App Setup ---
 app = FastAPI(title="Canvas LMS Agent API", lifespan=lifespan)
 
-# CORS - Allow your React frontend
+# CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"], # Adjust for your frontend port
+    allow_origins=["http://localhost:5173", "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -107,7 +108,6 @@ app.add_middleware(
 # --- Helper Functions ---
 
 def get_system_prompt() -> str:
-    """Generate the system prompt with dynamic date"""
     today = datetime.now()
     current_date = today.strftime("%A, %B %d, %Y")
     
@@ -221,15 +221,11 @@ Present information cleanly with bullet points. No raw JSON.
 """
 
 async def get_agent_executor(thread_id: str, model_id: str):
-    """
-    Reconstructs the agent for a specific request.
-    This is lightweight because tools are already loaded in app.state.
-    """
-    # Checkpointer (Memory)
+    if not hasattr(app.state, "tools") or not app.state.tools:
+         raise HTTPException(status_code=503, detail="MCP Tools not initialized")
+
     checkpointer = await get_checkpointer()
-    
-    # LLM
-    # Default to GPT-OSS if not specified, or env variable
+    # Ensure you have your model ID set in environment variables
     final_model_id = model_id or os.getenv("GPT_OSS", "openai.gpt-oss-120b-1:0")
     
     llm = ChatBedrockConverse(
@@ -239,12 +235,11 @@ async def get_agent_executor(thread_id: str, model_id: str):
         max_tokens=4096,
     )
 
-    # Create Agent
     agent = create_react_agent(
         llm,
         app.state.tools,
         checkpointer=checkpointer,
-        state_modifier=get_system_prompt() # Dynamic prompt injection
+        prompt=get_system_prompt()
     )
     
     return agent
@@ -253,11 +248,11 @@ async def get_agent_executor(thread_id: str, model_id: str):
 
 @app.get("/api/health")
 async def health_check():
-    return {"status": "ok", "mcp_tools": len(app.state.tools)}
+    tools_count = len(app.state.tools) if hasattr(app.state, "tools") else 0
+    return {"status": "ok", "mcp_tools": tools_count}
 
 @app.get("/api/threads", response_model=List[ThreadResponse])
 async def list_threads():
-    """Get all conversation threads"""
     try:
         convos = await get_all_conversations()
         results = []
@@ -266,7 +261,7 @@ async def list_threads():
             results.append(ThreadResponse(
                 thread_id=c["thread_id"],
                 title=title,
-                updated_at=c.get("updated_at") # Assuming your DB has this, or None
+                updated_at=c.get("updated_at")
             ))
         return results
     except Exception as e:
@@ -275,7 +270,6 @@ async def list_threads():
 
 @app.get("/api/threads/{thread_id}/messages")
 async def get_thread_history(thread_id: str):
-    """Get full message history for a thread"""
     try:
         agent = await get_agent_executor(thread_id, "")
         config = {"configurable": {"thread_id": thread_id}}
@@ -284,22 +278,16 @@ async def get_thread_history(thread_id: str):
         if not state or "messages" not in state.values:
             return []
 
-        # Format messages for frontend
         formatted = []
         for msg in state.values["messages"]:
-            msg_type = msg.type
             content = msg.content
-            
-            # Clean up GPT-OSS list format if present
             if isinstance(content, list):
                 text_parts = [b["text"] for b in content if b.get("type") == "text"]
                 content = "\n".join(text_parts)
             
             formatted.append({
-                "type": msg_type,
+                "type": msg.type,
                 "content": content,
-                # Add tool calls if needed for UI debugging
-                "tool_calls": getattr(msg, "tool_calls", [])
             })
             
         return formatted
@@ -317,10 +305,6 @@ async def remove_thread(thread_id: str):
 
 @app.post("/api/chat")
 async def chat_stream(request: ChatRequest):
-    """
-    Streaming chat endpoint.
-    Returns Server-Sent Events (SSE) with tokens, tool updates, and reasoning.
-    """
     agent = await get_agent_executor(request.thread_id, request.model_id)
     tracker = TokenTracker()
     
@@ -330,9 +314,6 @@ async def chat_stream(request: ChatRequest):
         output_tokens = 0
         tools_used = False
         
-        # Check if this is a new thread (no history) to generate a title
-        # (Logic simplified: usually frontend handles 'New Chat' state)
-        
         try:
             async for event in agent.astream_events(
                 {"messages": [("user", request.message)]},
@@ -341,42 +322,31 @@ async def chat_stream(request: ChatRequest):
             ):
                 kind = event["event"]
                 
-                # 1. Stream LLM Tokens (Content)
                 if kind == "on_chat_model_stream":
                     chunk = event["data"]["chunk"]
                     if chunk.content:
-                        # Normalize content (handle list vs str)
                         text = chunk.content
                         if isinstance(text, list):
-                            # Handle GPT-OSS specialized blocks
                             for block in text:
                                 if block.get("type") == "text":
                                     yield f"data: {json.dumps({'type': 'content', 'text': block['text']})}\n\n"
                                 elif block.get("type") == "reasoning_content":
                                     yield f"data: {json.dumps({'type': 'reasoning', 'text': block['reasoning_content']['text']})}\n\n"
                         else:
-                            # Standard Llama/Claude string
                             yield f"data: {json.dumps({'type': 'content', 'text': text})}\n\n"
                             
-                    # Track tokens roughly (Bedrock provides exact counts in usage_metadata at end)
                     if hasattr(chunk, "usage_metadata") and chunk.usage_metadata:
                          input_tokens += chunk.usage_metadata.get("input_tokens", 0)
                          output_tokens += chunk.usage_metadata.get("output_tokens", 0)
 
-                # 2. Stream Tool Usage Indicators
                 elif kind == "on_tool_start":
-                    tool_name = event["name"]
-                    yield f"data: {json.dumps({'type': 'tool_start', 'tool': tool_name})}\n\n"
+                    yield f"data: {json.dumps({'type': 'tool_start', 'tool': event['name']})}\n\n"
                     tools_used = True
-                    
                 elif kind == "on_tool_end":
-                    tool_name = event["name"]
-                    yield f"data: {json.dumps({'type': 'tool_end', 'tool': tool_name})}\n\n"
+                    yield f"data: {json.dumps({'type': 'tool_end', 'tool': event['name']})}\n\n"
 
-            # 3. Post-Processing: Title Generation & Cost Logging
             response_time = time.time() - start_time
             
-            # Log tokens
             if input_tokens > 0 or output_tokens > 0:
                 log = tracker.log_usage(
                     model_id=request.model_id or "default",
@@ -389,10 +359,12 @@ async def chat_stream(request: ChatRequest):
                 )
                 yield f"data: {json.dumps({'type': 'usage', 'cost': log['estimated_cost_usd'], 'tokens': log['total_tokens']})}\n\n"
 
-            # Generate Title for new threads (simple heuristic)
-            # In a real app, you might check if thread history len == 2
-            if len(request.message) < 50: # Simplistic check
-                await save_conversation_title(request.thread_id, request.message[:50])
+            # Generate Title
+            try:
+                if len(request.message) > 0:
+                     await save_conversation_title(request.thread_id, request.message[:50])
+            except Exception:
+                pass
 
             yield "data: [DONE]\n\n"
 

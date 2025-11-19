@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Sidebar } from "./components/Sidebar";
 import { ChatArea } from "./components/ChatArea";
@@ -7,46 +7,59 @@ import { api } from "./lib/api";
 function App() {
   const [threads, setThreads] = useState([]);
   const [activeThreadId, setActiveThreadId] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   // Load threads on mount
   useEffect(() => {
-    refreshThreads();
+    refreshThreads().then((loadedThreads) => {
+      startNewChat();
+    });
   }, []);
 
-  const refreshThreads = async () => {
+  const refreshThreads = useCallback(async () => {
     try {
       const list = await api.getThreads();
       setThreads(list);
+      return list;
     } catch (e) {
       console.error("Failed to load threads", e);
+      return [];
     }
-  };
+  }, []);
 
-  const handleNewChat = () => {
+  const startNewChat = () => {
     const newId = uuidv4();
-    const newThread = { thread_id: newId, title: "New Chat" };
-    setThreads([newThread, ...threads]);
     setActiveThreadId(newId);
   };
 
   const handleDeleteThread = async (id) => {
     if (confirm("Delete this conversation?")) {
       await api.deleteThread(id);
-      setThreads(threads.filter((t) => t.thread_id !== id));
-      if (activeThreadId === id) setActiveThreadId(null);
+      setThreads((prev) => prev.filter((t) => t.thread_id !== id));
+      if (activeThreadId === id) startNewChat();
     }
   };
 
   return (
-    <div className="flex h-screen w-full bg-gray-50">
+    <div className="flex h-screen w-full bg-white overflow-hidden">
       <Sidebar
         threads={threads}
         activeThreadId={activeThreadId}
         onSelect={setActiveThreadId}
-        onNew={handleNewChat}
+        onNew={startNewChat}
         onDelete={handleDeleteThread}
+        isOpen={sidebarOpen}
+        toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
       />
-      <ChatArea activeThreadId={activeThreadId} />
+      
+      <main className="flex-1 flex flex-col h-full min-w-0 relative transition-all duration-300">
+        <ChatArea 
+          activeThreadId={activeThreadId} 
+          onMessageSent={refreshThreads}
+          sidebarOpen={sidebarOpen}
+          toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+        />
+      </main>
     </div>
   );
 }

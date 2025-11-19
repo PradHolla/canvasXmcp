@@ -1,51 +1,89 @@
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Send, Loader2, Hammer } from "lucide-react";
+import { Send, Loader2, Hammer, Calendar, GraduationCap, Bell, PanelLeftOpen } from "lucide-react";
 import { ReasoningAccordion } from "./ReasoningAccordion";
 import { api } from "../lib/api";
 
-export function ChatArea({ activeThreadId }) {
+const STARTER_PROMPTS = [
+  {
+    icon: <Calendar className="w-5 h-5 text-blue-500" />,
+    title: "Upcoming Deadlines",
+    prompt: "What assignments are due this week?"
+  },
+  {
+    icon: <GraduationCap className="w-5 h-5 text-emerald-500" />,
+    title: "Check Grades",
+    prompt: "Show me my current grades in all courses."
+  },
+  {
+    icon: <Bell className="w-5 h-5 text-amber-500" />,
+    title: "Recent Updates",
+    prompt: "Summarize the announcements from the last 7 days."
+  }
+];
+
+function WelcomeScreen({ onSelectPrompt }) {
+  return (
+    <div className="flex flex-col items-center justify-center w-full max-w-3xl space-y-8 animate-in fade-in duration-500">
+      <div className="flex flex-col items-center space-y-4">
+        <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center shadow-lg">
+           <span className="text-white font-bold text-xl">C</span>
+        </div>
+        <h2 className="text-2xl font-semibold text-gray-800">How can I help you today?</h2>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-4">
+        {STARTER_PROMPTS.map((item, idx) => (
+          <button
+            key={idx}
+            onClick={() => onSelectPrompt(item.prompt)}
+            className="flex flex-col items-start p-4 bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 hover:shadow-md rounded-xl transition-all text-left duration-200"
+          >
+            <div className="mb-3 p-2 bg-gray-50 rounded-lg">{item.icon}</div>
+            <span className="text-sm font-medium text-gray-700">{item.title}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function ChatArea({ activeThreadId, onMessageSent, sidebarOpen, toggleSidebar }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [activeTool, setActiveTool] = useState(null);
   const scrollRef = useRef(null);
 
-  // Load history when thread changes
   useEffect(() => {
     if (activeThreadId) {
-      setLoading(true);
       api.getMessages(activeThreadId)
-        .then(setMessages)
-        .finally(() => setLoading(false));
-    } else {
-      setMessages([]);
+        .then(data => setMessages(data || []))
+        .catch(() => setMessages([]));
     }
   }, [activeThreadId]);
 
-  // Auto-scroll
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, activeTool]);
+  }, [messages, activeTool, loading]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!input.trim() || !activeThreadId) return;
+  const handleSend = async (text) => {
+    if (!text.trim() || !activeThreadId) return;
 
-    const userMsg = { type: "user", content: input };
+    const userMsg = { type: "user", content: text };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setLoading(true);
-
-    // Placeholder for AI response
-    setMessages((prev) => [
-      ...prev,
-      { type: "assistant", content: "", reasoning: "" },
-    ]);
+    setMessages((prev) => [...prev, { type: "assistant", content: "", reasoning: "" }]);
 
     try {
-      await api.chatStream(userMsg.content, activeThreadId, (chunk) => {
+      let isFirstChunk = true;
+      await api.chatStream(text, activeThreadId, (chunk) => {
+        if (isFirstChunk && onMessageSent) {
+             onMessageSent();
+             isFirstChunk = false;
+        }
         if (chunk.type === "content") {
           setMessages((prev) => {
             const last = { ...prev[prev.length - 1] };
@@ -66,93 +104,112 @@ export function ChatArea({ activeThreadId }) {
       });
     } catch (err) {
       console.error(err);
+      setMessages(prev => [...prev.slice(0, -1), { type: "assistant", content: "❌ Error connecting to server." }]);
     } finally {
       setLoading(false);
       setActiveTool(null);
     }
   };
 
-  if (!activeThreadId) {
-    return (
-      <div className="flex-1 flex items-center justify-center bg-gray-50">
-        <div className="text-center space-y-4 text-gray-500">
-          <h2 className="text-2xl font-bold">Welcome to Canvas AI</h2>
-          <p>Select a conversation or start a new one.</p>
-        </div>
-      </div>
-    );
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSend(input);
+  };
+
+  const isEmpty = messages.length === 0;
 
   return (
-    <div className="flex-1 flex flex-col h-screen bg-white">
-      {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6">
-        {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            className={`flex w-full ${
-              msg.type === "user" ? "justify-end" : "justify-start"
-            }`}
+    <div className="flex flex-col h-full bg-white relative">
+      
+      {/* Sidebar Toggle (Visible when sidebar closed) */}
+      {!sidebarOpen && (
+        <div className="absolute top-4 left-4 z-10">
+          <button 
+            onClick={toggleSidebar}
+            className="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+            title="Open Sidebar"
           >
-            <div
-              className={`max-w-3xl rounded-2xl px-6 py-4 ${
-                msg.type === "user"
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-100 text-gray-900"
-              }`}
-            >
-              {msg.type === "assistant" && msg.reasoning && (
-                <ReasoningAccordion content={msg.reasoning} />
-              )}
-              
-              <div className="prose prose-sm max-w-none dark:prose-invert">
-                {msg.content ? (
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {msg.content}
-                  </ReactMarkdown>
-                ) : (
-                  // Show spinner if content is empty (waiting for reasoning)
-                  loading && !msg.reasoning && <Loader2 className="animate-spin" size={20}/>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
+            <PanelLeftOpen size={24} />
+          </button>
+        </div>
+      )}
 
-        {/* Tool Indicator */}
-        {activeTool && (
-          <div className="flex justify-center">
-            <div className="flex items-center gap-2 bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-medium animate-pulse">
-              <Hammer size={12} />
-              Using tool: {activeTool}...
-            </div>
+      {/* Messages Area (Flex-1 takes all available space) */}
+      <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200">
+        {isEmpty ? (
+          // Centering Container
+          <div className="h-full flex flex-col items-center justify-center p-4">
+             <WelcomeScreen onSelectPrompt={handleSend} />
+          </div>
+        ) : (
+          // Conversation Flow
+          <div className="flex flex-col items-center w-full py-4 md:py-8 space-y-6">
+            {messages.map((msg, idx) => (
+              <div key={idx} className="w-full max-w-3xl px-4">
+                <div className="flex gap-4">
+                  {/* Avatar */}
+                  <div className={`w-8 h-8 rounded-sm flex items-center justify-center flex-shrink-0 mt-1 ${msg.type === "user" ? "bg-gray-500" : "bg-emerald-600"}`}>
+                    <span className="text-white text-xs font-medium">{msg.type === "user" ? "U" : "AI"}</span>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="flex-1 overflow-hidden min-w-0">
+                    <div className="font-semibold text-sm mb-1 text-gray-900">
+                        {msg.type === "user" ? "You" : "Canvas AI"}
+                    </div>
+                    
+                    {msg.type === "assistant" && msg.reasoning && (
+                      <ReasoningAccordion content={msg.reasoning} />
+                    )}
+                    
+                    <div className="prose prose-sm max-w-none text-gray-800 leading-relaxed">
+                      {msg.content ? (
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
+                      ) : (
+                        loading && !msg.reasoning && <Loader2 className="animate-spin text-gray-400" size={16} />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {/* Tool Indicator */}
+            {activeTool && (
+              <div className="flex items-center gap-2 text-gray-500 text-sm bg-gray-50 px-4 py-2 rounded-full border border-gray-100 animate-pulse">
+                <Hammer size={14} /> 
+                <span>Using tool: <span className="font-mono text-blue-600">{activeTool}</span>...</span>
+              </div>
+            )}
+            <div ref={scrollRef} />
           </div>
         )}
-        
-        <div ref={scrollRef} />
       </div>
 
-      {/* Input Area */}
-      <div className="p-4 border-t border-gray-200 bg-white">
-        <form onSubmit={handleSubmit} className="max-w-3xl mx-auto relative">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about your assignments, grades, or courses..."
-            className="w-full bg-gray-100 text-gray-900 rounded-xl pl-4 pr-12 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            disabled={loading}
-          />
-          <button
-            type="submit"
-            disabled={loading || !input.trim()}
-            className="absolute right-2 top-2 p-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-          >
-            {loading ? <Loader2 className="animate-spin" size={18} /> : <Send size={18} />}
-          </button>
-        </form>
-        <div className="text-center mt-2">
-            <p className="text-xs text-gray-400">AI can make mistakes. Check important info.</p>
+      {/* Input Area (Fixed at bottom, naturally stacked) */}
+      <div className="flex-none w-full bg-white p-4 border-t border-gray-100">
+        <div className="max-w-3xl mx-auto">
+          <form onSubmit={handleSubmit} className="relative flex items-center rounded-2xl border border-gray-200 shadow-sm bg-white focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-200 transition-all">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Message Canvas AI..."
+              className="flex-1 bg-transparent text-gray-900 pl-4 pr-12 py-3.5 focus:outline-none text-sm placeholder:text-gray-400"
+              disabled={loading}
+              autoFocus
+            />
+            <button
+              type="submit"
+              disabled={loading || !input.trim()}
+              className={`absolute right-2 p-1.5 rounded-lg transition-all ${input.trim() ? "bg-black text-white hover:bg-gray-800" : "bg-gray-100 text-gray-400"}`}
+            >
+              {loading ? <Loader2 className="animate-spin" size={16} /> : <Send size={16} />}
+            </button>
+          </form>
+          <p className="text-center text-xs text-gray-400 mt-2">
+            Canvas AI can make mistakes. Check important assignments in Canvas.
+          </p>
         </div>
       </div>
     </div>
