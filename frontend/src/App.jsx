@@ -41,7 +41,7 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen w-full bg-white overflow-hidden">
+    <div className="flex h-screen w-full bg-gray-950 overflow-hidden">
       <Sidebar
         threads={threads}
         activeThreadId={activeThreadId}

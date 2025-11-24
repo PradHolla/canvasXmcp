@@ -27,10 +27,10 @@ function WelcomeScreen({ onSelectPrompt }) {
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-3xl space-y-8 animate-in fade-in duration-500">
       <div className="flex flex-col items-center space-y-4">
-        <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center shadow-lg">
+        <div className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center shadow-lg">
            <span className="text-white font-bold text-xl">C</span>
         </div>
-        <h2 className="text-2xl font-semibold text-gray-800">How can I help you today?</h2>
+        <h2 className="text-2xl font-semibold text-gray-100">How can I help you today?</h2>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-4">
@@ -38,10 +38,10 @@ function WelcomeScreen({ onSelectPrompt }) {
           <button
             key={idx}
             onClick={() => onSelectPrompt(item.prompt)}
-            className="flex flex-col items-start p-4 bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 hover:shadow-md rounded-xl transition-all text-left duration-200"
+            className="flex flex-col items-start p-4 bg-gray-900 border border-gray-800 hover:bg-gray-800 hover:border-gray-700 hover:shadow-md rounded-xl transition-all text-left duration-200"
           >
-            <div className="mb-3 p-2 bg-gray-50 rounded-lg">{item.icon}</div>
-            <span className="text-sm font-medium text-gray-700">{item.title}</span>
+            <div className="mb-3 p-2 bg-gray-800 rounded-lg">{item.icon}</div>
+            <span className="text-sm font-medium text-gray-300">{item.title}</span>
           </button>
         ))}
       </div>
@@ -119,14 +119,14 @@ export function ChatArea({ activeThreadId, onMessageSent, sidebarOpen, toggleSid
   const isEmpty = messages.length === 0;
 
   return (
-    <div className="flex flex-col h-full bg-white relative">
+    <div className="flex flex-col h-full bg-gray-950 relative">
       
       {/* Sidebar Toggle (Visible when sidebar closed) */}
       {!sidebarOpen && (
         <div className="absolute top-4 left-4 z-10">
           <button 
             onClick={toggleSidebar}
-            className="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+            className="p-2 text-gray-400 hover:text-gray-100 hover:bg-gray-900 rounded-md transition-colors"
             title="Open Sidebar"
           >
             <PanelLeftOpen size={24} />
@@ -148,13 +148,13 @@ export function ChatArea({ activeThreadId, onMessageSent, sidebarOpen, toggleSid
               <div key={idx} className="w-full max-w-3xl px-4">
                 <div className="flex gap-4">
                   {/* Avatar */}
-                  <div className={`w-8 h-8 rounded-sm flex items-center justify-center flex-shrink-0 mt-1 ${msg.type === "user" ? "bg-gray-500" : "bg-emerald-600"}`}>
+                  <div className={`w-8 h-8 rounded-sm flex items-center justify-center flex-shrink-0 mt-1 ${msg.type === "user" ? "bg-gray-700" : "bg-emerald-600"}`}>
                     <span className="text-white text-xs font-medium">{msg.type === "user" ? "U" : "AI"}</span>
                   </div>
                   
                   {/* Content */}
-                  <div className="flex-1 overflow-hidden min-w-0">
-                    <div className="font-semibold text-sm mb-1 text-gray-900">
+                  <div className="flex-1 min-w-0">
+                    <div className="font-semibold text-sm mb-1 text-gray-100">
                         {msg.type === "user" ? "You" : "Canvas AI"}
                     </div>
                     
@@ -162,7 +162,7 @@ export function ChatArea({ activeThreadId, onMessageSent, sidebarOpen, toggleSid
                       <ReasoningAccordion content={msg.reasoning} />
                     )}
                     
-                    <div className="prose prose-sm max-w-none text-gray-800 leading-relaxed">
+                    <div className="prose prose-sm max-w-none text-gray-200 leading-relaxed">
                       {msg.content ? (
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.content}</ReactMarkdown>
                       ) : (
@@ -176,9 +176,9 @@ export function ChatArea({ activeThreadId, onMessageSent, sidebarOpen, toggleSid
 
             {/* Tool Indicator */}
             {activeTool && (
-              <div className="flex items-center gap-2 text-gray-500 text-sm bg-gray-50 px-4 py-2 rounded-full border border-gray-100 animate-pulse">
+              <div className="flex items-center gap-2 text-gray-400 text-sm bg-gray-900 px-4 py-2 rounded-full border border-gray-800 animate-pulse">
                 <Hammer size={14} /> 
-                <span>Using tool: <span className="font-mono text-blue-600">{activeTool}</span>...</span>
+                <span>Using tool: <span className="font-mono text-blue-400">{activeTool}</span>...</span>
               </div>
             )}
             <div ref={scrollRef} />
@@ -187,27 +187,27 @@ export function ChatArea({ activeThreadId, onMessageSent, sidebarOpen, toggleSid
       </div>
 
       {/* Input Area (Fixed at bottom, naturally stacked) */}
-      <div className="flex-none w-full bg-white p-4 border-t border-gray-100">
+      <div className="flex-none w-full bg-gray-950 p-4 border-t border-gray-800">
         <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleSubmit} className="relative flex items-center rounded-2xl border border-gray-200 shadow-sm bg-white focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-200 transition-all">
+          <form onSubmit={handleSubmit} className="relative flex items-center rounded-2xl border border-gray-700 shadow-sm bg-gray-900 focus-within:border-gray-600 focus-within:ring-1 focus-within:ring-gray-600 transition-all">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Message Canvas AI..."
-              className="flex-1 bg-transparent text-gray-900 pl-4 pr-12 py-3.5 focus:outline-none text-sm placeholder:text-gray-400"
+              className="flex-1 bg-transparent text-gray-100 pl-4 pr-12 py-3.5 focus:outline-none text-sm placeholder:text-gray-500"
               disabled={loading}
               autoFocus
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className={`absolute right-2 p-1.5 rounded-lg transition-all ${input.trim() ? "bg-black text-white hover:bg-gray-800" : "bg-gray-100 text-gray-400"}`}
+              className={`absolute right-2 p-1.5 rounded-lg transition-all ${input.trim() ? "bg-white text-black hover:bg-gray-200" : "bg-gray-800 text-gray-600"}`}
             >
               {loading ? <Loader2 className="animate-spin" size={16} /> : <Send size={16} />}
             </button>
           </form>
-          <p className="text-center text-xs text-gray-400 mt-2">
+          <p className="text-center text-xs text-gray-500 mt-2">
             Canvas AI can make mistakes. Check important assignments in Canvas.
           </p>
         </div>

@@ -7,11 +7,11 @@ from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import List, Optional
 
-# NO sys.path hacks needed anymore!
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from dotenv import load_dotenv
 
 # LangChain & MCP Imports
 from langchain_aws import ChatBedrockConverse
@@ -20,7 +20,6 @@ from langgraph.prebuilt import create_react_agent
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
-# Clean imports from src
 from src.utils.token_tracker import TokenTracker
 from src.agent.checkpointer import (
     get_checkpointer,
@@ -34,6 +33,8 @@ from src.agent.checkpointer import (
 # Configuration
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("canvas-api")
+
+load_dotenv()
 
 # Pydantic Models
 class ChatRequest(BaseModel):
@@ -115,18 +116,6 @@ def get_system_prompt() -> str:
 
 TODAY'S DATE: {current_date}
 
-TOOLS:
-- get_courses() - enrolled courses
-- get_upcoming_assignments(days=7, include_overdue=True) - assignments due in next N days
-- get_assignments(course_id) - all assignments for a specific course
-- get_quizzes(course_id) - course quizzes with grades
-- get_grades(course_id) - grade for a specific course
-- get_all_grades() - all course grades at once
-- get_course_summary(course_id) - complete course overview
-- get_announcements(days=7) - recent announcements
-- get_course_id_by_name(name) - find course ID by name
-- submit_assignment(course_id, assignment_id, file_path, comment) - submit file to assignment
-
 RULES:
 1. Use tools to get real data
 2. Choose the most specific tool
@@ -204,19 +193,6 @@ IMPORTANT:
 - get_upcoming_assignments automatically includes overdue items from past week
 - For "only upcoming" (no overdue), use include_overdue=False
 
-Examples:
-User: "What's due this week?"
-Reasoning: Today is Sunday Nov 9. End of week is Saturday Nov 15. That's 6 days ahead.
-Call: get_upcoming_assignments(days=6)
-
-User: "What's due this month?"
-Reasoning: Today is Nov 9. End of November is Nov 30. That's 21 days ahead.
-Call: get_upcoming_assignments(days=21)
-
-User: "What's overdue?"
-Reasoning: User wants only overdue items. Use 0 days with include_overdue=True.
-Call: get_upcoming_assignments(days=0, include_overdue=True)
-
 Present information cleanly with bullet points. No raw JSON.
 """
 
@@ -279,16 +255,63 @@ async def get_thread_history(thread_id: str):
             return []
 
         formatted = []
+        model_id = os.getenv("GPT_OSS", "openai.gpt-oss-120b-1:0")
+        is_gpt_oss = "openai.gpt-oss" in model_id
+        
         for msg in state.values["messages"]:
-            content = msg.content
-            if isinstance(content, list):
-                text_parts = [b["text"] for b in content if b.get("type") == "text"]
-                content = "\n".join(text_parts)
+            msg_type = msg.type if hasattr(msg, "type") else None
             
-            formatted.append({
-                "type": msg.type,
-                "content": content,
-            })
+            # Skip tool and tool_call messages
+            if msg_type in ["tool", "tool_call"]:
+                continue
+            
+            # For AI messages, skip those with tool_calls (intermediate responses)
+            if msg_type == "ai":
+                if hasattr(msg, "tool_calls") and msg.tool_calls:
+                    continue
+                    
+                content = msg.content
+                reasoning = None
+                
+                # Handle GPT-OSS list-based content
+                if isinstance(content, list) and is_gpt_oss:
+                    text_parts = []
+                    for block in content:
+                        if isinstance(block, dict):
+                            if block.get("type") == "reasoning_content":
+                                reasoning = block.get("reasoning_content", {}).get("text", "")
+                            elif block.get("type") == "text":
+                                text_parts.append(block.get("text", ""))
+                    content = "\n\n".join(text_parts).strip()
+                
+                # Handle string content - filter out tool artifacts
+                elif isinstance(content, str):
+                    lines = content.split("\n")
+                    cleaned_lines = [
+                        line for line in lines
+                        if not (
+                            line.strip().startswith('{"name":') or
+                            line.strip().startswith('{"id":') or
+                            line.strip().startswith('{"course_id":') or
+                            line.strip().startswith("[{") or
+                            line.strip().startswith("get_") or
+                            "function call" in line.lower()
+                        )
+                    ]
+                    content = "\n".join(cleaned_lines).strip()
+                
+                if content:  # Only add if there's actual content
+                    msg_data = {"type": "assistant", "content": content}
+                    if reasoning:
+                        msg_data["reasoning"] = reasoning
+                    formatted.append(msg_data)
+                    
+            # For human messages, just include as-is
+            elif msg_type == "human":
+                formatted.append({
+                    "type": "user",
+                    "content": msg.content if isinstance(msg.content, str) else str(msg.content)
+                })
             
         return formatted
     except Exception as e:
@@ -307,51 +330,112 @@ async def remove_thread(thread_id: str):
 async def chat_stream(request: ChatRequest):
     agent = await get_agent_executor(request.thread_id, request.model_id)
     tracker = TokenTracker()
+    model_id = request.model_id or os.getenv("GPT_OSS", "openai.gpt-oss-120b-1:0")
+    is_gpt_oss = "openai.gpt-oss" in model_id
     
     async def event_generator():
         start_time = time.time()
-        input_tokens = 0
-        output_tokens = 0
+        total_input_tokens = 0
+        total_output_tokens = 0
         tools_used = False
         
         try:
-            async for event in agent.astream_events(
+            # Run agent to completion
+            complete_result = await agent.ainvoke(
                 {"messages": [("user", request.message)]},
-                config={"configurable": {"thread_id": request.thread_id}, "recursion_limit": 50},
-                version="v1"
-            ):
-                kind = event["event"]
-                
-                if kind == "on_chat_model_stream":
-                    chunk = event["data"]["chunk"]
-                    if chunk.content:
-                        text = chunk.content
-                        if isinstance(text, list):
-                            for block in text:
-                                if block.get("type") == "text":
-                                    yield f"data: {json.dumps({'type': 'content', 'text': block['text']})}\n\n"
-                                elif block.get("type") == "reasoning_content":
-                                    yield f"data: {json.dumps({'type': 'reasoning', 'text': block['reasoning_content']['text']})}\n\n"
-                        else:
-                            yield f"data: {json.dumps({'type': 'content', 'text': text})}\n\n"
-                            
-                    if hasattr(chunk, "usage_metadata") and chunk.usage_metadata:
-                         input_tokens += chunk.usage_metadata.get("input_tokens", 0)
-                         output_tokens += chunk.usage_metadata.get("output_tokens", 0)
-
-                elif kind == "on_tool_start":
-                    yield f"data: {json.dumps({'type': 'tool_start', 'tool': event['name']})}\n\n"
+                config={"configurable": {"thread_id": request.thread_id}, "recursion_limit": 50}
+            )
+            
+            # Extract token usage from all messages
+            for msg in complete_result["messages"]:
+                if hasattr(msg, "usage_metadata") and msg.usage_metadata:
+                    total_input_tokens += msg.usage_metadata.get("input_tokens", 0)
+                    total_output_tokens += msg.usage_metadata.get("output_tokens", 0)
+                if hasattr(msg, "tool_calls") and msg.tool_calls:
                     tools_used = True
-                elif kind == "on_tool_end":
-                    yield f"data: {json.dumps({'type': 'tool_end', 'tool': event['name']})}\n\n"
-
+            
+            # Find the final assistant message (skip tool-calling messages)
+            final_message = None
+            reasoning_text = None
+            
+            for msg in reversed(complete_result["messages"]):
+                if hasattr(msg, "__class__") and msg.__class__.__name__ == "AIMessage":
+                    # Skip tool-calling messages
+                    if hasattr(msg, "tool_calls") and msg.tool_calls:
+                        continue
+                    
+                    content = msg.content
+                    
+                    # Handle GPT-OSS list-based content
+                    if isinstance(content, list) and is_gpt_oss:
+                        text_parts = []
+                        
+                        for block in content:
+                            if isinstance(block, dict):
+                                # Extract reasoning
+                                if block.get("type") == "reasoning_content":
+                                    reasoning_text = block.get("reasoning_content", {}).get("text", "")
+                                # Extract answer text
+                                elif block.get("type") == "text":
+                                    text_parts.append(block.get("text", ""))
+                        
+                        final_message = "\n\n".join(text_parts).strip()
+                    
+                    # Handle string content (other models)
+                    elif isinstance(content, str):
+                        lines = content.split("\n")
+                        cleaned_lines = [
+                            line for line in lines
+                            if not (
+                                line.strip().startswith('{"name":') or
+                                line.strip().startswith('{"id":') or
+                                line.strip().startswith("get_") or
+                                "function call" in line.lower()
+                            )
+                        ]
+                        final_message = "\n".join(cleaned_lines).strip()
+                    
+                    if final_message:
+                        break
+            
+            if not final_message:
+                final_message = "Sorry, I couldn't process that request."
+            
+            # Stream reasoning first (if exists)
+            if reasoning_text:
+                yield f"data: {json.dumps({'type': 'reasoning', 'text': reasoning_text})}\n\n"
+            
+            # Stream final message preserving markdown structure
+            # Split by lines and send in small batches to maintain formatting
+            lines = final_message.split('\n')
+            current_chunk = []
+            
+            for line in lines:
+                current_chunk.append(line)
+                
+                # Send chunk every 3-5 lines, or at markdown boundaries
+                if (len(current_chunk) >= 3 or 
+                    line.startswith('#') or 
+                    line.strip() == '' or
+                    line == lines[-1]):  # Last line
+                    
+                    chunk_text = '\n'.join(current_chunk)
+                    yield f"data: {json.dumps({'type': 'content', 'text': chunk_text + '\n'})}\n\n"
+                    current_chunk = []
+            
+            # Send any remaining lines
+            if current_chunk:
+                chunk_text = '\n'.join(current_chunk)
+                yield f"data: {json.dumps({'type': 'content', 'text': chunk_text})}\n\n"
+            
+            # Calculate response time and send usage
             response_time = time.time() - start_time
             
-            if input_tokens > 0 or output_tokens > 0:
+            if total_input_tokens > 0 or total_output_tokens > 0:
                 log = tracker.log_usage(
-                    model_id=request.model_id or "default",
-                    input_tokens=input_tokens,
-                    output_tokens=output_tokens,
+                    model_id=model_id,
+                    input_tokens=total_input_tokens,
+                    output_tokens=total_output_tokens,
                     query=request.message,
                     response_time=response_time,
                     tools_used=tools_used,
@@ -359,7 +443,7 @@ async def chat_stream(request: ChatRequest):
                 )
                 yield f"data: {json.dumps({'type': 'usage', 'cost': log['estimated_cost_usd'], 'tokens': log['total_tokens']})}\n\n"
 
-            # Generate Title
+            # Save conversation title
             try:
                 if len(request.message) > 0:
                      await save_conversation_title(request.thread_id, request.message[:50])
@@ -369,7 +453,7 @@ async def chat_stream(request: ChatRequest):
             yield "data: [DONE]\n\n"
 
         except Exception as e:
-            logger.error(f"Stream error: {e}")
+            logger.error(f"Stream error: {e}", exc_info=True)
             yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
 
     return StreamingResponse(event_generator(), media_type="text/event-stream")

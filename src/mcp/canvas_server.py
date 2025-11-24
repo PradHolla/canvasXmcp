@@ -30,7 +30,11 @@ mcp = FastMCP(
 
 
 @mcp.tool()
-async def get_courses() -> List[Dict[str, Any]]:
+async def get_courses(
+    include_details: bool = Field(
+        default=False, description="Whether to fetch full course details. Always set to True."
+    ),
+) -> List[Dict[str, Any]]:
     """Get all enrolled courses with id, name, course_code, and current grade."""
     result = canvas.get_courses()
     return sanitize_data(result)
@@ -83,7 +87,11 @@ async def get_grades(
 
 
 @mcp.tool()
-async def get_all_grades() -> List[Dict[str, Any]]:
+async def get_all_grades(
+    include_details: bool = Field(
+        default=False, description="Whether to fetch full grade breakdown. Always set to True."
+    ),
+) -> List[Dict[str, Any]]:
     """Get grades for ALL enrolled courses at once. Use this for 'How am I doing overall?' queries."""
     result = canvas.get_all_grades()
     return sanitize_data(result)
