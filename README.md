@@ -8,17 +8,24 @@ This project combines several cutting-edge technologies to create a seamless edu
 
 - **Canvas LMS API Integration** - Direct access to course data, assignments, submissions, and grades
 - **Model Context Protocol (MCP)** - Standardized server exposing Canvas functionality as tools
-- **AWS Bedrock** - Enterprise-grade LLM inference (Llama 4 Maverick, Claude 3.5 Sonnet, etc.)
+- **AWS Bedrock** - Enterprise-grade LLM inference (GPT-OSS, Claude 3.5 Sonnet, etc.)
 - **LangGraph ReAct Agent** - Autonomous agent with reasoning and tool-calling capabilities
-- **Chainlit UI** - Beautiful web interface with conversation memory
+- **React Frontend** - Modern dark-themed chat interface with streaming responses
+- **FastAPI Backend** - High-performance async API server
 - **Token Tracking** - Built-in cost monitoring and usage analytics
 
 ## 🏗️ Architecture
 
 ```
 ┌─────────────────┐
-│   Chainlit UI   │  ← User Interface (Web-based chat)
-└────────┬────────┘
+│  React Frontend │  ← User Interface (Vite + Tailwind)
+│    (Port 5173)  │     • Dark mode chat UI
+└────────┬────────┘     • Streaming responses
+         │              • Conversation history
+┌────────▼────────┐
+│  FastAPI Server │  ← REST API Backend
+│    (Port 8000)  │     • SSE streaming
+└────────┬────────┘     • Thread management
          │
 ┌────────▼────────┐
 │  Canvas Agent   │  ← LangGraph ReAct Agent
@@ -65,33 +72,46 @@ This project combines several cutting-edge technologies to create a seamless edu
 - Support for multiple Bedrock models
 
 ### 🎨 Modern UI
-- Responsive Chainlit interface
-- Real-time streaming responses
+- Dark-themed React interface
+- Real-time SSE streaming responses
+- Markdown rendering with syntax highlighting
 - Persistent conversation history
-- Mobile-friendly design
+- Collapsible reasoning accordion
+- Mobile-friendly responsive design
 
 ## 📁 Project Structure
 
 ```
 canvasXmcp/
+├── frontend/                     # React Frontend (Vite)
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ChatArea.jsx     # Main chat interface
+│   │   │   ├── Sidebar.jsx      # Conversation history
+│   │   │   └── ReasoningAccordion.jsx
+│   │   ├── lib/
+│   │   │   └── api.js           # API client
+│   │   ├── App.jsx              # Root component
+│   │   └── index.css            # Tailwind styles
+│   ├── package.json
+│   └── vite.config.js
 ├── src/
 │   ├── agent/
-│   │   └── canvas_agent.py      # LangGraph ReAct agent with Bedrock
+│   │   ├── canvas_agent.py      # LangGraph ReAct agent
+│   │   └── checkpointer.py      # Conversation memory
 │   ├── canvas/
 │   │   ├── client.py            # Canvas API HTTP client
 │   │   └── models.py            # Data models
 │   ├── mcp/
 │   │   └── canvas_server.py     # FastMCP server with 15+ tools
 │   ├── ui/
-│   │   └── app.py               # Chainlit web interface
+│   │   └── app.py               # Legacy Chainlit interface
 │   └── utils/
 │       └── token_tracker.py     # Token usage and cost tracking
+├── main.py                       # FastAPI backend server
 ├── tests/
-│   ├── test_agent.py            # Agent integration tests
-│   └── test_canvas.py           # Canvas client tests
-├── test.py                       # Quick CLI test script
-├── view_costs.py                 # Cost analysis tool
-├── pyproject.toml                # Dependencies (uv/pip)
+│   └── ...                       # Test files
+├── pyproject.toml                # Python dependencies (uv)
 └── .env                          # Configuration (not in repo)
 ```
 
@@ -100,6 +120,7 @@ canvasXmcp/
 ### Prerequisites
 
 - Python 3.12+
+- Node.js 18+ and npm
 - [uv](https://github.com/astral-sh/uv) (recommended) or pip
 - Canvas LMS access token
 - AWS account with Bedrock access
@@ -110,8 +131,13 @@ canvasXmcp/
 git clone https://github.com/PradHolla/canvasXmcp.git
 cd canvasXmcp
 
-# Install dependencies with uv (recommended)
+# Install Python dependencies with uv
 uv sync
+
+# Install frontend dependencies
+cd frontend
+npm install
+cd ..
 ```
 
 ### 2. Configure Environment
@@ -125,11 +151,11 @@ CANVAS_TOKEN=your_canvas_access_token_here
 
 # AWS Bedrock Configuration
 AWS_REGION=us-east-1
-MODEL_ID=meta.llama4-maverick-17b-instruct-v1:0
+GPT_OSS=openai.gpt-oss-120b-1:0
 
 # Optional: Use different models
-# MODEL_ID=anthropic.claude-3-5-sonnet-20241022-v2:0
-# MODEL_ID=meta.llama4-scout-17b-instruct-v1:0
+# GPT_OSS=anthropic.claude-3-5-sonnet-20241022-v2:0
+# GPT_OSS=meta.llama4-maverick-17b-instruct-v1:0
 ```
 
 **Getting your Canvas token:**
@@ -141,26 +167,28 @@ MODEL_ID=meta.llama4-maverick-17b-instruct-v1:0
 
 ### 3. Run the Application
 
-**Option A: Web Interface (Chainlit)**
-```bash
-# Make sure PYTHONPATH is set for imports
-export PYTHONPATH=.
-chainlit run src/ui/app.py -w
-```
+You need to run both the backend and frontend:
 
-Open http://localhost:8000 in your browser.
-
-**Option B: CLI Test Script**
+**Terminal 1: Start the FastAPI Backend**
 ```bash
-export PYTHONPATH=.
-uv run test.py
+uv run uvicorn main:app --reload --port 8000 
 ```
+The API server will start at http://localhost:8000
+
+**Terminal 2: Start the React Frontend**
+```bash
+cd frontend
+npm run dev
+```
+The frontend will start at http://localhost:5173
+
+Open http://localhost:5173 in your browser to use the application.
 
 ## 🛠️ Usage Examples
 
-### Web Interface (Chainlit)
+### Web Interface
 
-Once the Chainlit app is running, try these queries:
+Once both servers are running, try these queries in the chat:
 
 ```
 "What courses am I taking?"
@@ -181,22 +209,35 @@ You: "What's due in my second course?"
 Agent: [Remembers CS 559] "For CS 559, you have HW3 due tomorrow..."
 ```
 
-### Programmatic Access
+### API Endpoints
 
-```python
-import asyncio
-from src.agent.canvas_agent import CanvasAgent
+The FastAPI backend exposes the following endpoints:
 
-async def main():
-    agent = CanvasAgent()
-    await agent.initialize()
-    
-    response = await agent.query("What assignments are due soon?")
-    print(response)
-    
-    await agent.cleanup()
+```bash
+# Health check
+GET /api/health
 
-asyncio.run(main())
+# List conversation threads
+GET /api/threads
+
+# Get messages for a thread
+GET /api/threads/{thread_id}/messages
+
+# Delete a thread
+DELETE /api/threads/{thread_id}
+
+# Chat with streaming response (SSE)
+POST /api/chat
+Body: { "message": "What's due?", "thread_id": "uuid" }
+```
+
+### Legacy Chainlit Interface
+
+The original Chainlit UI is still available:
+
+```bash
+export PYTHONPATH=.
+chainlit run src/ui/app.py -w
 ```
 
 ## 📊 Cost Tracking
@@ -240,14 +281,18 @@ pytest -v
 
 ### Model Selection
 
-Change models by updating `MODEL_ID` in `.env`:
+Change models by updating `GPT_OSS` in `.env`:
 
 ```bash
-# Fast and cost-effective
-MODEL_ID=meta.llama4-scout-17b-instruct-v1:0
+# GPT-OSS (default - with reasoning)
+GPT_OSS=openai.gpt-oss-120b-1:0
 
-# Balanced (default)
-MODEL_ID=meta.llama4-maverick-17b-instruct-v1:0
+# Claude 3.5 Sonnet
+GPT_OSS=anthropic.claude-3-5-sonnet-20241022-v2:0
+
+# Llama 4 Maverick
+GPT_OSS=meta.llama4-maverick-17b-instruct-v1:0
+```
 
 # Most capable
 MODEL_ID=anthropic.claude-3-5-sonnet-20241022-v2:0
@@ -323,13 +368,15 @@ uv run src/mcp/canvas_server.py
 # Should show: Server running...
 ```
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Built with:
 - [FastMCP](https://github.com/jlowin/fastmcp) - MCP server framework
 - [LangGraph](https://github.com/langchain-ai/langgraph) - Agent orchestration
 - [LangChain](https://github.com/langchain-ai/langchain) - LLM framework
-- [Chainlit](https://github.com/Chainlit/chainlit) - Chat UI
+- [FastAPI](https://fastapi.tiangolo.com/) - Backend API framework
+- [React](https://react.dev/) + [Vite](https://vitejs.dev/) - Frontend framework
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
 - [AWS Bedrock](https://aws.amazon.com/bedrock/) - LLM inference
 
 ---
