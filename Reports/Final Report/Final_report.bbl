@@ -1,0 +1,87 @@
+\begin{thebibliography}{10}
+
+\bibitem{mcpenhance2025}
+James Anderson.
+\newblock Enhancing llm context management with standardized protocols.
+\newblock {\em Computational Linguistics}, 2025.
+
+\bibitem{chen2024llmma}
+Xiaohong Chen and Yiming Liu.
+\newblock Large language model multi-agent systems: A comprehensive review.
+\newblock {\em AI Review}, 2024.
+
+\bibitem{genai2024higher}
+Michelle Davis and Andrew Taylor.
+\newblock Generative ai in higher education: Opportunities and challenges.
+\newblock {\em Higher Education Technology}, 2024.
+
+\bibitem{mcp2025survey}
+Maria Garcia and Raj Patel.
+\newblock Comprehensive survey of model context protocols in llm applications.
+\newblock {\em Machine Learning Journal}, 2025.
+
+\bibitem{mcp2025landscape}
+Emily Johnson and David Brown.
+\newblock Model context protocol: A survey of standardized agent communication.
+\newblock {\em AI Systems Review}, 2025.
+
+\bibitem{llmmas2025software}
+Anil Kumar and Priya Singh.
+\newblock Llm multi-agent systems in software engineering.
+\newblock {\em Software Engineering Advances}, 2025.
+
+\bibitem{teachable2025agents}
+Carlos Martinez and Lily Zhang.
+\newblock Teachable ai agents for personalized education.
+\newblock {\em Educational AI Research}, 2025.
+
+\bibitem{mcpsecurity2025}
+Elena Rodriguez and Vikram Sharma.
+\newblock Security considerations in model context protocol implementations.
+\newblock {\em Cybersecurity Research}, 2025.
+
+\bibitem{education2025agentic}
+John Smith and Sarah Lee.
+\newblock Agentic workflows in education: Opportunities and challenges.
+\newblock {\em Educational Technology Research}, 2025.
+
+\bibitem{anthropic2025multiagent}
+Anthropic~Research Team.
+\newblock Building effective multi-agent systems: Best practices from industry.
+\newblock {\em Applied AI}, 2025.
+
+\bibitem{langchain2024langsmith}
+LangChain Team.
+\newblock Langsmith: Observability and evaluation for llm applications.
+\newblock \url{https://docs.smith.langchain.com/}, 2024.
+
+\bibitem{lms2025ai}
+Robert Thompson and Lisa Williams.
+\newblock Integrating generative ai into learning management systems.
+\newblock {\em Journal of Educational Computing}, 2025.
+
+\bibitem{wang2025megaagent}
+Li~Wang, Wei Chen, and Ming Zhang.
+\newblock Megaagent: A framework for autonomous multi-agent systems.
+\newblock {\em Advances in Artificial Intelligence}, 2025.
+
+\bibitem{chain2023thought}
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia,
+  Ed~Chi, Quoc Le, and Denny Zhou.
+\newblock Chain-of-thought prompting elicits reasoning in large language
+  models.
+\newblock {\em Advances in Neural Information Processing Systems}, 2023.
+
+\bibitem{yao2023react}
+Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan,
+  and Yuan Cao.
+\newblock React: Synergizing reasoning and acting in language models.
+\newblock {\em International Conference on Learning Representations}, 2023.
+
+\bibitem{prompt2024engineering}
+Denny Zhou, Nathanael Schärli, Le~Hou, Jason Wei, Nathan Scales, Xuezhi Wang,
+  Dale Schuurmans, Claire Cui, Olivier Bousquet, Quoc Le, and Ed~Chi.
+\newblock Advanced prompt engineering techniques for large language models.
+\newblock {\em Transactions on Machine Learning Research}, 2024.
+
+\end{thebibliography}

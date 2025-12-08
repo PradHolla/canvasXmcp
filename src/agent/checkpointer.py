@@ -126,19 +126,16 @@ def initialize_metadata_table():
     conn.close()
 
 async def save_conversation_title(thread_id: str, title: str):
-    """Save or update conversation title"""
+    """Save conversation title only if it doesn't already exist"""
     conn = sqlite3.connect("checkpoints.db")
     cursor = conn.cursor()
     
     now = datetime.now().isoformat()
     
-    # Insert or update title
+    # Only insert if no title exists (don't overwrite)
     cursor.execute("""
-        INSERT INTO conversation_metadata (thread_id, title, created_at, last_updated)
+        INSERT OR IGNORE INTO conversation_metadata (thread_id, title, created_at, last_updated)
         VALUES (?, ?, ?, ?)
-        ON CONFLICT(thread_id) DO UPDATE SET
-            title = excluded.title,
-            last_updated = excluded.last_updated
     """, (thread_id, title, now, now))
     
     conn.commit()

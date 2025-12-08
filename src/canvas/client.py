@@ -124,7 +124,7 @@ class CanvasClient:
         Get all enrolled courses for current user (cached)
 
         Returns:
-            List of course dictionaries with id, name, course_code, etc.
+            List of course dictionaries with id, name, course_code, INSTRUCTOR, etc.
         """
         cache_key = "courses"
         cached = self._get_cached(cache_key)
@@ -135,22 +135,24 @@ class CanvasClient:
             "courses",
             params={
                 "enrollment_state": "active",
-                "include[]": ["term", "total_scores"],
+                # UPDATE 1: Add "teachers" to the include list
+                "include[]": ["term", "total_scores", "teachers"],
             },
         )
 
-        result = [
-            {
+        result = []
+        for course in courses:
+            teachers = course.get("teachers", [])
+            instructor_name = ", ".join([t["display_name"] for t in teachers]) if teachers else "Unknown Instructor"
+
+            result.append({
                 "id": course["id"],
                 "name": course["name"],
                 "course_code": course.get("course_code", ""),
                 "enrollment_term": course.get("term", {}).get("name", ""),
-                "current_grade": course.get("enrollments", [{}])[0].get(
-                    "computed_current_grade"
-                ),
-            }
-            for course in courses
-        ]
+                "current_grade": course.get("enrollments", [{}])[0].get("computed_current_grade"),
+                "instructor": instructor_name
+            })
 
         self._set_cache(cache_key, result)
         return result

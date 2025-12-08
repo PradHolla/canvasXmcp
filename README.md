@@ -171,7 +171,7 @@ You need to run both the backend and frontend:
 
 **Terminal 1: Start the FastAPI Backend**
 ```bash
-uv run uvicorn main:app --reload --port 8000 
+uv run uvicorn main:app --reload --port 8000
 ```
 The API server will start at http://localhost:8000
 
