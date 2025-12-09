@@ -39,7 +39,7 @@
 \usepackage{float}          % for [H] float placement
 
 
-\title{Canvas LMS Conversational Assistant: A Production-Ready ReAct Agent Using Model Context Protocol and AWS Bedrock}
+\title{Canvas LMS Conversational Assistant: A Production Ready ReAct Agent Using Model Context Protocol and AWS Bedrock}
 
 
 % The \author macro works with any number of authors. There are two commands
@@ -82,6 +82,11 @@
 
 
 \maketitle
+
+\begin{abstract}
+Students managing multiple courses face significant challenges tracking assignments, deadlines, and academic content across Learning Management Systems. This project presents a production ready conversational AI assistant for Canvas LMS, leveraging the Model Context Protocol (MCP) and AWS Bedrock to enable natural language interactions with real time student data. The system evolved from an initially proposed multi-agent architecture to a streamlined single agent ReAct framework, demonstrating that careful prompt engineering and tool design can match multi-agent performance on structured domains. Through comprehensive evaluation across 149 test queries, we compare Meta LLaMA 4 Maverick and OpenAI GPT-OSS 120B, revealing counterintuitive findings: GPT-OSS achieved both higher quality (87.9\% pass rate, 8.22/10 average score) and lower cost (19\% cheaper per query), while conversation memory improved GPT-OSS performance (+2.46 points) but degraded LLaMA performance (-0.31 points). The final system features a full-stack architecture with FastAPI backend, React frontend, PostgreSQL persistence, and LangSmith observability, supporting 10+ MCP tools for comprehensive Canvas operations including read access and assignment submission. Systematic failure analysis identified distinct model-specific weaknesses: LLaMA's error handling (46\% of failures exposed raw outputs) versus GPT-OSS's course ID confusion (56\% wrong data retrieval), informing targeted improvement strategies. The system demonstrates practical utility for student workflows while providing valuable insights into LLM based tool orchestration, memory management, and cost quality tradeoffs in educational AI applications.
+\end{abstract}
+
 
 \section{Introduction}
 
@@ -188,9 +193,6 @@ eliminating the typical cost-quality tradeoff and making deployment decisions st
     \item \textit{Evaluation Framework Design:} Automated metrics (latency, token usage, cost) failed to capture critical quality issues like code exposure and hallucinations. Developed comprehensive manual evaluation methodology with three-dimensional scoring and failure categorization, evaluating all 149 queries manually.
     \item \textit{Memory Testing Complexity:} Separating memory effects from model capability required parallel test suites (with/without memory) using identical query sets, revealing memory as a double-edged sword depending on model architecture.
 \end{itemize}
-
-The system is now in a production-ready state with a robust evaluation methodology, ready for final refinements and deployment planning in the remaining project weeks.
-
 
 \section{Problem Formulation}
 
@@ -306,7 +308,7 @@ This section describes the implemented system architecture, technical decisions,
 \label{fig:architecture}
 \end{figure}
 
-Figure~\ref{fig:architecture} illustrates the complete system architecture, showing the interaction flow between the user interface (Chainlit), the ReAct agent (LangGraph), the MCP server, and the Canvas LMS API with AWS Bedrock.
+Figure~\ref{fig:architecture} illustrates the complete system architecture, showing the interaction flow between the user interface, the ReAct agent (LangGraph), the MCP server, and the Canvas LMS API with AWS Bedrock.
 
 \subsection{Canvas API Integration}
 
@@ -321,7 +323,11 @@ The Canvas client implements a complete wrapper around Canvas LMS REST API v1 en
     \item \texttt{GET /api/v1/courses/\{id\}/quizzes}: Access quiz metadata and student submissions
     \item \texttt{GET /api/v1/courses/\{id\}/assignment\_groups}: Retrieve grade weighting information
     \item \texttt{GET /api/v1/courses/\{id\}/announcements}: Fetch recent course announcements
+    \item \texttt{GET /api/v1/courses/\{id\}/discussion\_topics}: Access discussion forums and topics
+    \item \texttt{GET /api/v1/courses/\{id\}/files}: Retrieve course documents and materials
+    \item \texttt{GET /api/v1/courses/\{id\}/modules}: Access course structure and content organization
     \item \texttt{GET /api/v1/users/self/upcoming\_events}: Access calendar events with date filtering
+    \item \texttt{POST /api/v1/courses/\{id\}/assignments/\{id\}/submissions}: Submit assignments with file uploads
 \end{itemize}
 
 \textbf{Rate Limiting:} Canvas enforces 3000 requests per hour per user. The client implements request throttling using Python's \texttt{time.sleep()} with exponential backoff on 429 status codes. No explicit caching layer was implemented at this stage, as query patterns during testing showed <10 API calls per user session, well within rate limits.
@@ -362,18 +368,22 @@ These discoveries highlight the importance of testing against production data ra
 
 The system leverages FastMCP \cite{mcp2025landscape}, a lightweight Python implementation of Anthropic's Model Context Protocol, to standardize tool interfaces. This design decision enables potential future migration to alternative LLM providers or frameworks with minimal refactoring.
 
-\textbf{Tool Definitions:} Nine core MCP tools implemented, each with typed parameters and structured return values:
+\textbf{Tool Definitions:} Thirteen MCP tools implemented, each with typed parameters and structured return values:
 
 \begin{enumerate}
     \item \texttt{get\_courses()}: Returns list of enrolled courses with IDs, names, and enrollment status
-    \item \texttt{get\_upcoming\_assignments(days: int = 7)}: Fetches assignments due within specified window
+    \item \texttt{get\_upcoming\_assignments(days: int, include\_overdue: bool)}: Fetches assignments due within specified window with optional overdue items
     \item \texttt{get\_assignments(course\_id: str)}: Retrieves all assignments for a specific course
     \item \texttt{get\_quizzes(course\_id: str)}: Returns quiz metadata, scores, and submission timestamps
     \item \texttt{get\_grades(course\_id: str)}: Calculates current grade and component breakdown
     \item \texttt{get\_all\_grades()}: Aggregates grades across all enrolled courses
     \item \texttt{get\_course\_summary(course\_id: str)}: Comprehensive course overview combining multiple data sources
-    \item \texttt{get\_announcements(days: int = 7)}: Fetches recent announcements with date filtering
+    \item \texttt{get\_announcements(days: int)}: Fetches recent announcements with date filtering
+    \item \texttt{get\_discussions(course\_id: str)}: Retrieves discussion topics for a course
+    \item \texttt{get\_course\_files(course\_id: str)}: Returns files and documents for a course
+    \item \texttt{get\_modules(course\_id: str)}: Accesses course modules/structure with file fallback
     \item \texttt{get\_course\_id\_by\_name(course\_name: str)}: Resolves course names to numeric IDs
+    \item \texttt{submit\_assignment(course\_id, assignment\_id, file\_path, comment)}: Submits file to Canvas assignment
 \end{enumerate}
 
 \textbf{Course Name Resolution Challenge:}
