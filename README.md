@@ -288,14 +288,10 @@ Change models by updating `GPT_OSS` in `.env`:
 GPT_OSS=openai.gpt-oss-120b-1:0
 
 # Claude 3.5 Sonnet
-GPT_OSS=anthropic.claude-3-5-sonnet-20241022-v2:0
+CLAUDE=anthropic.claude-3-5-sonnet-20241022-v2:0
 
 # Llama 4 Maverick
-GPT_OSS=meta.llama4-maverick-17b-instruct-v1:0
-```
-
-# Most capable
-MODEL_ID=anthropic.claude-3-5-sonnet-20241022-v2:0
+MAVERICK=meta.llama4-maverick-17b-instruct-v1:0
 ```
 
 ### Agent Parameters
@@ -367,8 +363,6 @@ export PYTHONPATH=.
 uv run src/mcp/canvas_server.py
 # Should show: Server running...
 ```
-
-## Acknowledgments
 
 Built with:
 - [FastMCP](https://github.com/jlowin/fastmcp) - MCP server framework
