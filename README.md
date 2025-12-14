@@ -115,6 +115,27 @@ canvasXmcp/
 └── .env                          # Configuration (not in repo)
 ```
 
+## Screenshots
+
+Screengrabs from old and new interface:
+
+Home page with React + FastAPI:
+<img width="1909" height="903" alt="Screenshot 2025-12-07 212946" src="https://github.com/user-attachments/assets/85d8baad-5f4b-49ce-a90f-d0dca2afd2a8" />
+
+General info:
+
+<img width="835" height="490" alt="Screenshot 2025-11-07 231612" src="https://github.com/user-attachments/assets/755c312a-b951-4485-8471-f0a5d830816f" />
+
+Course specific info with THINKING:
+
+<img width="824" height="420" alt="Screenshot 2025-11-07 231722" src="https://github.com/user-attachments/assets/c9faed11-e51f-41bf-8d9a-9817aadb530e" />
+
+<img width="710" height="489" alt="Screenshot 2025-11-07 231746" src="https://github.com/user-attachments/assets/fecd8c01-0bac-4439-85b9-c14ba21f4ce0" />
+
+Assignment Submission:
+
+<img width="772" height="761" alt="Screenshot 2025-12-07 113100" src="https://github.com/user-attachments/assets/aaf1e209-a5db-4acb-b442-d9491d89adc7" />
+
 ## 🚀 Quick Start
 
 ### Prerequisites
