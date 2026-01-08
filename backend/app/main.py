@@ -20,7 +20,7 @@ from langgraph.prebuilt import create_react_agent
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
-from src.agent.checkpointer import (
+from app.agent.checkpointer import (
     get_checkpointer,
     get_all_conversations,
     get_conversation_title,
@@ -57,7 +57,7 @@ async def lifespan(app: FastAPI):
     # 2. Connect to MCP Server
     try:
         # Simple path to the server script
-        script_path = "src/mcp/canvas_server.py"
+        script_path = "app/mcp/canvas_server.py"
         
         logger.info(f"🔌 Connecting to MCP Server at: {script_path}")
 
@@ -104,6 +104,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/")
+def health_check():
+    return {"status": "healthy"}
 
 # --- Helper Functions ---
 
@@ -430,4 +434,4 @@ async def chat_stream(request: ChatRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)

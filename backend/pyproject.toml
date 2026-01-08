@@ -22,4 +22,7 @@ dependencies = [
     "sse-starlette>=3.0.2",
     "streamlit>=1.51.0",
     "uvicorn>=0.37.0",
+    "asyncpg",
+    "psycopg2-binary",
+    "langgraph-checkpoint-postgres",
 ]

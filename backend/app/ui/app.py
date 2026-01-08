@@ -20,8 +20,8 @@ from langchain_core.messages import HumanMessage
 root_dir = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(root_dir))
 
-from src.utils.token_tracker import TokenTracker
-from src.agent.checkpointer import (
+from app.utils.token_tracker import TokenTracker
+from app.agent.checkpointer import (
     get_checkpointer,
     close_checkpointer,
     get_all_conversations,
@@ -149,7 +149,7 @@ async def on_chat_start():
     try:
         # MCP server parameters
         server_params = StdioServerParameters(
-            command="sh", args=["-c", "PYTHONPATH=. uv run src/mcp/canvas_server.py"]
+            command="sh", args=["-c", "PYTHONPATH=. uv run app/mcp/canvas_server.py"]
         )
 
         # Connect to MCP server
@@ -382,7 +382,7 @@ async def on_message(message: cl.Message):
 
         # Save title if first message
         if len(human_messages) == 1:
-            from src.agent.checkpointer import save_conversation_title
+            from app.agent.checkpointer import save_conversation_title
 
             title = message.content[:50]
             await save_conversation_title(thread_id, title)

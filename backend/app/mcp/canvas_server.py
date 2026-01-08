@@ -12,8 +12,8 @@ from pydantic import Field
 from typing import List, Dict, Any
 import os
 from dotenv import load_dotenv
-from src.utils.text_sanitizer import sanitize_data
-from src.canvas.client import CanvasClient
+from app.utils.text_sanitizer import sanitize_data
+from app.canvas.client import CanvasClient
 
 load_dotenv()
 
