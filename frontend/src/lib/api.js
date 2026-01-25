@@ -1,4 +1,9 @@
-const API_BASE = "http://localhost:8000/api";
+// VITE_API_URL should be the full base path including /api (e.g., http://...elb.amazonaws.com/api)
+// For local dev, default to http://localhost:8000/api
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+
+// Debug: log the API base URL
+console.log("API_BASE:", API_BASE);
 
 export const api = {
   getThreads: async () => {

@@ -119,26 +119,33 @@ class CanvasClient:
         """Cache response with timestamp"""
         self._cache[key] = (data, datetime.now())
 
-    def get_courses(self) -> List[Dict[str, Any]]:
+    def get_courses(self, include_past: bool = False) -> List[Dict[str, Any]]:
         """
         Get all enrolled courses for current user (cached)
+
+        Args:
+            include_past: If True, include completed/past courses along with active ones
 
         Returns:
             List of course dictionaries with id, name, course_code, INSTRUCTOR, etc.
         """
-        cache_key = "courses"
+        cache_key = f"courses_{include_past}"
         cached = self._get_cached(cache_key)
         if cached:
             return cached
 
-        courses = self._make_request(
-            "courses",
-            params={
-                "enrollment_state": "active",
-                # UPDATE 1: Add "teachers" to the include list
-                "include[]": ["term", "total_scores", "teachers"],
-            },
-        )
+        params = {
+            "include[]": ["term", "total_scores", "teachers"],
+        }
+        
+        if include_past:
+            # Fetch all courses regardless of enrollment state
+            params["state[]"] = ["available", "completed"]
+        else:
+            # Only active courses
+            params["enrollment_state"] = "active"
+
+        courses = self._make_request("courses", params=params)
 
         result = []
         for course in courses:

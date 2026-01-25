@@ -34,9 +34,12 @@ async def get_courses(
     include_details: bool = Field(
         default=False, description="Whether to fetch full course details. Always set to True."
     ),
+    include_past: bool = Field(
+        default=False, description="Whether to include past/completed courses. Set to True when user asks about previous semesters or old courses."
+    ),
 ) -> List[Dict[str, Any]]:
-    """Get all enrolled courses with id, name, course_code, and current grade."""
-    result = canvas.get_courses()
+    """Get all enrolled courses with id, name, course_code, and current grade. Can optionally include past courses."""
+    result = canvas.get_courses(include_past=include_past)
     return sanitize_data(result)
 
 

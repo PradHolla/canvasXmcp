@@ -12,13 +12,15 @@ COPY pyproject.toml uv.lock ./
 
 # --- FIXED SECTION ---
 # 5. Export dependencies to requirements.txt and install
-# This is safer than 'uv sync' in Docker because it avoids venv/python-version magic
-RUN uv export --frozen --no-dev --format requirements-txt > requirements.txt && \
-    uv pip install --system --no-cache -r requirements.txt
+RUN uv sync
+
+RUN uv add psycopg-binary
 # ---------------------
 
 # 6. Copy application code
 COPY app ./app
+
+ENV PATH="/app/.venv/bin:$PATH"
 
 # 7. Expose port
 EXPOSE 80

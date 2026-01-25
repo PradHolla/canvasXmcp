@@ -52,7 +52,10 @@ async def lifespan(app: FastAPI):
     logger.info(" Starting Canvas LMS Agent API...")
     
     # 1. Initialize DB (Synchronous - No await!)
-    initialize_metadata_table()
+    try:
+        await initialize_metadata_table()
+    except Exception as e:
+        logger.error(f"Failed to init metadata table: {e}")
     
     # 2. Connect to MCP Server
     try:
@@ -99,7 +102,7 @@ app = FastAPI(title="Canvas LMS Agent API", lifespan=lifespan)
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

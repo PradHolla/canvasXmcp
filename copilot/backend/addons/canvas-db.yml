@@ -94,7 +94,7 @@ Resources:
         !Join [ "",  [ '{{resolve:secretsmanager:', !Ref canvasdbAuroraSecret, ":SecretString:password}}" ]]
       DatabaseName: !Ref canvasdbDBName
       Engine: 'aurora-postgresql'
-      EngineVersion: '16.2'
+      EngineVersion: '16.6'
       DBClusterParameterGroupName: !Ref canvasdbDBClusterParameterGroup
       DBSubnetGroupName: !Ref canvasdbDBSubnetGroup
       Port: 5432
